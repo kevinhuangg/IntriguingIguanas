@@ -50,4 +50,4 @@ View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
 
 ## Contributing
 
-See [CONTRIBUTING.md](https://github.com/unexpected-lion/ourglass/blob/master/contributing.md) for contribution guidelines.
+See [CONTRIBUTING.md](https://github.com/IntriguingIguanas/IntriguingIguanas/blob/master/STYLE-GUIDE.md) for contribution guidelines.
