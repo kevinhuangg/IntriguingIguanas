@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import List from './List.jsx';
-import AddTaskForm from './addTaskForm.jsx';
-import AddList from './AddList.jsx'
+import React from 'react'
+import { connect } from 'react-redux'
+import List from './List.jsx'
+import AddTaskForm from './addTaskForm.jsx'
+import CreateList from '../actions/Board.js'
 
 class App extends React.Component {
   constructor(props) {
@@ -17,9 +17,12 @@ class App extends React.Component {
 
   render () {
   	// console.log('addTaskForm', AddTaskForm)
-	 return (
+    console.log(CreateList, "LIST!")
+    // console.log(this.props.onClickCreateList, "CREATE LIST")
+	 let onClickCreateList = this.props.onClickCreateList
+   return (
 	   <div>
-	     <AddList/>
+	     <button onClick={ () => { onClickCreateList('Hello') } }/>
   	   <List/>
 	     <AddTaskForm/>
   	 </div> 
@@ -33,5 +36,13 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onClickCreateList: (name) => {
+      dispatch(CreateList(name))
+    }
+  }
+}
 
-export default connect(mapStateToProps)(App);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -14,13 +14,12 @@ export let removeToDo = (index) => {
   }
 }
 
-export let addList = (listName) => {
-  return {
-  	type: 'ADD_LIST',
-  	listName
-  }
-}
-
+// export let createList = (listName) => {
+//   return {
+//   	type: 'CREATE_LIST',
+//   	listName
+//   }
+// }
 
 
 

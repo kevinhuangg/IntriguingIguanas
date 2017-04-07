@@ -6,7 +6,7 @@ const List = (props) => {
   // console.log('tag1', props)
   return (
   	<div>
-      { props.list.map((entry, index) => (
+      { props.tasks.map((entry, index) => (
           <ListEntry 
             entry={ entry } 
             index={ index }
@@ -19,7 +19,7 @@ const List = (props) => {
 const mapStateToProps = (state) => {
   console.log('tag123', state)
   return {
-  	list: state.list.list
+  	tasks: state.list.tasks
   }
 }
 

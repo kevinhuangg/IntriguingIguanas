@@ -1,9 +1,11 @@
-import { combineReducers } from 'redux';
-import list from './List.js';
+import { combineReducers } from 'redux'
+import list from './List.js'
+import board from './Board.js'
 
 const appReducer = combineReducers({
 	//reducer files go here! - import the reducers!
-	list
+	list,
+	board
 })
 
 const rootReducer = (state, action) => {
@@ -11,7 +13,7 @@ const rootReducer = (state, action) => {
   	state = undefined
   }
   console.log(state)
-  return appReducer(state, action);
+  return appReducer(state, action)
 }
 
-export default rootReducer;
+export default rootReducer
