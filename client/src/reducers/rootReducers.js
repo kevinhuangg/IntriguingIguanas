@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
+import list from './List.js';
 
 const appReducer = combineReducers({
 	//reducer files go here! - import the reducers!
+	list
 })
 
 const rootReducer = (state, action) => {
