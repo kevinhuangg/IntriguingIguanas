@@ -11,7 +11,7 @@ const Index = () => (
 const store = configureStore();
 
 ReactDOM.render(
-	<Provider store = {store}>
+	<Provider store = { store }>
 		<Index />
 	</Provider>,
 	document.getElementById('app')

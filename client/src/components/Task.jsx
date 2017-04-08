@@ -3,7 +3,7 @@ import React from 'react'
 const Task = () => {
   return (
     <div>
-      'Hello world!'
+      Hello world!
     </div>
   )
 }
