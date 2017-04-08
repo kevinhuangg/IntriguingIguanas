@@ -14,5 +14,5 @@ app.use(express.static(__dirname + '/../client/dist'));
 // deployment port variable - default to 3000
 var port = process.env.PORT || 3000
 app.listen(port, function(){
-	console.log(`Magic happens on port ${port}!`);
+	console.log(`Magical Unicorns will arrive on port ${port}!`);
 });
