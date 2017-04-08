@@ -17,9 +17,9 @@ const List = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log('tag123', state)
+  console.log('tag123', state.list.show)
   return {
-  	tasks: state.list.tasks
+  	tasks: state.list.tasks,
   }
 }
 

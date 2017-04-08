@@ -4,9 +4,8 @@
 
 let initState = {
   tasks: ['task1','task2','task3'],
-  name: ''
-  //board: array of list objects
-  //list: array of task cards
+  name: '',
+  show: true
 }
 
 const List = (state = initState, action) => {
@@ -29,7 +28,12 @@ const List = (state = initState, action) => {
         ...state,
         name: action.name
       }
-      
+    case 'TOGGLE_TO_DO':
+      var copy = {...state}
+      return {
+        ...state,
+        show: !copy.show
+      }
     default: 
       return state; 
   }
