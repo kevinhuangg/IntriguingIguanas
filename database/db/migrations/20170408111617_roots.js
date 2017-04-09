@@ -21,13 +21,13 @@ exports.up = function(knex, Promise) { //CHAIN PROMISES
       table.boolean('starred');
     });
   }).then(() => {
-    return knex.schema.createTable('lists', (list) => {
+    return knex.schema.createTable('lists', (table) => {
       table.increments();
       table.integer('board_id').notNullable();
       table.string('listname').notNullable();
     })
   }).then(() => {
-    return knex.schema.createTable('tasks', (task) => {
+    return knex.schema.createTable('tasks', (table) => {
       table.increments();
       table.integer('list_id').notNullable(); 
       table.string('text').notNullable();
