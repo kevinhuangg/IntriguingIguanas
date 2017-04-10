@@ -2,8 +2,7 @@ let initialState = {
 	username: ''
 	password: ''
 	isValidating: false, 
-	isInvalid: false,
-	accountCreated: false,
+	isInvalid: false
 }
 
 const SignUp = (state=initialState, action) => {
@@ -22,7 +21,7 @@ const SignUp = (state=initialState, action) => {
   	  }
   	case 'SIGN_UP_FAILURE':
   	  return {
-  	  	...state,
+  	  	...state,	
   	  	isValidating: false
   	  	isInvalid: true
   	  }

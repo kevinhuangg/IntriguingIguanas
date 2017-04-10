@@ -1,7 +1,7 @@
 let initialState = {
   username: '',
   password: '',
-  isFetching: false,
+  isValidating: false,
   isInvalid: false,
 }
 
@@ -16,18 +16,17 @@ const LogIn = (state=initialState, action) => {
   	case  'LOGGING_IN':
   	  return {
   	  	...state,
-  	  	isFetching: true
+  	  	isValidating: true
   	  }
   	case 'LOG_IN_ERROR':
   	  return {
   	  	...state,
-  	  	isFetching: false,
+  	  	isValidating: false,
   	  	isInvalid: true
   	  } 
   	case 'LOG_IN_SUCCESS': 
   	  return {
   	  	...state,
-
   	  }
   	default:
   	  return state
