@@ -7,10 +7,10 @@ import { LogInPage } from 'LogInPage'
 
 describe('LogInPage', () => { 
   it('should be able to run tests', () => {
-	expect(1 + 2).toEqual(3);
+	  expect(1 + 2).toEqual(3);
   });
   it('renders without crashing', () => {
-	const div = document.createElement('div');
-	ReactDOM.render(<LogInPage />, div);
+	  const div = document.createElement('div');
+	  ReactDOM.render(<LogInPage />, div);
   });  
 });
