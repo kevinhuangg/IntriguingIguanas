@@ -19,7 +19,7 @@ class SignUpPage extends React.Component {
   	this.setState({ password: this.state.password })
   }
   handleUsernameChange() {
-  	this.setState({ username: this.supertate.username })
+  	this.setState({ username: this.state.username })
   }
   handleEmailChange() {
   	this.setState({ email: this.state.email })  	
@@ -33,7 +33,7 @@ class SignUpPage extends React.Component {
 	    <div>
 	      <form> 
 	    	<label>
-	    	  Username:
+	    	    Username:
               <input 
                 type='text' 
                 value={ this.state.username } 
@@ -50,9 +50,10 @@ class SignUpPage extends React.Component {
             </label>
             <label>
               Password:
-              <input type='text'
+              <input 
+                type='text'
                 value={ this.state.password }
-               onChange={ this.handlePasswordChange }
+                onChange={ this.handlePasswordChange }
               />
             </label>
             <input 

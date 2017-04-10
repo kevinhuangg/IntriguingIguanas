@@ -1,6 +1,6 @@
 let initialState = {
-	username: ''
-	password: ''
+	username: '',
+	password: '',
 	isValidating: false, 
 	isInvalid: false
 }
@@ -22,7 +22,7 @@ const SignUp = (state=initialState, action) => {
   	case 'SIGN_UP_FAILURE':
   	  return {
   	  	...state,	
-  	  	isValidating: false
+  	  	isValidating: false,
   	  	isInvalid: true
   	  }
   	case 'SIGN_UP_SUCCESS':

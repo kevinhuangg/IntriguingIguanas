@@ -1,20 +1,20 @@
 export function LogInRequest(username, password) {
   return {
   	type: 'LOG_IN_REQUEST',
-  	username
+  	username,
   	password
   }
 }
 
 export function LoggingIn() {
   return {
-	type: 'LOGGING_IN',
+	  type: 'LOGGING_IN'
   }
 }
 
 export function LogInFailure() {
   return {
-  	type: 'LOG_IN_FAILURE',
+  	type: 'LOG_IN_FAILURE'
   }
 }
 
