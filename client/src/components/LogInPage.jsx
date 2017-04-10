@@ -1,6 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-class LogInPage extends React.Component {
+export class LogInPage extends React.Component {
   constructor(props) {
   	super(props)
   	this.state = {
@@ -46,10 +47,15 @@ class LogInPage extends React.Component {
             value='Login'
           />        
 	      </form>
-
 	    </div>
-	)
+	  )
   }
 }
 
-export default LogInPage
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+}
+
+export default connect(mapDispatchToProps)(LogInPage)

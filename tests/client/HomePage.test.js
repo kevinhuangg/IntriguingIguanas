@@ -19,6 +19,6 @@ describe('HomePage', () => {
     	const app = mount(<App />);
     	const text = <div>HELLO WORLD!</div>;
 
- 			expect(app.contains(text)).toEqual(true);
+ 		expect(app.contains(text)).toEqual(true);
     });
 });
