@@ -6,6 +6,12 @@ export function LogInRequest(username, password) {
   }
 }
 
+export function LoggingIn() {
+  return {
+	type: 'LOGGING_IN',
+  }
+}
+
 export function LogInFailure() {
   return {
   	type: 'LOG_IN_FAILURE',
