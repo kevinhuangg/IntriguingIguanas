@@ -16,14 +16,14 @@ export class SignUpPage extends React.Component {
   	this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleUsernameChange() {
-  	this.setState({ username: this.state.username })
+  handleUsernameChange(e) {
+  	this.setState({ username: e.target.value })
   }
-  handlePasswordChange() {
-    this.setState({ password: this.state.password })
+  handlePasswordChange(e) {
+    this.setState({ password: e.target.value })
   }
-  handleEmailChange() {
-  	this.setState({ email: this.state.email })  	
+  handleEmailChange(e) {
+  	this.setState({ email: e.target.value })  	
   }
   handleSubmit() {
 
