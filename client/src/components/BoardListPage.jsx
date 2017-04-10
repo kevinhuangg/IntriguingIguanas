@@ -12,12 +12,18 @@ class BoardListPage extends React.Component {
     }
 
     this.handleBoardNameChange = this.handleBoardNameChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleBoardNameChange() {
+  handleBoardNameChange(e) {
     this.setState({
-      boardName: this.state.boardName
+      boardName: e.target.value
     })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    this.props.submitBoard(this.state.boardName)
   }
 
   render() {
@@ -25,7 +31,9 @@ class BoardListPage extends React.Component {
       <div>
         <input 
           value={ this.state.boardName } 
-          onChange={ this.handleBoardNameChange }/>
+          onChange={ this.handleBoardNameChange }
+        />
+        <button onClick={ this.handleSubmit } >Create Board</button>
       </div>
     )
   }

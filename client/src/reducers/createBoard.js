@@ -1,13 +1,24 @@
 const initialState = {
-  boardName: 'untitled'
+  creatingBoard: false,
+  error: null
 }
 
 function createBoard(state=initialState, action) {
   switch (action.type) {
-    case 'CREATE_BOARD':
+    case 'CREATING_BOARD':
       return {
-        ...board,
-        boardName: action.boardName 
+        ...state,
+        creatingBoard: true
+      }
+    case 'BOARD_CREATED':
+      return {
+        ...initialState
+      }
+    case 'BOARD_CREATED_ERROR':
+      return {
+        ...state,
+        creatingBoard: false,
+        error: action.error
       }
     default: 
       return state; 
