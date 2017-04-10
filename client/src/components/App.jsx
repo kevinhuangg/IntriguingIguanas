@@ -13,6 +13,7 @@ class App extends React.Component {
 		super(props)
 
     this.sendToHome = this.sendToHome.bind(this)
+    this.sendToLobby = this.sendToLobby.bind(this)
     this.sendToSignup = this.sendToSignup.bind(this)
     this.sendToLogin = this.sendToLogin.bind(this)
     this.sendToUserProfile = this.sendToUserProfile.bind(this)
