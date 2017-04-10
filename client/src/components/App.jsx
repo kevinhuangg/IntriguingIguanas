@@ -8,7 +8,7 @@ import SignUpPage from './SignUpPage.jsx'
 import LogInPage from './LogInPage.jsx'
 import UserProfilePage from './UserProfilePage.jsx'
 
-class App extends React.Component {
+export class App extends React.Component {
 	constructor(props) {
 		super(props)
 

@@ -7,3 +7,7 @@ node_modules
 build
 public/build
 client/dist/bundle.js
+
+# Logs
+logs
+*.log
