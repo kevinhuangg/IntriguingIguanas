@@ -30,7 +30,8 @@ export class LogInPage extends React.Component {
         <form> 
           <label>
             Username:
-            <input type='text' 
+            <input 
+              type='text' 
               value={ this.state.username } 
               onChange={ this.handleUsernameChange }
             />
