@@ -1,4 +1,5 @@
 import React from 'react'
+import BoardListPage from './BoardListPage.jsx'
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -7,7 +8,13 @@ class HomePage extends React.Component {
 
   render() {
     return (
+<<<<<<< HEAD
       <div>HELLO WORLD!</div>
+=======
+      <div>
+        <BoardListPage />
+      </div>
+>>>>>>> Build out Board component
     )
   }
 }
