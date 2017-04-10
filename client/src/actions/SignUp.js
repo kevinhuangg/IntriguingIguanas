@@ -7,6 +7,12 @@ export function SignUpRequest(username, email, password) {
   }
 }
 
+export function SigningIn() {
+  return {
+    type: 'SIGNING_IN'
+  }
+}
+
 export function SignUpFailure() {
   return {
   	type: 'SIGN_UP_FAILURE',
