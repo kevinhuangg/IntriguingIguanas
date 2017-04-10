@@ -1,8 +1,8 @@
 export function SignUpRequest(username, email, password) {
   return {
-  	type: 'SIGN_UP_REQUEST',
-  	username,
-  	email,
+    type: 'SIGN_UP_REQUEST',
+    username,
+    email,
   	password
   }
 }
