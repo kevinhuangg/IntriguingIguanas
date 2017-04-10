@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm run build && node server/app.js",
     "build": "webpack -p",
-    "dev": "webpack -d --watch & nodemon server/app.js"
+    "dev": "webpack -d --watch & nodemon server/app.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
