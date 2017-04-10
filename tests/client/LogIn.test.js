@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from 'App'
 import { shallow, mount } from 'enzyme'
-import LogInPage from 'LogInPage'
+import { LogInPage } from 'LogInPage'
 
 
 describe('LogInPage', () => { 
