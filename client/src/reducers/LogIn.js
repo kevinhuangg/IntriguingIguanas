@@ -26,7 +26,7 @@ const LogIn = (state=initialState, action) => {
   	  } 
   	case 'LOG_IN_SUCCESS': 
   	  return {
-  	  	...state,
+  	  	...initialState,
   	  }
   	default:
   	  return state

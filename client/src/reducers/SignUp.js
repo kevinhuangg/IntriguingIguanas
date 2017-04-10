@@ -27,7 +27,7 @@ const SignUp = (state=initialState, action) => {
   	  }
   	case 'SIGN_UP_SUCCESS':
   	  return {
-  	  	...state,
+  	  	...initialState,
   	  }
     default:
       return state
