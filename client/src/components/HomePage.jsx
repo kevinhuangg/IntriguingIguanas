@@ -10,6 +10,12 @@ class HomePage extends React.Component {
       <div>
         <div className='headerTitle'>
           <h1>Root.io</h1>
+          <button onClick={ this.props.route.sendToLogin }>
+            Login
+          </button>
+          <button onClick={ this.props.route.sendToSignup }>
+            Signup
+          </button>
         </div>
       </div>
     )

@@ -32,7 +32,6 @@ class App extends React.Component {
     hashHistory.push('/lobby')
   }
 
-
   sendToSignup() {
     hashHistory.push('/signup')
   }
@@ -49,12 +48,32 @@ class App extends React.Component {
 	  return (
       <div>
         <Router history={ hashHistory }>
-          <Route path="/" component={ HomePage } />
-          <Route path="/lobby" component={ BoardListPage }/>
-          <Route path="/lobby/:taskBoardId" component={ BoardPage }/>
-          <Route path="/signup" component={ SignUpPage }/>
-          <Route path="/login" component={ LogInPage }/>
-          <Route path="/lobby/user/:id" component= { UserProfilePage }/> 
+          <Route 
+            path="/" 
+            component={ HomePage } 
+            sendToLogin={ this.sendToLogin }
+            sendToSignup={ this.sendToSignup }
+          />
+          <Route 
+            path="/lobby" 
+            component={ BoardListPage }
+          />
+          <Route 
+            path="/lobby/:taskBoardId" 
+            component={ BoardPage }
+          />
+          <Route 
+            path="/signup" 
+            component={ SignUpPage }
+          />
+          <Route 
+            path="/login" 
+            component={ LogInPage }
+          />
+          <Route 
+            path="/lobby/user/:id" 
+            component= { UserProfilePage }
+          /> 
         </Router>
       </div>
     )
