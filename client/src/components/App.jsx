@@ -11,13 +11,45 @@ import UserProfilePage from './UserProfilePage.jsx'
 class App extends React.Component {
 	constructor(props) {
 		super(props)
+
+    this.sendToHome = this.sendToHome.bind(this)
+    this.sendToLobby = this.sendToLobby.bind(this)
+    this.sendToSignup = this.sendToSignup.bind(this)
+    this.sendToLogin = this.sendToLogin.bind(this)
+    this.sendToUserProfile = this.sendToUserProfile.bind(this)
+
 	}
+
+  sendToHome() {
+    hashHistory.push('/')
+  }
+
+  sendToLobby(taskBoardID) {
+    if (taskBoardID) {
+      hashHistory.push('/lobby/:taskBoardID')
+      return
+    }
+    hashHistory.push('/lobby')
+  }
+
+
+  sendToSignup() {
+    hashHistory.push('/signup')
+  }
+
+  sendToLogin() {
+    hashHistory.push('/login')
+  }
+
+  sendToUserProfile(userId) {
+    hashHistory.push('/lobby/user/:userId')
+  }
 
   render () {
 	  return (
       <div>
         <Router history={ hashHistory }>
-          <Route path="/" component={ HomePage }/>
+          <Route path="/" component={ HomePage } />
           <Route path="/lobby" component={ BoardListPage }/>
           <Route path="/lobby/:taskBoardId" component={ BoardPage }/>
           <Route path="/signup" component={ SignUpPage }/>
