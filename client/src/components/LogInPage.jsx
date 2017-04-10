@@ -10,13 +10,17 @@ class LogInPage extends React.Component {
   
   	this.handleUsernameChange = this.handleUsernameChange.bind(this)
   	this.handlePasswordChange = this.handlePasswordChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handlePasswordChange() {
-  	this.setState({ password: this.state.password })
-  }
   handleUsernameChange() {
   	this.setState({ username: this.state.username })
+  }
+  handlePasswordChange() {
+    this.setState({ password: this.state.password })
+  }
+  handleSubmit() {
+
   }
 
   render() {
