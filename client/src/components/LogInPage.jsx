@@ -38,7 +38,8 @@ export class LogInPage extends React.Component {
           </label>
           <label>
             Password:
-            <input type='text'
+            <input 
+              type='text'
               value={ this.state.password }
               onChange={ this.handlePasswordChange }
             />
