@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from 'App'
 import { shallow, mount } from 'enzyme'
-import HomePage from 'HomePage'
+import SignUpPage from 'SignUpPage'
 
 
 describe('SignUpPage', () => {
