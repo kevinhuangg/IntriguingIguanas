@@ -1,6 +1,7 @@
 import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
+import { createList } from '../actions/List'
 
 class BoardPage extends React.Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class BoardPage extends React.Component {
     return (
       <input value onChange={ this.onInputChange }/>
       <button onClick={ this.props.createList }>CREATE LIST</button>
+
       { this.props.lists.map((list, index) =>
         <List
           key={ index }
@@ -43,7 +45,7 @@ class BoardPage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state.list.lists,
+    ...state.list,
     board_id: state.board.id
   }
 }
