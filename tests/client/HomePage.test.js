@@ -16,9 +16,9 @@ describe('HomePage', () => {
     });
 
     it('should render Hello World!', () => {
-    	const app = mount(<App />);
-    	const text = <div>HELLO WORLD!</div>;
+      const app = mount(<App />);
+      const text = <div>HELLO WORLD!</div>;
 
- 		expect(app.contains(text)).toEqual(true);
+      expect(app.contains(text)).toEqual(true);
     });
 });
