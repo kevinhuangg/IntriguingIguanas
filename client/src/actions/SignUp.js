@@ -3,7 +3,7 @@ export function SignUpRequest(username, email, password) {
     type: 'SIGN_UP_REQUEST',
     username,
     email,
-  	password
+    password
   }
 }
 
@@ -15,7 +15,7 @@ export function SigningIn() {
 
 export function SignUpFailure() {
   return {
-  	type: 'SIGN_UP_FAILURE',
+    type: 'SIGN_UP_FAILURE',
   }
 }
 
