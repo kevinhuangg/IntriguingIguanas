@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { SignUp } from '../actions/SignUp.js'
 
 export class SignUpPage extends React.Component {
   constructor(props) {
@@ -25,14 +26,15 @@ export class SignUpPage extends React.Component {
   handleEmailChange(e) {
     this.setState({ email: e.target.value })    
   }
-  handleSubmit() {
-
+  handleSubmit(e) {
+    e.preventDefault()
+    this.props.submitSignUp(this.state.username, this.state.email, this.state.password)
   }
 
   render() {
     return (
       <div>
-        <form> 
+        <form onSubmit={ this.handleSubmit }> 
           <label>
           Username:
             <input 
@@ -69,7 +71,7 @@ export class SignUpPage extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    submitSignUp: (username, email, password) => { dispatch(SignUp(username, email, password)) }
   }
 }
 

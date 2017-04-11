@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { LogIn } from '../actions/LogIn'
 
 export class LogInPage extends React.Component {
   constructor(props) {
@@ -17,17 +18,20 @@ export class LogInPage extends React.Component {
   handleUsernameChange(e) {
     this.setState({ username: e.target.value })
   }
+
   handlePasswordChange(e) {
     this.setState({ password: e.target.value })
   }
-  handleSubmit() {
 
+  handleSubmit(e) {
+    e.preventDefault()
+    this.props.submitLogIn(this.state.username, this.state.password)
   }
 
   render() {
     return (
       <div>
-        <form> 
+        <form onSubmit={ this.handleSubmit }> 
           <label>
           Username:
             <input 
@@ -56,7 +60,7 @@ export class LogInPage extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    submitLogIn: (username, password) => { dispatch(LogIn(username, password)) }
   }
 }
 

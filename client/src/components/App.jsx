@@ -26,7 +26,7 @@ export class App extends React.Component {
 
   sendToLobby(taskBoardID) {
     if (taskBoardID) {
-      hashHistory.push('/lobby/:' + taskBoardID)
+      hashHistory.push('/lobby/:taskBoardID')
       return
     }
     hashHistory.push('/lobby')

@@ -2,7 +2,9 @@
 
 exports[`LogInPage should render login input forms 1`] = `
 <div>
-  <form>
+  <form
+    onSubmit={[Function]}
+  >
     <label>
       Username:
       <input
