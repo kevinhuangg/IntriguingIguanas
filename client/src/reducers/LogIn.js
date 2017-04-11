@@ -13,7 +13,7 @@ const LogIn = (state=initialState, action) => {
         username: action.username,
         password: action.password
       }
-    case  'LOGGING_IN':
+    case 'LOGGING_IN':
       return {
         ...state,
         isValidating: true
