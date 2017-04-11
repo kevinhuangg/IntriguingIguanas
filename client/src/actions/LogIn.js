@@ -12,14 +12,25 @@ export function LoggingIn() {
   }
 }
 
-export function LogInFailure() {
+export function LogInFailure(error) {
   return {
-    type: 'LOG_IN_FAILURE'
+    type: 'LOG_IN_FAILURE',
+    error
   }
 }
 
-export function LogInSuccess() {
+export function LogInSuccess(data) {
   return {
-    type: 'LOG_IN_SUCCESS'
+    type: 'LOG_IN_SUCCESS',
+    data
+  }
+}
+
+export function LogIn(username, password) {
+  return (dispatch) => {
+    dispatch(LogingIn())
+    axios.post('', {username, password})
+    .then(data => dispatch(LogInSuccess(data)))
+    .catch(error => dispatch(LogInFailure(error)))
   }
 }
