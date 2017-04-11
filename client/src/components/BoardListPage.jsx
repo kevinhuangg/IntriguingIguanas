@@ -1,15 +1,16 @@
 import React from 'react'
+import { hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import BoardPage from './BoardPage.jsx'
 import { createBoard } from '../actions/createBoard'
 import { fetchBoards } from '../actions/fetchBoards'
 
-class BoardListPage extends React.Component {
+export class BoardListPage extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      boardName: 'untitled'
+      boardName: ''
     }
 
     this.handleBoardNameChange = this.handleBoardNameChange.bind(this)
@@ -27,6 +28,10 @@ class BoardListPage extends React.Component {
     this.props.submitBoard(this.state.boardName)
   }
 
+  renderBoard(board_id) {
+    hashHistory.push('/lobby/' + board_id)
+  }
+
   render() {
     console.log(this.props.boardlist, "PROPS");
     return ( 
@@ -37,7 +42,9 @@ class BoardListPage extends React.Component {
         />
         <button onClick={ this.handleSubmit } >Create Board</button>
         { this.props.boardlist.map((board) => (
-          <div>board.boardName</div>
+          <div 
+            onClick={ () => this.renderBoard(board.board_id) }
+          > { board.boardName }</div>
         )) }
       </div>
     )

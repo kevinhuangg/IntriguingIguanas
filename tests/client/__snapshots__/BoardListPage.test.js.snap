@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BoardListPage should render create board input 1`] = `
+<div>
+  <input
+    onChange={[Function]}
+    value=""
+  />
+  <button
+    onClick={[Function]}
+  >
+    Create Board
+  </button>
+  <div
+    onClick={[Function]}
+  >
+     
+    BOARD 1
+  </div>
+  <div
+    onClick={[Function]}
+  >
+     
+    BOARD 2
+  </div>
+</div>
+`;

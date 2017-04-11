@@ -1,5 +1,5 @@
 const initialState = {
-  boardlist: [],
+  boardlist: [{boardName: "BOARD 1"}, {boardName: "BOARD 2"}],
   fetchingBoards: false,
   error: null
 }

@@ -9,7 +9,7 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <BoardListPage />
+        HELLO WORLD!
       </div>
     )
   }
