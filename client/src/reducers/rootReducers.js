@@ -1,11 +1,15 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 import SignUp from './SignUp.js'
 import LogIn from './LogIn.js'
+import createBoard from './createBoard.js'
+import fetchBoards from './fetchBoards.js'
 
 const appReducer = combineReducers({
   //reducer files go here! - import the reducers!
   SignUp,
-  LogIn  
+  LogIn,
+  createBoard,
+  fetchBoards
 })
 
 const rootReducer = (state, action) => {
