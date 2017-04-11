@@ -26,7 +26,7 @@ export class App extends React.Component {
 
   sendToLobby(taskBoardID) {
     if (taskBoardID) {
-      hashHistory.push('/lobby/:' + taskBoardID)
+      hashHistory.push('/lobby/:taskBoardID')
       return
     }
     hashHistory.push('/lobby')
@@ -66,10 +66,12 @@ export class App extends React.Component {
           <Route 
             path="/signup" 
             component={ SignUpPage }
+            sendToLobby={ this.sendToLobby }
           />
           <Route 
             path="/login" 
             component={ LogInPage }
+            sendToLobby={ this.sendToLobby }
           />
           <Route 
             path="/lobby/user/:id" 

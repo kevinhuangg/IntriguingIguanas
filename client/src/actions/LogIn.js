@@ -1,10 +1,10 @@
-export function LogInRequest(username, password) {
-  return {
-    type: 'LOG_IN_REQUEST',
-    username,
-    password
-  }
-}
+// export function LogInRequest(username, password) {
+//   return {
+//     type: 'LOG_IN_REQUEST',
+//     username,
+//     password
+//   }
+// }
 
 export function LoggingIn() {
   return {

@@ -1,6 +1,6 @@
 let initialState = {
-  username: '',
-  password: '',
+  // username: '',
+  // password: '',
   error: null,
   isValidating: false,
   isInvalid: false,
@@ -8,12 +8,12 @@ let initialState = {
 
 const LogIn = (state=initialState, action) => {
   switch (action.type) {
-    case 'LOG_IN_REQUEST':
-      return {
-        ...state,
-        username: action.username,
-        password: action.password
-      }
+    // case 'LOG_IN_REQUEST':
+    //   return {
+    //     ...state,
+    //     username: action.username,
+    //     password: action.password
+    //   }
     case 'LOGGING_IN':
       return {
         ...state,

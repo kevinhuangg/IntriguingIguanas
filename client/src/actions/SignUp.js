@@ -1,11 +1,11 @@
-export function SignUpRequest(username, email, password) {
-  return {
-    type: 'SIGN_UP_REQUEST',
-    username,
-    email,
-    password
-  }
-}
+// export function SignUpRequest(username, email, password) {
+//   return {
+//     type: 'SIGN_UP_REQUEST',
+//     username,
+//     email,
+//     password
+//   }
+// }
 
 export function SigningUp() {
   return {

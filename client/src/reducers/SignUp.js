@@ -1,6 +1,6 @@
 let initialState = {
-  username: '',
-  password: '',
+  // username: '',
+  // password: '',
   error: null, 
   isValidating: false, 
   isInvalid: false
@@ -8,13 +8,13 @@ let initialState = {
 
 const SignUp = (state=initialState, action) => {
   switch (action.type) {
-    case 'SIGN_UP_REQUEST':
-      return {
-        ...state,
-        username: action.username,
-        email: action.email,
-        password: action.email
-      }
+    // case 'SIGN_UP_REQUEST':
+    //   return {
+    //     ...state,
+    //     username: action.username,
+    //     email: action.email,
+    //     password: action.email
+    //   }
     case 'SIGNING_IN':
       return {
         ...state,
