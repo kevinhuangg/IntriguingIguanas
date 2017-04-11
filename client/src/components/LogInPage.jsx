@@ -31,7 +31,7 @@ export class LogInPage extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={ () => { this.handleSubmit; this.props.sendToLobby; }> 
+        <form onSubmit={ () => { this.handleSubmit; this.props.sendToLobby }}> 
           <label>
           Username:
             <input 
