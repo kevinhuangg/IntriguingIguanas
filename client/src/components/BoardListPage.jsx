@@ -34,14 +34,24 @@ class BoardListPage extends React.Component {
           onChange={ this.handleBoardNameChange }
         />
         <button onClick={ this.handleSubmit } >Create Board</button>
+        { this.props.map((board) => (
+          board.boardName
+        )) }
       </div>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    ...state.boardlists
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    submitBoard: (boardName) => { dispatch(createBoard(boardName)) }
+    submitBoard: (boardName) => { dispatch(createBoard(boardName)) },
+    getBoards: () => { dispatch(fetchBoards()) }
   }
 }
 

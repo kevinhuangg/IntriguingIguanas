@@ -3,14 +3,11 @@ import SignUp from './SignUp.js'
 import LogIn from './LogIn.js'
 
 const appReducer = combineReducers({
-<<<<<<< HEAD
   //reducer files go here! - import the reducers!
   SignUp,
-  LogIn  
-=======
-	//reducer files go here! - import the reducers!
-  createBoard
->>>>>>> Build out Board component
+  LogIn,
+  createBoard,
+  fetchBoards
 })
 
 const rootReducer = (state, action) => {
