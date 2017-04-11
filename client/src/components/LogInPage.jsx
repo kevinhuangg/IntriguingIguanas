@@ -29,7 +29,7 @@ export class LogInPage extends React.Component {
       <div>
         <form> 
           <label>
-            Username:
+          Username:
             <input 
               type='text' 
               value={ this.state.username } 

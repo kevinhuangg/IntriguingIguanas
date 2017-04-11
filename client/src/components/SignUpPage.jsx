@@ -33,34 +33,34 @@ export class SignUpPage extends React.Component {
     return (
       <div>
         <form> 
-        <label>
-            Username:
-              <input 
-                type='text' 
-                value={ this.state.username } 
-                onChange={ this.handleUsernameChange }
-              />
-            </label>
-            <label>
-              Email:
-              <input 
-                type='text'
-                value={ this.state.email }
-                onChange={ this.handleEmailChange }
-              />
-            </label>
-            <label>
-              Password:
-              <input 
-                type='text'
-                value={ this.state.password }
-                onChange={ this.handlePasswordChange }
-              />
-            </label>
+          <label>
+          Username:
             <input 
-              type='submit' 
-              value='Signup'
+              type='text' 
+              value={ this.state.username } 
+              onChange={ this.handleUsernameChange }
             />
+          </label>
+          <label>
+          Email:
+            <input 
+              type='text'
+              value={ this.state.email }
+              onChange={ this.handleEmailChange }
+            />
+          </label>
+          <label>
+          Password:
+            <input 
+              type='text'
+              value={ this.state.password }
+              onChange={ this.handlePasswordChange }
+            />
+          </label>
+          <input 
+            type='submit' 
+            value='Signup'
+          />
         </form>
       </div>
     )
