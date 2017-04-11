@@ -1,6 +1,4 @@
 let initialState = {
-  // username: '',
-  // password: '',
   error: null,
   isValidating: false,
   isInvalid: false,
