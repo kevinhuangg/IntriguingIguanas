@@ -66,12 +66,10 @@ export class App extends React.Component {
           <Route 
             path="/signup" 
             component={ SignUpPage }
-            sendToLobby={ this.sendToLobby }
           />
           <Route 
             path="/login" 
             component={ LogInPage }
-            sendToLobby={ this.sendToLobby }
           />
           <Route 
             path="/lobby/user/:id" 
