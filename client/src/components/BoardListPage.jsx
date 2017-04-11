@@ -28,10 +28,6 @@ export class BoardListPage extends React.Component {
     this.props.submitBoard(this.state.boardName)
   }
 
-  renderBoard(board_id) {
-    hashHistory.push('/lobby/' + board_id)
-  }
-
   render() {
     console.log(this.props.boardlist, "PROPS");
     return ( 
@@ -43,7 +39,7 @@ export class BoardListPage extends React.Component {
         <button onClick={ this.handleSubmit } >Create Board</button>
         { this.props.boardlist.map((board) => (
           <div 
-            onClick={ () => this.renderBoard(board.board_id) }
+            onClick={ () => this.props.sendToLobby(board.board_id) }
           > { board.boardName }</div>
         )) }
       </div>
