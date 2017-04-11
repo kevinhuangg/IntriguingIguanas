@@ -8,13 +8,9 @@ class HomePage extends React.Component {
 
   render() {
     return (
-<<<<<<< HEAD
-      <div>HELLO WORLD!</div>
-=======
       <div>
         <BoardListPage />
       </div>
->>>>>>> Build out Board component
     )
   }
 }

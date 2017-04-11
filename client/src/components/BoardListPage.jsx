@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import BoardPage from './BoardPage.jsx'
 import { createBoard } from '../actions/createBoard'
+import { fetchBoards } from '../actions/fetchBoards'
 
 class BoardListPage extends React.Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class BoardListPage extends React.Component {
   }
 
   render() {
+    console.log(this.props.boardlist, "PROPS");
     return ( 
       <div>
         <input 
@@ -34,8 +36,8 @@ class BoardListPage extends React.Component {
           onChange={ this.handleBoardNameChange }
         />
         <button onClick={ this.handleSubmit } >Create Board</button>
-        { this.props.map((board) => (
-          board.boardName
+        { this.props.boardlist.map((board) => (
+          <div>board.boardName</div>
         )) }
       </div>
     )
@@ -44,7 +46,7 @@ class BoardListPage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state.boardlists
+    boardlist: state.fetchBoards.boardlist
   }
 }
 
@@ -55,4 +57,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapDispatchToProps)(BoardListPage)
+export default connect(mapStateToProps, mapDispatchToProps)(BoardListPage)
