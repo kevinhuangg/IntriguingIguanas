@@ -15,11 +15,12 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
 
+const sessionOptions = {
+  secret: 'rootio',
+}
+
 // Sets up /client as static directory
 app.use(express.static(__dirname + '/../client/dist'));
-
-//Authentication	
-
 
 // deployment port variable - default to 3000
 var port = process.env.PORT || 3000
