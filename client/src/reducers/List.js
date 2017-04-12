@@ -1,6 +1,46 @@
 const initialState = {
-  board_id: 1,
-  allLists: [{listname: 'GROCERIES', board_id: 1}, {listname: 'TO-DOS', board_id: 1}],
+  id: 1,
+  boardname: 'INCONCEIVABLE IGUANAS',
+  lists: [
+    {
+      id: 1,
+      listname: 'CURRENT SPRINT',
+      board_id: 1,
+      tasks: [
+        {
+          id: 1,
+          text: 'Set up database',
+          list_id: 1,
+          // assigned: 'Enoch'
+        },
+        {
+          id: 2,
+          text: 'Build front-end!',
+          list_id: 1,
+          // assigned: 'Christine'
+        }
+      ]
+    },
+    {
+      id: 2,
+      listname: 'FOR REVIEW',
+      board_id: 1,
+      tasks: [
+        {
+          id: 3,
+          text: 'Passport authentication',
+          list_id: 2,
+          // assigned: 'Kevin'
+        },
+        {
+          id: 4,
+          text: 'Deployment',
+          list_id: 2,
+          // assigned: 'Allen'
+        }
+      ]
+    }
+  ],
   createError: null,
   fetching: false,
   fetchError: null
@@ -21,7 +61,7 @@ const list = (state = initialState, action) => {
     case 'CREATE_LIST':
       return {
         ...state,
-        allLists: [...state.allLists, {listname: action.listname, board_id: action.board_id}]
+        allLists: [...state.lists, {listname: action.listname, board_id: action.board_id, tasks: []}]
       }
 
     // ------------ FETCH ------------

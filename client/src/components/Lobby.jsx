@@ -35,7 +35,7 @@ export class Lobby extends React.Component {
           value={ this.state.boardName }
           onChange={ this.handleBoardNameChange }
         />
-        <button onClick={ this.handleSubmit }>Create Board</button>
+        <button onClick={ this.handleSubmit }>CREATE BOARD</button>
         { this.props.boardlist.map((board) => (
           <div
             key={board.boardname}

@@ -7,7 +7,7 @@ class BoardPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: ''
+      listName: ''
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateList = this.onCreateList.bind(this)
@@ -19,12 +19,12 @@ class BoardPage extends React.Component {
 
   onInputChange(e) {
     this.setState({
-      name: e.target.value
+      listName: e.target.value
     })
   }
 
   onCreateList() {
-    this.props.createList(this.state.name, this.props.board_id)
+    this.props.createList(this.state.listName, this.props.board_id)
   }
 
   render() {
@@ -34,7 +34,7 @@ class BoardPage extends React.Component {
         <input onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateList }>CREATE LIST</button>
 
-        { this.props.allLists.map((list, index) =>
+        { this.props.lists.map((list, index) =>
           <List
             key={ index }
             listname={ list.listname }
@@ -50,15 +50,13 @@ const mapStateToProps = (state) => {
   return {
     ...state.list,
     board_id: state.list.board_id,
-    allLists: state.list.allLists
+    lists: state.list.lists
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createList: (name, board_id) => { dispatch(createList(name, board_id)) },
-    fetchList: () => { dispatch(fetchList()) },
-
+    createList: (boardname, board_id) => { dispatch(createList(boardname, board_id)) }
   }
 }
 
