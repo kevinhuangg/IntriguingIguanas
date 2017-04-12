@@ -11,13 +11,13 @@ const initialState = {
           id: 1,
           text: 'Set up database',
           list_id: 1,
-          // assigned: 'Enoch'
+          assigned: 'Enoch'
         },
         {
           id: 2,
           text: 'Build front-end!',
           list_id: 1,
-          // assigned: 'Christine'
+          assigned: 'Christine'
         }
       ]
     },
@@ -30,13 +30,13 @@ const initialState = {
           id: 3,
           text: 'Passport authentication',
           list_id: 2,
-          // assigned: 'Kevin'
+          assigned: 'Kevin'
         },
         {
           id: 4,
           text: 'Deployment',
           list_id: 2,
-          // assigned: 'Allen'
+          assigned: 'Allen'
         }
       ]
     }
@@ -61,7 +61,7 @@ const list = (state = initialState, action) => {
     case 'CREATE_LIST':
       return {
         ...state,
-        allLists: [...state.lists, {listname: action.listname, board_id: action.board_id, tasks: []}]
+        lists: [...state.lists, {listname: action.listname, board_id: action.board_id, tasks: []}]
       }
 
     // ------------ FETCH ------------

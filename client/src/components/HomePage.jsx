@@ -14,8 +14,10 @@ class HomePage extends React.Component {
         <h2>With shared project boards and video chat, your team can manage tasks seamlessly.</h2>
         <button onClick={ this.props.route.sendToSignup }>Sign Up</button>
         <div onClick={ this.props.route.sendToLogin }>Already a Root.io user? Log in.</div>
+
         <Lobby />
         <BoardPage />
+
       </div>
     )
   }

@@ -11,6 +11,7 @@ class BoardPage extends React.Component {
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateList = this.onCreateList.bind(this)
+    console.log('---> LIST PROPS', this.props)
   }
 
   componentWillMount() {
@@ -28,9 +29,9 @@ class BoardPage extends React.Component {
   }
 
   render() {
-    console.log('---> LIST PROPS', this.props)
     return (
       <div>
+        <h3>{this.props.boardname}</h3>
         <input onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateList }>CREATE LIST</button>
 

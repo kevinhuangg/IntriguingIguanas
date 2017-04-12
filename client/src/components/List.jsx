@@ -7,34 +7,35 @@ class List extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      taskName: ''
+      text: ''
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateTask = this.onCreateTask.bind(this)
+    console.log('---> TASK PROPS', this.props)
   }
 
   onInputChange(e) {
     this.setState({
-      taskName: e.target.value
+      text: e.target.value
     })
   }
 
   onCreateTask() {
-    this.props.createTask(this.state.taskName, this.props.list_id)
+    this.props.createTask(this.state.text, this.props.list_id)
   }
 
   render() {
-    console.log('---> TASK PROPS', this.props)
     return (
       <div>
-        <div>{this.props.listname}</div>
+        <h4>{ this.props.listname }</h4>
         <input onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateTask }>CREATE TASK</button>
 
         { this.props.tasks.map((task, index) =>
           <Task
             key={ task.id }
-            taskname={ task.taskname }
+            text={ task.text }
+            assigned={ task.assigned }
             index={ index }
           />) }
       </div>
@@ -52,7 +53,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createTask: (taskname, list_id) => { dispatch(createList(taskname, list_id)) }
+    createTask: (taskname, list_id) => { dispatch(createTask(taskname, list_id)) }
   }
 }
 

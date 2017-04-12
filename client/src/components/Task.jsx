@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Task = () => {
+const Task = (props) => {
   return (
     <div>
-      • TASK TESTING
+      . {props.text} – assigned to {props.assigned}
     </div>
   )
 }
