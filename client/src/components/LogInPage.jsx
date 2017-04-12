@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { LogIn } from '../actions/LogIn.js'
 
-class LogInPage extends React.Component {
+export class LogInPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
