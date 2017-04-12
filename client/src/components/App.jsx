@@ -69,9 +69,9 @@ export class App extends React.Component {
           />
           <Route 
             path="/login" 
-            component={ LogInPage }
           />
           <Route 
+            component={ LogInPage }
             path="/lobby/user/:id" 
             component= { UserProfilePage }
           /> 
