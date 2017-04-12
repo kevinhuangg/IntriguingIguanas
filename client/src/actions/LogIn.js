@@ -1,10 +1,4 @@
-// export function LogInRequest(username, password) {
-//   return {
-//     type: 'LOG_IN_REQUEST',
-//     username,
-//     password
-//   }
-// }
+import axios from 'axios'
 
 export function LoggingIn() {
   return {
@@ -27,10 +21,16 @@ export function LogInSuccess(data) {
 }
 
 export function LogIn(username, password) {
-  return (dispatch) => {
-    dispatch(LogingIn())
-    axios.post('', {username, password})
-    .then(data => dispatch(LogInSuccess(data)))
+  return function(dispatch) {
+    dispatch(LoggingIn())
+    axios.post('/login', {username, password})
+    .then(data => {
+      dispatch(LogInSuccess(data))
+      const route = data.data.redirect
+      if (typeof route === 'string') {
+        window.location = '/#' + route
+      }
+    })
     .catch(error => dispatch(LogInFailure(error)))
   }
 }

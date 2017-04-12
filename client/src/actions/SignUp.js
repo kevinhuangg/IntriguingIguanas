@@ -1,11 +1,4 @@
-// export function SignUpRequest(username, email, password) {
-//   return {
-//     type: 'SIGN_UP_REQUEST',
-//     username,
-//     email,
-//     password
-//   }
-// }
+import axios from 'axios'
 
 export function SigningUp() {
   return {

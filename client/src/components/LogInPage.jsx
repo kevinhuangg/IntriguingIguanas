@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { LogIn } from '../actions/LogIn'
+import { LogIn } from '../actions/LogIn.js'
 
 export class LogInPage extends React.Component {
   constructor(props) {
@@ -29,6 +29,8 @@ export class LogInPage extends React.Component {
   }
 
   render() {
+    // console.log(this.props)
+    // console.log(LogIn)
     return (
       <div>
         <form onSubmit={ this.handleSubmit }> 
@@ -57,11 +59,17 @@ export class LogInPage extends React.Component {
     )
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    ...state
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
+
   return {
     submitLogIn: (username, password) => { dispatch(LogIn(username, password)) }
   }
 }
 
-export default connect(mapDispatchToProps)(LogInPage)
+export default connect(mapStateToProps, mapDispatchToProps)(LogInPage)
