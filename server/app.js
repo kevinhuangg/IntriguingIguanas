@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+//passes in passport instance and sets up configuration
 passConfig(passport)
 
 app.use(cookieParser()); //read cookies needed for auth
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 // Sets up /client as static directory
 app.use(express.static(__dirname + '/../client/dist'));
-app.use(express.static(__dirname + '/../client'));
+// app.use(express.static(__dirname + '/../client'));
 
 //session config options
 const options = {
@@ -35,7 +36,9 @@ app.use(session(options));
 app.use(passport.initialize());
 app.use(passport.session());
 
+//imported routes
 authorize(app, passport);
+app.use('/api', router)
 
 // deployment port variable - default to 3000
 var port = process.env.PORT || 3000
