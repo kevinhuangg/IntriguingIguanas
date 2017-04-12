@@ -69,10 +69,16 @@ export class SignUpPage extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    ...state
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     submitSignUp: (username, email, password) => { dispatch(SignUp(username, email, password)) }
   }
 }
 
-export default connect(mapDispatchToProps)(SignUpPage)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage)

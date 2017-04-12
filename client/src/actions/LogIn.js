@@ -1,10 +1,4 @@
-// export function LogInRequest(username, password) {
-//   return {
-//     type: 'LOG_IN_REQUEST',
-//     username,
-//     password
-//   }
-// }
+import axios from 'axios'
 
 export function LoggingIn() {
   return {
@@ -27,9 +21,11 @@ export function LogInSuccess(data) {
 }
 
 export function LogIn(username, password) {
-  return (dispatch) => {
-    dispatch(LogingIn())
-    axios.post('', {username, password})
+  console.log('hi',username);
+  return function(dispatch) {
+    console.log('2ndhi')
+    dispatch(LoggingIn())
+    axios.post('/login', {username, password})
     .then(data => dispatch(LogInSuccess(data)))
     .catch(error => dispatch(LogInFailure(error)))
   }
