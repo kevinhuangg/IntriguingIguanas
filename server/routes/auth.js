@@ -1,5 +1,3 @@
-
-
 module.exports = function(app, passport) {
   
   app.post('/login', 
@@ -9,5 +7,4 @@ module.exports = function(app, passport) {
     }
   )
 
-  
 }

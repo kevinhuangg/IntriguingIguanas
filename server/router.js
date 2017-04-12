@@ -1,4 +1,10 @@
 const router = require(express).Router();
 
-router.get('/lobby', ) //route to lobby routes
+//board routes
+
+//list routes
+
+//task routes
+
+//user routes
   
