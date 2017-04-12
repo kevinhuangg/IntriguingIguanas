@@ -9,8 +9,11 @@ module.exports = function(passport) {
 
   passport.deserializeUser(function(id, done) {
     User.getUserById(id).then(user => {
-      console.log('userid', user.rows[0].id)
+      // console.log('userid', user.rows[0].id)
       done(null, user.rows[0].id)
+    })
+    .catch(err => {
+      console.log(err)
     })
   })
 
@@ -25,11 +28,14 @@ module.exports = function(passport) {
       // console.log('user', user.rows[0])
       if (!user.rows[0]) {
         console.log('no user found')
-        return done(null,false)
+        done(null,false)
       }
       //TODO: chcek to see if password is a match
       // console.log(user)
-      return done(null, user.rows[0])
+      done(null, user.rows[0])
+    })
+    .catch(err => {
+      console.log(err)
     })
   }))
 }

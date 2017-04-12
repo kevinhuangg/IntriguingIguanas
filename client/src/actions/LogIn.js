@@ -21,12 +21,18 @@ export function LogInSuccess(data) {
 }
 
 export function LogIn(username, password) {
-  console.log('hi',username);
+  // console.log('hi',username);
   return function(dispatch) {
-    console.log('2ndhi')
+    // console.log('2ndhi')
     dispatch(LoggingIn())
     axios.post('/login', {username, password})
-    .then(data => dispatch(LogInSuccess(data)))
+    .then(data => {
+      dispatch(LogInSuccess(data))
+      const route = data.data.redirect
+      if (typeof route === 'string') {
+        window.location = '/#' + route
+      }
+    })
     .catch(error => dispatch(LogInFailure(error)))
   }
 }
