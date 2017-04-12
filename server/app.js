@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 // Sets up /client as static directory
 app.use(express.static(__dirname + '/../client/dist'));
-// app.use(express.static(__dirname + '/../client'));
+app.use(express.static(__dirname + '/../client'));
 
 //session config options
 const options = {
@@ -38,7 +38,9 @@ app.use(passport.session());
 
 //imported routes
 authorize(app, passport);
-app.use('/api', router)
+
+//comment back in when routes are set up
+// app.use('/api', router)
 
 // deployment port variable - default to 3000
 var port = process.env.PORT || 3000
