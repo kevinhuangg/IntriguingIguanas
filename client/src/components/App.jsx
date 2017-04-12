@@ -68,10 +68,10 @@ export class App extends React.Component {
             component={ SignUpPage }
           />
           <Route 
-            path="/login" 
+            path="/login"
+            component={ LogInPage } 
           />
           <Route 
-            component={ LogInPage }
             path="/lobby/user/:id" 
             component= { UserProfilePage }
           /> 
