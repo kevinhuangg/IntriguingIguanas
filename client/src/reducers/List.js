@@ -1,22 +1,27 @@
 const initialState = {
-  allList: [],
+  board_id: 1,
+  allLists: [{listname: 'GROCERIES', board_id: 1}, {listname: 'TO-DOS', board_id: 1}],
   createError: null,
   fetching: false,
   fetchError: null
 }
 
-
-export const List = (state = initialState, action) => {
+const list = (state = initialState, action) => {
   switch (action.type) {
     // ------------ CREATE ------------
     case 'LIST_CREATED':
       return {
-        ...initialState
+        ...state
       }
     case 'CREATE_ERROR':
       return {
         ...state,
         error: action.error
+      }
+    case 'CREATE_LIST':
+      return {
+        ...state,
+        allLists: [...state.allLists, {listname: action.listname, board_id: action.board_id}]
       }
 
     // ------------ FETCH ------------
@@ -29,7 +34,7 @@ export const List = (state = initialState, action) => {
     case 'LISTS_FETCHED':
       return {
         ...state,
-        boardList: action.lists
+        allLists: action.allLists
       }
     case 'FETCH_ERROR':
       return {
@@ -41,3 +46,5 @@ export const List = (state = initialState, action) => {
       return state
   }
 }
+
+export default list

@@ -3,7 +3,7 @@ const initialState = {
   error: null
 }
 
-function createBoard(state=initialState, action) {
+function createBoard(state = initialState, action) {
   switch (action.type) {
     case 'CREATING_BOARD':
       return {
@@ -20,9 +20,9 @@ function createBoard(state=initialState, action) {
         creatingBoard: false,
         error: action.error
       }
-    default: 
-      return state; 
+    default:
+      return state;
   }
 }
 
-export default createBoard; 
+export default createBoard;

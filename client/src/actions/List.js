@@ -14,18 +14,26 @@ export const createError = (error) => {
   }
 }
 
-export const createList = (listName, board_id) => {
-  return (dispatch) => {
-    axios.post('/list/create', { listName, board_id })
-    .then(res => dispatch(listCreated()))
-    .catch(error => dispatch(createError(error)))
+export function createList(listname, board_id) {
+  return {
+    type: 'CREATE_LIST',
+    listname,
+    board_id
   }
 }
+
+// export const createList = (listName, board_id) => {
+//   return (dispatch) => {
+//     axios.post('/list', {listName, board_id})
+//     .then(res => dispatch(listCreated()))
+//     .catch(error => dispatch(createError(error)))
+//   }
+// }
 
 // ------------ FETCH ------------
 export const fetchingLists = () => {
   return {
-    type: 'FETCHING_BOARDS'
+    type: 'FETCHING_LISTS'
   }
 }
 
@@ -41,12 +49,13 @@ export const fetchError = (error) => {
     type: 'FETCH_ERROR',
     error: error
   }
+}
 
-export const fetchLists = () => {
+export const fetchLists = (board_id) => {
   return (dispatch) => {
     dispatch(fetchingLists())
 
-    axios.post('/list/get', { board_id })
+    axios.post('/list', {board_id})
     .then(res => dispatch(listFetched(res.data)))
     .catch(error => dispatch(fetchError(error)))
   }

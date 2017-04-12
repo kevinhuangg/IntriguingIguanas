@@ -28,7 +28,7 @@ exports.up = function(knex, Promise) { //CHAIN PROMISES
   }).then(() => {
     return knex.schema.createTable('tasks', (table) => {
       table.increments();
-      table.integer('list_id').notNullable(); 
+      table.integer('list_id').notNullable();
       table.string('text').notNullable();
       table.integer('assigned')
     })

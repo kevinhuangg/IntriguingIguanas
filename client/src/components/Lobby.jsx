@@ -5,10 +5,9 @@ import BoardPage from './BoardPage.jsx'
 import { createBoard } from '../actions/createBoard'
 import { fetchBoards } from '../actions/fetchBoards'
 
-export class BoardListPage extends React.Component {
+export class Lobby extends React.Component {
   constructor(props) {
     super(props)
-
     this.state = {
       boardName: ''
     }
@@ -29,16 +28,17 @@ export class BoardListPage extends React.Component {
   }
 
   render() {
-    console.log(this.props.boardlist, "PROPS");
-    return ( 
+    console.log('---> BOARD PROPS', this.props.boardlist);
+    return (
       <div>
-        <input 
-          value={ this.state.boardName } 
+        <input
+          value={ this.state.boardName }
           onChange={ this.handleBoardNameChange }
         />
-        <button onClick={ this.handleSubmit } >Create Board</button>
+        <button onClick={ this.handleSubmit }>Create Board</button>
         { this.props.boardlist.map((board) => (
-          <div 
+          <div
+            key={board.boardname}
             onClick={ () => this.props.sendToLobby(board.board_id) }
           > { board.boardName }</div>
         )) }
@@ -60,4 +60,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BoardListPage)
+export default connect(mapStateToProps, mapDispatchToProps)(Lobby)

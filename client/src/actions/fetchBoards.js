@@ -1,4 +1,4 @@
-import axois from 'axios'
+import axios from 'axios'
 
 function fetchingBoards() {
   return {
@@ -23,7 +23,8 @@ function receiveBoardsError(error) {
 export function fetchBoards() {
   return (dispatch) => {
     dispatch(fetchingBoards())
-    axios.get('')
+
+    axios.get('/board', {user_id})
     .then(results => dispatch(boardsReceived(results.data)))
     .catch(error => dispatch(receiveBoardsError(error)))
   }

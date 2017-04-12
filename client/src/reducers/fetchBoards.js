@@ -4,7 +4,7 @@ const initialState = {
   error: null
 }
 
-function fetchBoards(state=initialState, action) {
+function fetchBoards(state = initialState, action) {
   switch (action.type) {
     case 'FETCHING_BOARDS':
       return {

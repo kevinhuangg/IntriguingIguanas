@@ -22,9 +22,9 @@ function boardError(error) {
 export function createBoard(boardName) {
   return (dispatch) => {
     dispatch(creatingBoard())
-    axios.post('', {boardName})
+    axios.post('/board', {boardName})
     .then(results => dispatch(boardCreated()))
-    .catch(error => dispath(boardError(error)))
+    .catch(error => dispatch(boardError(error)))
   }
 }
 

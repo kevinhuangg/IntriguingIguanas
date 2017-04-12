@@ -1,7 +1,7 @@
 import React from 'react'
 import { Router, Route, hashHistory } from 'react-router'
 import { connect } from 'react-redux'
-import BoardListPage from './BoardListPage.jsx'
+import Lobby from './Lobby.jsx'
 import HomePage from './HomePage.jsx'
 import BoardPage from './BoardPage.jsx'
 import SignUpPage from './SignUpPage.jsx'
@@ -48,33 +48,32 @@ export class App extends React.Component {
 	  return (
       <div>
         <Router history={ hashHistory }>
-          <Route 
-            path="/" 
-            component={ HomePage } 
+          <Route
+            path="/"
+            component={ HomePage }
             sendToLogin={ this.sendToLogin }
             sendToSignup={ this.sendToSignup }
           />
-          <Route 
-            path="/lobby" 
-            component={ BoardListPage }
+          <Route
+            path="/lobby"
+            component={ Lobby }
           />
-          <Route 
-            path="/lobby/:taskBoardId" 
+          <Route
+            path="/lobby/:taskBoardId"
             component={ BoardPage }
             sendToLobby={ this.sendToLobby }
           />
-          <Route 
-            path="/signup" 
+          <Route
+            path="/signup"
             component={ SignUpPage }
           />
-          <Route 
+          <Route
             path="/login"
-            component={ LogInPage } 
+            component={ LogInPage }
           />
-          <Route 
-            path="/lobby/user/:id" 
-            component= { UserProfilePage }
-          /> 
+          <Route
+            path="/lobby/user/:id"
+          />
         </Router>
       </div>
     )
@@ -86,6 +85,5 @@ const mapStateToProps = (state) => {
 
   }
 }
-
 
 export default connect(mapStateToProps)(App);

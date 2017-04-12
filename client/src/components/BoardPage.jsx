@@ -1,7 +1,7 @@
 import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
-import { createList } from '../actions/List'
+import { createList, fetchList } from '../actions/List.js'
 
 class BoardPage extends React.Component {
   constructor(props) {
@@ -9,13 +9,12 @@ class BoardPage extends React.Component {
     this.state = {
       name: ''
     }
-    this.onInputChange = this.onInputChange.bind(this);
+    this.onInputChange = this.onInputChange.bind(this)
+    this.onCreateList = this.onCreateList.bind(this)
   }
 
   componentWillMount() {
-    // fetch selected board
-    // dispatch action to get board info
-    // board_id = this.props.params.taskBoardId
+    // this.props.fetchList()
   }
 
   onInputChange(e) {
@@ -29,16 +28,20 @@ class BoardPage extends React.Component {
   }
 
   render() {
+    console.log('---> LIST PROPS', this.props)
     return (
-      <input value onChange={ this.onInputChange }/>
-      <button onClick={ this.props.createList }>CREATE LIST</button>
+      <div>
+        <input onChange={ this.onInputChange }/>
+        <button onClick={ this.onCreateList }>CREATE LIST</button>
 
-      { this.props.lists.map((list, index) =>
-        <List
-          key={ index }
-          tasks={ list.tasks }
-          index={ index }
-        />) }
+        { this.props.allLists.map((list, index) =>
+          <List
+            key={ index }
+            listname={ list.listname }
+            tasks={ list.tasks }
+            index={ index }
+          />) }
+      </div>
     )
   }
 }
@@ -46,13 +49,16 @@ class BoardPage extends React.Component {
 const mapStateToProps = (state) => {
   return {
     ...state.list,
-    board_id: state.board.id
+    board_id: state.list.board_id,
+    allLists: state.list.allLists
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createList: (name) => { dispatch(createList(name)) },
+    createList: (name, board_id) => { dispatch(createList(name, board_id)) },
+    fetchList: () => { dispatch(fetchList()) },
+
   }
 }
 

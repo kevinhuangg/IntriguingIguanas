@@ -3,7 +3,7 @@ import SignUp from './SignUp.js'
 import LogIn from './LogIn.js'
 import createBoard from './createBoard.js'
 import fetchBoards from './fetchBoards.js'
-import List from './List.js'
+import list from './List.js'
 
 const appReducer = combineReducers({
   //reducer files go here! - import the reducers!
@@ -11,7 +11,7 @@ const appReducer = combineReducers({
   LogIn,
   createBoard,
   fetchBoards,
-  List
+  list
 })
 
 const rootReducer = (state, action) => {

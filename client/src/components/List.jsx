@@ -1,9 +1,12 @@
 import React from 'react'
 import Task from './Task.jsx'
 
-const List = () => {
+const List = (props) => {
   return (
-    <Task />
+    <div>
+      LIST NAME – { props.listname }
+      <Task />
+    </div>
   )
 }
 
