@@ -31,7 +31,6 @@ module.exports = function(passport) {
         done(null,false)
       }
       //TODO: chcek to see if password is a match
-      // console.log(user)
       done(null, user.rows[0])
     })
     .catch(err => {

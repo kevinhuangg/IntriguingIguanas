@@ -21,9 +21,7 @@ export function LogInSuccess(data) {
 }
 
 export function LogIn(username, password) {
-  // console.log('hi',username);
   return function(dispatch) {
-    // console.log('2ndhi')
     dispatch(LoggingIn())
     axios.post('/login', {username, password})
     .then(data => {
