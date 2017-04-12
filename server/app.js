@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+//passes in passport instance and sets up configuration
 passConfig(passport)
 
 app.use(cookieParser()); //read cookies needed for auth
@@ -35,7 +36,11 @@ app.use(session(options));
 app.use(passport.initialize());
 app.use(passport.session());
 
+//imported routes
 authorize(app, passport);
+
+//comment back in when routes are set up
+// app.use('/api', router)
 
 // deployment port variable - default to 3000
 var port = process.env.PORT || 3000
