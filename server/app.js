@@ -8,6 +8,7 @@ const dbConfig = require('../database/db/knex.js');
 const pgStore = require('connect-pg-simple')(session);
 const authorize = require('./routes/auth.js');
 const bodyParser = require('body-parser');
+const router = require('./router.js');
 
 const app = express();
 
@@ -40,9 +41,11 @@ app.use(passport.session());
 authorize(app, passport);
 
 //comment back in when routes are set up
-// app.use('/api', router)
+app.use('/api', router)
 
 // deployment port variable - default to 3000
+//run psql mydatabase < node_modules/connect-pg-simple/table.sql
+//in order to add a sessions table
 var port = process.env.PORT || 3000
 app.listen(port, function(){
 	console.log(`Magical Unicorns will arrive on port ${port}!`);
