@@ -48,12 +48,15 @@ export class LogInPage extends React.Component {
           </div>
           <div className='field'>
             <label>Password:</label>
-            <input 
-              type='text'
-              value={ this.state.password }
-              placeholder='Type your password in here...'
-              onChange={ this.handlePasswordChange }
-            />
+            <div className='ui left icon input'>
+              <input 
+                type='text'
+                value={ this.state.password }
+                placeholder='Password'
+                onChange={ this.handlePasswordChange }
+              />
+              <i className='lock icon'></i>
+            </div>
           </div>
           <button className='ui primary button' type='submit'>Login</button>        
         </form>
