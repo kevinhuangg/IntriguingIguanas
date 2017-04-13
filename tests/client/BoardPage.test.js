@@ -11,7 +11,7 @@ import Task from '../../client/src/components/Task.jsx'
 
 import TestUtils from 'react-addons-test-utils'
 import { fromJS } from 'immutable'
-import io from 'socket.io-client/dist/socket.io'
+import io from 'socket.io-client'
 
 var iosocket = io();
 
