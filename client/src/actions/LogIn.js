@@ -26,7 +26,6 @@ export function LogIn(username, password) {
     axios.post('/login', {username, password})
     .then(data => {
       dispatch(LogInSuccess(JSON.parse(data.config.data).username))
-      console.log(data, "DATAHHHH")
       const route = data.data.redirect
       if (typeof route === 'string') {
         window.location = '/#' + route
