@@ -84,12 +84,10 @@ export class App extends React.Component {
           <Route
             path="/signup"
             component={ SignUpPage }
-            socket={ this.state.socket }
           />
           <Route
             path="/login"
             component={ LogInPage } 
-            socket={ this.state.socket }
           />
           <Route 
             path="/lobby/user/:id" 
