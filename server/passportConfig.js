@@ -24,10 +24,7 @@ module.exports = function(passport) {
     passReqToCallback: true
   }, 
   function(req, username, password, done) {
-    // console.log('username', username)
-    console.log(password, "PASSOWRD")
     User.getUserByName(username).then(user => {
-      console.log(user.rows[0].password, "USER")
       // console.log('user', user.rows[0])
       if (!user.rows[0]) {
         console.log('no user found')
@@ -36,7 +33,7 @@ module.exports = function(passport) {
       //TODO: chcek to see if password is a match
       bcrypt.compare(password, user.rows[0].password)
       .then(res => {
-        console.log("SAME SAME but different")
+        // console.log("SAME SAME but different")
         if (res) {
           done(null, user.rows[0])    
         } else {
