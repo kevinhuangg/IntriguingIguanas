@@ -61,7 +61,7 @@ const list = (state = initialState, action) => {
     case 'CREATE_LIST':
       return {
         ...state,
-        lists: [...state.lists, {listname: action.listname, board_id: action.board_id, tasks: []}]
+        lists: [...state.lists, { listname: action.listname, board_id: action.board_id, tasks: [] }]
       }
 
     // ------------ FETCH ------------

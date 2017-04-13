@@ -34,7 +34,7 @@ const task = (state = initialState, action) => {
         if (state.lists[i].id === action.list_id) {
           return {
             ...state.lists[i],
-            tasks: [...state.lists[i].tasks, {text: action.text, list_id: action.list_id}]
+            tasks: [...state.lists[i].tasks, { text: action.text, list_id: action.list_id }]
           }
         }
       }

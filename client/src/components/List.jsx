@@ -3,7 +3,7 @@ import Task from './Task.jsx'
 import { connect } from 'react-redux'
 import { createTask } from '../actions/Task.js'
 
-class List extends React.Component {
+export class List extends React.Component {
   constructor(props) {
     super(props)
     this.state = {

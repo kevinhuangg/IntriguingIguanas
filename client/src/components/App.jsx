@@ -73,6 +73,7 @@ export class App extends React.Component {
           />
           <Route
             path="/lobby/user/:id"
+            component={ UserProfilePage }
           />
         </Router>
       </div>

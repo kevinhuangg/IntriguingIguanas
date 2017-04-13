@@ -8,6 +8,7 @@
         "HomePage": "<rootDir>/client/src/components/HomePage.jsx",
         "LogInPage": "<rootDir>/client/src/components/LogInPage.jsx",
         "SignUpPage":"<rootDir>/client/src/components/SignUpPage.jsx",
-        "BoardListPage": "<rootDir>/client/src/components/BoardListPage.jsx"
+        "Lobby": "<rootDir>/client/src/components/Lobby.jsx",
+        "BoardPage": "<rootDir>/client/src/components/BoardPage.jsx"
     }
 }

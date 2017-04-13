@@ -3,7 +3,7 @@ import List from './List.jsx'
 import { connect } from 'react-redux'
 import { createList, fetchList } from '../actions/List.js'
 
-class BoardPage extends React.Component {
+export class BoardPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -31,7 +31,7 @@ class BoardPage extends React.Component {
   render() {
     return (
       <div>
-        <h3>{this.props.boardname}</h3>
+        <h3>{ this.props.boardname }</h3>
         <input onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateList }>CREATE LIST</button>
 
@@ -50,7 +50,7 @@ class BoardPage extends React.Component {
 const mapStateToProps = (state) => {
   return {
     ...state.list,
-    board_id: state.list.board_id,
+    board_id: state.list.id,
     lists: state.list.lists
   }
 }
