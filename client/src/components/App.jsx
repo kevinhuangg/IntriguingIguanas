@@ -7,10 +7,14 @@ import BoardPage from './BoardPage.jsx'
 import SignUpPage from './SignUpPage.jsx'
 import LogInPage from './LogInPage.jsx'
 import UserProfilePage from './UserProfilePage.jsx'
+import io from 'socket.io-client'
 
 export class App extends React.Component {
 	constructor(props) {
 		super(props)
+    this.state = {
+      socket: null
+    }
 
     this.sendToHome = this.sendToHome.bind(this)
     this.sendToLobby = this.sendToLobby.bind(this)
@@ -19,6 +23,17 @@ export class App extends React.Component {
     this.sendToUserProfile = this.sendToUserProfile.bind(this)
 
 	}
+
+  componentWillMount() {
+    var socket = io();
+    this.setState({
+      socket: socket
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.socket.emit('disconnect');
+  }
 
   sendToHome() {
     hashHistory.push('/')
@@ -53,28 +68,34 @@ export class App extends React.Component {
             component={ HomePage }
             sendToLogin={ this.sendToLogin }
             sendToSignup={ this.sendToSignup }
+            socket={ this.state.socket }
           />
-          <Route
-            path="/lobby"
-            component={ Lobby }
+          <Route 
+            path="/lobby" 
+            component={ BoardListPage }
+            socket={ this.state.socket }
           />
           <Route
             path="/lobby/:taskBoardId"
             component={ BoardPage }
             sendToLobby={ this.sendToLobby }
+            socket={ this.state.socket }
           />
           <Route
             path="/signup"
             component={ SignUpPage }
+            socket={ this.state.socket }
           />
           <Route
             path="/login"
-            component={ LogInPage }
+            component={ LogInPage } 
+            socket={ this.state.socket }
           />
-          <Route
-            path="/lobby/user/:id"
-            component={ UserProfilePage }
-          />
+          <Route 
+            path="/lobby/user/:id" 
+            component= { UserProfilePage }
+            socket={ this.state.socket }
+          /> 
         </Router>
       </div>
     )

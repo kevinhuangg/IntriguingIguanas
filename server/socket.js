@@ -1,4 +1,4 @@
-var sockets = require('sockets.io');
+var sockets = require('socket.io');
 var io;
 //import database queries
 
