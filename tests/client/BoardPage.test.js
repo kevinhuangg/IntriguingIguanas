@@ -11,6 +11,9 @@ import Task from '../../client/src/components/Task.jsx'
 
 import TestUtils from 'react-addons-test-utils'
 import { fromJS } from 'immutable'
+import io from 'socket.io-client'
+
+var iosocket = io();
 
 const dummy = {
   id: 1,
@@ -51,11 +54,19 @@ const dummy = {
   ]
 }
 
+const route = {route: {
+  taskBoardId: 1
+}}
+
+const socket = {socket: iosocket}
+
 describe('BoardPage', () => {
   it('should render 2 List components', () => {
     const wrapper = shallow(
       <BoardPage
         lists={ dummy.lists }
+        params={ route }
+        route = { socket }
       />)
     expect(wrapper.find(List).length).toBe(2)
   })

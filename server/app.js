@@ -47,7 +47,8 @@ app.use('/api', router)
 //run psql mydatabase < node_modules/connect-pg-simple/table.sql
 //in order to add a sessions table
 var port = process.env.PORT || 3000
-app.listen(port, function(){
+var server = app.listen(port, function(){
 	console.log(`Magical unicorns will arrive on port ${port}!`);
   console.log('DB CONNECTION AT',dbConfig.config.connection)
 });
+var io = require('./socket.js').init(server);

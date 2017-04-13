@@ -16,6 +16,10 @@ export class BoardPage extends React.Component {
 
   componentWillMount() {
     // this.props.fetchList()
+    console.log('BOARD ID', this.props.params.taskBoardId)
+    var taskBoardId = this.props.params.taskBoardId
+    var socket = this.props.route.socket
+    socket.emit('join-board', { taskBoardId: taskBoardId })
   }
 
   onInputChange(e) {
