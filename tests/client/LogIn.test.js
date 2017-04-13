@@ -12,9 +12,5 @@ describe('LogInPage', () => {
 	  const div = document.createElement('div');
 	  ReactDOM.render(<LogInPage />, div);
   });
-  it('should render login input forms', () => {
-  	const loginPage = renderer.create(<LogInPage />).toJSON();
-  	expect(loginPage).toMatchSnapshot();
 
-  });
 });
