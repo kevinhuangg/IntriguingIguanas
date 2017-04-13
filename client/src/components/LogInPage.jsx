@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { LogIn } from '../actions/LogIn.js'
+import { Link } from 'react-router'
 
 export class LogInPage extends React.Component {
   constructor(props) {
@@ -29,32 +30,39 @@ export class LogInPage extends React.Component {
   }
 
   render() {
-    // console.log(this.props)
-    // console.log(LogIn)
     return (
-      <div>
-        <form onSubmit={ this.handleSubmit }> 
-          <label>
-          Username:
-            <input 
-              type='text' 
-              value={ this.state.username } 
-              onChange={ this.handleUsernameChange }
-            />
-          </label>
-          <label>
-            Password:
-            <input 
-              type='text'
-              value={ this.state.password }
-              onChange={ this.handlePasswordChange }
-            />
-          </label>
-          <input 
-            type='submit' 
-            value='Login'
-          />        
+      <div className='ui raised very padded text container segment'>
+        <div className = 'ui huge header'>Login</div>
+        <form className='ui form' onSubmit={ this.handleSubmit }> 
+          <div className='field'>
+            <label>Username:</label>
+            <div className='ui left icon input'>
+              <input 
+                type='text' 
+                value={ this.state.username } 
+                placeholder='Username'
+                onChange={ this.handleUsernameChange }
+              />
+              <i className='user icon'></i>
+            </div>
+          </div>
+          <div className='field'>
+            <label>Password:</label>
+            <div className='ui left icon input'>
+              <input 
+                type='text'
+                value={ this.state.password }
+                placeholder='Password'
+                onChange={ this.handlePasswordChange }
+              />
+              <i className='lock icon'></i>
+            </div>
+          </div>
+          <button className='ui primary button' type='submit'>Login</button>        
         </form>
+        <div>Don't have an account? Click here to
+          <Link to='/signup'> Sign Up</Link>
+        </div>
       </div>
     )
   }
