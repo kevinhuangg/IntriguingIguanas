@@ -1,5 +1,5 @@
 {
-  "name": "Roots.io",
+  "name": "Root.io",
   "version": "1.0.0",
   "description": "A singular platform that integrates all the tools necessary for live and remote collaboration",
   "main": "index.js",
@@ -58,6 +58,7 @@
   "devDependencies": {
     "babel-jest": "^19.0.0",
     "enzyme": "^2.8.0",
+    "immutable": "^3.8.1",
     "jest": "^19.0.2",
     "nodemon": "^1.11.0",
     "react-addons-test-utils": "^15.5.1",

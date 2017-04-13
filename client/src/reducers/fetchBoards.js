@@ -1,10 +1,10 @@
 const initialState = {
-  boardlist: [{boardName: "BOARD 1"}, {boardName: "BOARD 2"}],
+  boardlist: [{boardname: 'INCONCEIVABLE IGUANAS'}, {boardname: 'ERRANDS'}],
   fetchingBoards: false,
   error: null
 }
 
-function fetchBoards(state=initialState, action) {
+function fetchBoards(state = initialState, action) {
   switch (action.type) {
     case 'FETCHING_BOARDS':
       return {

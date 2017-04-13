@@ -16,7 +16,7 @@ const app = express();
 passConfig(passport)
 
 app.use(cookieParser()); //read cookies needed for auth
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
 
 // Sets up /client as static directory
@@ -30,7 +30,7 @@ const options = {
   saveUninitialized: false,
   store: new pgStore({
     conString: dbConfig.config.connection
-  })  
+  })
 }
 
 app.use(session(options));
@@ -48,6 +48,6 @@ app.use('/api', router)
 //in order to add a sessions table
 var port = process.env.PORT || 3000
 app.listen(port, function(){
-	console.log(`Magical Unicorns will arrive on port ${port}!`);
-  console.log('check var',dbConfig.config.connection)
+	console.log(`Magical unicorns will arrive on port ${port}!`);
+  console.log('DB CONNECTION AT',dbConfig.config.connection)
 });

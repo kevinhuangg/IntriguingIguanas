@@ -1,7 +1,8 @@
 import React from 'react'
-import BoardListPage from './BoardListPage.jsx'
+import Lobby from './Lobby.jsx'
+import BoardPage from './BoardPage.jsx'
 
-class HomePage extends React.Component {
+export class HomePage extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -10,7 +11,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <h1>Root.io is your one stop shop with all the tools necessary for live and remote collaboration.</h1>
-        <h2>With shared project boards and video chat, your team can manage tasks seamlessly.</h2> 
+        <h2>With shared project boards and video chat, your team can manage tasks seamlessly.</h2>
         <button onClick={ this.props.route.sendToSignup }>Sign Up</button>
         <div onClick={ this.props.route.sendToLogin }>Already a Root.io user? Log in.</div>
       </div>

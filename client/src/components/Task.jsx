@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Task = () => {
+export const Task = (props) => {
   return (
     <div>
-      Hello world!
+      . { props.text } – assigned to { props.assigned }
     </div>
   )
 }

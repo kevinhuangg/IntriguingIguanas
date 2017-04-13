@@ -1,12 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { App } from 'App'
+import renderer from 'react-test-renderer'
 import { shallow, mount } from 'enzyme'
 import { LogInPage } from 'LogInPage'
-import renderer from 'react-test-renderer'
 
-
-describe('LogInPage', () => { 
+describe('LogInPage', () => {
   it('should be able to run tests', () => {
 	  expect(1 + 2).toEqual(3);
   });
@@ -17,6 +15,6 @@ describe('LogInPage', () => {
   it('should render login input forms', () => {
   	const loginPage = renderer.create(<LogInPage />).toJSON();
   	expect(loginPage).toMatchSnapshot();
-  	
-  });  
+
+  });
 });
