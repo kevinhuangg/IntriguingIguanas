@@ -1,4 +1,5 @@
 let initialState = {
+  username: null, 
   error: null,
   isValidating: false,
   isInvalid: false,
@@ -21,6 +22,7 @@ const LogIn = (state=initialState, action) => {
     case 'LOG_IN_SUCCESS': 
       return {
         ...initialState,
+        username: action.username
       }
     default:
       return state
