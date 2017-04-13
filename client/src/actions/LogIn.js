@@ -13,10 +13,10 @@ export function LogInFailure(error) {
   }
 }
 
-export function LogInSuccess(data) {
+export function LogInSuccess(username) {
   return {
     type: 'LOG_IN_SUCCESS',
-    data
+    username
   }
 }
 
@@ -25,7 +25,7 @@ export function LogIn(username, password) {
     dispatch(LoggingIn())
     axios.post('/login', {username, password})
     .then(data => {
-      dispatch(LogInSuccess(data))
+      dispatch(LogInSuccess(JSON.parse(data.config.data).username))
       const route = data.data.redirect
       if (typeof route === 'string') {
         window.location = '/#' + route

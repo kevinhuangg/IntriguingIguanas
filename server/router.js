@@ -1,4 +1,5 @@
-const router = require(express).Router();
+const router = require('express').Router();
+const User = require('./routes/user');
 
 //board routes
 
@@ -7,4 +8,8 @@ const router = require(express).Router();
 //task routes
 
 //user routes
+//Create new user
+router.post('/signup', User.postUser);
+
+module.exports = router; 
   

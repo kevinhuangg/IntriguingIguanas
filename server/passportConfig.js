@@ -1,5 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../database/db-queries/User.js');
+const bcrypt = require('bcrypt');
 
 module.exports = function(passport) {
 
@@ -23,7 +24,6 @@ module.exports = function(passport) {
     passReqToCallback: true
   }, 
   function(req, username, password, done) {
-    // console.log('username', username)
     User.getUserByName(username).then(user => {
       // console.log('user', user.rows[0])
       if (!user.rows[0]) {
@@ -31,9 +31,17 @@ module.exports = function(passport) {
         done(null,false)
       }
       //TODO: chcek to see if password is a match
-      done(null, user.rows[0])
+      bcrypt.compare(password, user.rows[0].password)
+      .then(res => {
+        // console.log("SAME SAME but different")
+        if (res) {
+          done(null, user.rows[0])    
+        } else {
+          console.log("Wrong password")
+        }
+      })
     })
-    .catch(err => {
+    .catch(error => {
       console.log(err)
     })
   }))
