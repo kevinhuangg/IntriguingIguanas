@@ -15,7 +15,8 @@ const initialState = {
       list_id: 1,
       assigned: 'Christine'
     }
-  ]
+  ],
+  createError: null
 }
 
 const task = (state = initialState, action) => {
@@ -24,10 +25,10 @@ const task = (state = initialState, action) => {
       return {
         ...state
       }
-    case 'CREATE_ERROR':
+    case 'CREATE_TASK_ERROR':
       return {
         ...state,
-        error: action.error
+        createError: action.createError
       }
     case 'CREATE_TASK':
       for (var i = 0; i < state.lists.length; i++) {

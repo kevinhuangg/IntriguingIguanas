@@ -70,8 +70,8 @@ export class App extends React.Component {
             sendToSignup={ this.sendToSignup }
             socket={ this.state.socket }
           />
-          <Route 
-            path="/lobby" 
+          <Route
+            path="/lobby"
             component={ Lobby }
             socket={ this.state.socket }
           />
@@ -87,13 +87,13 @@ export class App extends React.Component {
           />
           <Route
             path="/login"
-            component={ LogInPage } 
+            component={ LogInPage }
           />
-          <Route 
-            path="/lobby/user/:id" 
+          <Route
+            path="/lobby/user/:id"
             component= { UserProfilePage }
             socket={ this.state.socket }
-          /> 
+          />
         </Router>
       </div>
     )

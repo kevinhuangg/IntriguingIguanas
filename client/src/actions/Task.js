@@ -6,14 +6,14 @@ export const taskCreated = () => {
   }
 }
 
-export const createError = (error) => {
+export const createTaskError = (createError) => {
   return {
-    type: 'CREATE_ERROR',
-    error
+    type: 'CREATE_TASK_ERROR',
+    createError
   }
 }
 
-export function createTask(text, list_id) {
+export const createTask = (text, list_id) => {
   return {
     type: 'CREATE_TASK',
     text,

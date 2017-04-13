@@ -41,8 +41,8 @@ const initialState = {
       ]
     }
   ],
-  createError: null,
   fetching: false,
+  createError: null,
   fetchError: null
 }
 
@@ -53,10 +53,10 @@ const list = (state = initialState, action) => {
       return {
         ...state
       }
-    case 'CREATE_ERROR':
+    case 'CREATE_LIST_ERROR':
       return {
         ...state,
-        error: action.error
+        createError: action.createError
       }
     case 'CREATE_LIST':
       return {
@@ -74,12 +74,12 @@ const list = (state = initialState, action) => {
     case 'LISTS_FETCHED':
       return {
         ...state,
-        allLists: action.allLists
+        lists: action.lists
       }
-    case 'FETCH_ERROR':
+    case 'FETCH_LISTS_ERROR':
       return {
         ...state,
-        error: action.error
+        fetchError: action.fetchError
       }
 
     default:
