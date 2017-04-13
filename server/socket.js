@@ -17,10 +17,14 @@ module.exports = {
 		io.on('connection', function(socket) {
 			console.log('Connected to ' + socket);
 			
-			socket.on('join-board', function(board_id) {
-				socket.join(board, function () {
-					currentBoard = board;
-					console.log('joined ' + board)
+			socket.on('join-board', function(data) {
+				// console.log( typeof data.taskBoardId)
+				var room = data.taskBoardId
+				socket.join(room)
+				console.log('joined ' + room)
+				io.of('/').in(room).clients(function(error, clients) {
+					if (error) throw error;
+					console.log(`Clients in room ${room}: ${clients}`);
 				});
 			})
 

@@ -72,7 +72,7 @@ export class App extends React.Component {
           />
           <Route 
             path="/lobby" 
-            component={ BoardListPage }
+            component={ Lobby }
             socket={ this.state.socket }
           />
           <Route
