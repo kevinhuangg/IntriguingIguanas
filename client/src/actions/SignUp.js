@@ -25,7 +25,10 @@ export function SignUp(username, email, password) {
   return (dispatch) => {
     dispatch(SigningUp())
     axios.post('/api/signup', {username, email, password})
-    .then(data => dispatch(SignUpSuccess(data)))
+    .then(data => { 
+      dispatch(SignUpSuccess(data))
+      window.location = '/#/login'
+    })
     .catch(error => dispatch(SignUpFailure(error)))
   }
 }
