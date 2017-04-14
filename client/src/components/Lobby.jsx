@@ -2,8 +2,7 @@ import React from 'react'
 import { hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import BoardPage from './BoardPage.jsx'
-import { createBoard } from '../actions/createBoard'
-import { fetchBoards } from '../actions/fetchBoards'
+import { createBoard, fetchBoards } from '../actions/Board'
 
 export class Lobby extends React.Component {
   constructor(props) {
@@ -15,6 +14,10 @@ export class Lobby extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentWillMount() {
+    // this.props.fetchBoards()
+  }
+
   handleBoardNameChange(e) {
     this.setState({
       boardName: e.target.value
@@ -23,7 +26,7 @@ export class Lobby extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.submitBoard(this.state.boardName)
+    this.props.createBoard(this.state.boardName)
   }
 
   render() {
@@ -35,7 +38,7 @@ export class Lobby extends React.Component {
           onChange={ this.handleBoardNameChange }
         />
         <button onClick={ this.handleSubmit }>CREATE BOARD</button>
-        { this.props.boardlist.map((board) => (
+        { this.props.boards.map((board) => (
           <div
             key={ board.boardname }
             onClick={ () => this.props.sendToLobby(board.board_id) }
@@ -48,14 +51,14 @@ export class Lobby extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    boardlist: state.fetchBoards.boardlist
+    boards: state.board.boards
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    submitBoard: (boardName) => { dispatch(createBoard(boardName)) },
-    getBoards: () => { dispatch(fetchBoards()) }
+    createBoard: (boardName) => { dispatch(createBoard(boardName)) },
+    fetchBoards: () => { dispatch(fetchBoards()) }
   }
 }
 

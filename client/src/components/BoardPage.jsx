@@ -1,7 +1,7 @@
 import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
-import { createList, fetchList } from '../actions/List.js'
+import { createList, fetchLists } from '../actions/List.js'
 
 export class BoardPage extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ export class BoardPage extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.fetchList()
+    // this.props.fetchLists()
     console.log('BOARD ID', this.props.params.taskBoardId)
     var taskBoardId = this.props.params.taskBoardId
     var socket = this.props.route.socket
@@ -61,7 +61,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createList: (boardname, board_id) => { dispatch(createList(boardname, board_id)) }
+    createList: (boardname, board_id) => { dispatch(createList(boardname, board_id)) },
+    fetchLists: () => { dispatch(fetchLists()) }
   }
 }
 

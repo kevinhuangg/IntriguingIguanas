@@ -7,10 +7,10 @@ export const listCreated = () => {
   }
 }
 
-export const createError = (error) => {
+export const createError = (createError) => {
   return {
-    type: 'CREATE_ERROR',
-    error
+    type: 'CREATE_LIST_ERROR',
+    createError
   }
 }
 
@@ -40,14 +40,14 @@ export const fetchingLists = () => {
 export const listsFetched = (lists) => {
   return {
     type: 'LISTS_FETCHED',
-    allLists: lists
+    lists: lists
   }
 }
 
-export const fetchError = (error) => {
+export const fetchListsError = (fetchError) => {
   return {
-    type: 'FETCH_ERROR',
-    error: error
+    type: 'FETCH_LISTS_ERROR',
+    fetchError
   }
 }
 
@@ -56,7 +56,7 @@ export const fetchLists = (board_id) => {
     dispatch(fetchingLists())
 
     axios.post('/list', {board_id})
-    .then(res => dispatch(listFetched(res.data)))
-    .catch(error => dispatch(fetchError(error)))
+    .then(res => dispatch(listsFetched(res.data)))
+    .catch(error => dispatch(fetchListsError(error)))
   }
 }
