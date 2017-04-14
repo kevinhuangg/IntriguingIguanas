@@ -1,3 +1,6 @@
+const { addList } = require('../database/db-queries/list.js')
+const { fetchBoard } = require('../database/db-queries/board.js')
+
 var sockets = require('socket.io');
 var io;
 //import database queries
@@ -27,7 +30,24 @@ module.exports = {
 
 				//socket listening to the 'create list event'
 				socket.on('create-list', function(data) {
-					console.log('create list socket fired.', data)
+					// console.log('create list socket fired.', data)
+					addList(data.name, data.boardId)
+					.then(msg => {
+						console.log('List created', msg)
+						fetchBoard(data.boardId)
+						.then(board => {
+						  // console.log('Retrieved board', board)
+						  socket.emit('update-board', board)
+						})
+						.catch(err => {
+							console.log('Retrieving board error')
+						})
+					})
+					.catch(err => {
+						console.log('Error creating list', err)
+					})
+
+
 				});
 
 			})

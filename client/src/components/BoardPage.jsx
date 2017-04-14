@@ -17,6 +17,9 @@ export class BoardPage extends React.Component {
   componentWillMount() {
     var socket = this.props.route.socket
     socket.emit('join-board', { taskBoardId: this.props.board_id })
+    socket.on('update-board', function(board) {
+      console.log(board, "returned board")
+    })
   }
 
   onInputChange(e) {
