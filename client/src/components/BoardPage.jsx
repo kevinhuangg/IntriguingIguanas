@@ -13,14 +13,17 @@ export class BoardPage extends React.Component {
     this.onCreateList = this.onCreateList.bind(this)
     
     var socket = this.props.route.socket
+    // socket.on('fetch-lists', (res) => {
+    //   this.props.listsFetched(res.rows)
+    // })
     socket.on('update-board', (res) => {
-      this.props.lis2tsFetched(res.rows)
+      this.props.listsFetched(res.rows)
     })
   }
 
   componentWillMount() {
     var socket = this.props.route.socket
-    socket.emit('join-board', { taskBoardId: this.props.board_id.toString() })
+    socket.emit('join-board', { taskBoardId: this.props.board_id })
   }
 
   onInputChange(e) {
