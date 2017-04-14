@@ -15,11 +15,8 @@ export class BoardPage extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.fetchLists()
-    console.log('BOARD ID', this.props.params.taskBoardId)
-    var taskBoardId = this.props.params.taskBoardId
     var socket = this.props.route.socket
-    socket.emit('join-board', { taskBoardId: taskBoardId })
+    socket.emit('join-board', { taskBoardId: this.props.board_id })
   }
 
   onInputChange(e) {
@@ -29,14 +26,17 @@ export class BoardPage extends React.Component {
   }
 
   onCreateList() {
-    this.props.createList(this.state.listName, this.props.board_id)
+    var socket = this.props.route.socket
+    socket.emit('create-list', { boardId: this.props.board_id, name: this.state.listName })
+    this.setState({ listName: ''})
+
   }
 
   render() {
     return (
       <div>
         <h3>{ this.props.boardname }</h3>
-        <input onChange={ this.onInputChange }/>
+        <input value={ this.state.listName } onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateList }>CREATE LIST</button>
 
         { this.props.lists.map((list, index) =>
