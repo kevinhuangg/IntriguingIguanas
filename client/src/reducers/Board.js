@@ -1,5 +1,6 @@
 const initialState = {
   boards: [{boardname: 'INCONCEIVABLE IGUANAS'}, {boardname: 'ERRANDS'}],
+  
   fetchingBoards: false,
   creatingBoard: false,
   createError: null,

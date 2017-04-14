@@ -11,7 +11,7 @@ export class List extends React.Component {
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateTask = this.onCreateTask.bind(this)
-    console.log('---> TASK PROPS', this.props)
+    // console.log('---> TASK PROPS', this.props)
   }
 
   onInputChange(e) {
@@ -30,14 +30,6 @@ export class List extends React.Component {
         <h4>{ this.props.listname }</h4>
         <input onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateTask }>CREATE TASK</button>
-
-        { this.props.tasks.map((task, index) =>
-          <Task
-            key={ task.id }
-            text={ task.text }
-            assigned={ task.assigned }
-            index={ index }
-          />) }
       </div>
     )
   }

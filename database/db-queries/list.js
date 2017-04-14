@@ -1,6 +1,10 @@
 const db = require('../db.js');
 
 module.exports = {
+  //fetch list to db
+  fetchLists: (boardID) =>{
+    return db.query(`SELECT * FROM lists WHERE board_id=${boardID}`)
+  },
   //add list to db
   addList: (name, boardID) =>{
     return db.query(`INSERT INTO lists (listname, board_id) VALUES ('${name}', ${boardID})`)

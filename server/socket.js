@@ -1,5 +1,6 @@
 const { addList } = require('../database/db-queries/list.js')
 const { fetchBoard } = require('../database/db-queries/board.js')
+const { fetchLists } = require('../database/db-queries/list.js') 
 
 var sockets = require('socket.io');
 var io;
@@ -19,25 +20,20 @@ module.exports = {
 			console.log('Connected to ' + socket);
 			
 			socket.on('join-board', function(data) {
-				// console.log( typeof data.taskBoardId)
-				var room = data.taskBoardId
+				var room = data.taskBoardId			
 				socket.join(room)
-				console.log('joined ' + room)
 				io.of('/').in(room).clients(function(error, clients) {
 					if (error) throw error;
 					console.log(`Clients in room ${room}: ${clients}`);
 				});
-
-				//socket listening to the 'create list event'
+// <------------- CREATE LIST ------------->
 				socket.on('create-list', function(data) {
-					// console.log('create list socket fired.', data)
 					addList(data.name, data.boardId)
 					.then(msg => {
-						console.log('List created', msg)
-						fetchBoard(data.boardId)
-						.then(board => {
-						  // console.log('Retrieved board', board)
-						  socket.emit('update-board', board)
+						fetchLists(data.boardId)
+						.then(lists => {
+						  socket.emit('update-board', lists)
+						  socket.to(room).emit('update-board', lists)
 						})
 						.catch(err => {
 							console.log('Retrieving board error')
@@ -46,8 +42,6 @@ module.exports = {
 					.catch(err => {
 						console.log('Error creating list', err)
 					})
-
-
 				});
 
 			})
