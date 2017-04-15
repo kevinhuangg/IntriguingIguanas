@@ -1,0 +1,31 @@
+.navbar {
+  margin-bottom: 0;
+}
+
+.navbar-brand,
+.navbar-nav li a {
+  line-height: 90px;
+  height: 90px;
+  width: 90px;
+  text-align: center;
+  padding-top: 0;
+}
+
+.jumbotron {
+  margin-bottom: 0;
+}
+
+.navbar-brand {
+  padding: 0px; /* firefox bug fix */
+}
+
+.navbar-brand>img {
+  height: 100%;
+  padding: 9px; /* firefox bug fix */
+  width: auto;
+}
+
+.jumbotron{
+  padding: 80px;
+  height: 100%;
+}
