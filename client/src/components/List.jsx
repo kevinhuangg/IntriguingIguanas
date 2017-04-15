@@ -17,7 +17,6 @@ export class List extends React.Component {
     this.saveListName = this.saveListName.bind(this)
 
     var socket = this.props.socket
-
     socket.on('update tasks', (tasks) => {
 
     })

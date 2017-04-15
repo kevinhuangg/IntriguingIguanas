@@ -35,7 +35,7 @@ export class LogInPage extends React.Component {
 
   render() {
     return (
-      <div className='ui raised very padded text container segment'>
+      <div className='ui raised very padded text centered grid'>
         <div className = 'ui huge header'>Login</div>
         <form className='ui form' onSubmit={ this.handleSubmit }>
           <div className='field'>
@@ -68,6 +68,7 @@ export class LogInPage extends React.Component {
         <div>Don't have an account?
           <Link to='/signup'> Sign Up</Link>
         </div>
+        </form>
       </div>
     )
   }

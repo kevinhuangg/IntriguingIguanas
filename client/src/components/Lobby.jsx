@@ -3,6 +3,7 @@ import { hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import BoardPage from './BoardPage.jsx'
 import { createBoard, fetchBoards } from '../actions/Board'
+import SideBar from './SideBar.jsx'
 
 export class Lobby extends React.Component {
   constructor(props) {
@@ -35,6 +36,7 @@ export class Lobby extends React.Component {
     console.log('BOARDS', this.props.boards)
     return (
       <div>
+        <SideBar />
         <input
           value={ this.state.boardName }
           onChange={ this.handleBoardNameChange }
