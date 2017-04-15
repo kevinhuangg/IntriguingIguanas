@@ -19,7 +19,7 @@ module.exports.createBoard = (req, res, next) => {
   console.log(name, user_id)
   Board.addBoard(name, user_id)
   .then(results => {
-    console.log(results);
+    res.send();
   })
   .catch(error => {
     console.log(error);

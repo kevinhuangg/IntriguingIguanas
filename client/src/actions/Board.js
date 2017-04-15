@@ -28,7 +28,13 @@ export function createBoard(boardName , user_id) {
       boardname: boardName,
       user_id: user_id
     })
-    .then(results => dispatch(boardCreated()))
+    .then(results => {
+      dispatch(boardCreated());
+    })
+    .then(() => {
+      console.log(fetchBoards)
+      dispatch(fetchBoards(user_id));
+    })
     .catch(error => dispatch(boardError(error)))
   }
 }
