@@ -5,8 +5,11 @@ module.exports = {
   addBoard: (name, userId) =>{
     return db.query(`INSERT INTO boards (boardname) VALUES ('${name}') RETURNING id`)
       .then(board => {
-        //after adding a board update join table for users and boards
-        return db.query(`INSERT INTO users_boards (user_id, board_id) VALUES (${userId},${board.id})`)
+        var board = board.rows[0].id
+        return db.query(`INSERT INTO users_boards (user_id, board_id) VALUES (${userId},${board})`)
+      })
+      .catch(error => {
+        console.log(error)
       })
   },
   //edit list name in db
