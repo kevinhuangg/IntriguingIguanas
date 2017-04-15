@@ -1,6 +1,7 @@
 import React from 'react'
 import { hashHistory } from 'react-router'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import BoardPage from './BoardPage.jsx'
 import { createBoard, fetchBoards } from '../actions/Board'
 
@@ -40,15 +41,13 @@ export class Lobby extends React.Component {
           onChange={ this.handleBoardNameChange }
         />
         <button onClick={ this.handleSubmit }>CREATE BOARD</button>
-        { this.props.boards.map((board) => 
-        {return(
-          <div
-            key={ board.boardname }
-            onClick={ () => this.props.sendToLobby(board.board_id) }
-          >{ board.boardname }
-          </div>)
-        }
-        )}
+        { this.props.boards.map((board) => (
+            <div>
+              <Link to={`/lobby/${board.board_id}`}>
+              { board.boardname }
+              </Link>
+            </div>
+        )) }
       </div>
     )
   }
