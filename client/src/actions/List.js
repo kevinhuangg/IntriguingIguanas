@@ -42,22 +42,3 @@ export const fetchListsError = (fetchError) => {
     fetchError
   }
 }
-
-// ------------UPDATE ------------------
-function updateBoard(boardname) {
-  return {
-    type: 'UPDATE_BOARD',
-    boardname,
-    
-  }
-}
-
-// export const fetchLists = (board_id) => {
-//   return (dispatch) => {
-//     dispatch(fetchingLists())
-
-//     axios.post('/list', {board_id})
-//     .then(res => dispatch(listsFetched(res.data)))
-//     .catch(error => dispatch(fetchListsError(error)))
-//   }
-// }
