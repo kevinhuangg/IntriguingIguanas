@@ -3,5 +3,14 @@
 const Board = require('../../database/db-queries/board.js');
 
 module.exports.getUserBoards = (req, res, next) => {
-  console.log(req.body);
+  var user_id = req.query.user_id
+  console.log('USER ID****', user_id);
+  Board.fetchBoardNames(user_id)
+  .then(results => {
+    console.log(results.rows)
+    res.send(results.rows)
+  })
+  .catch(error => {
+    console.log(error)
+  })
 }

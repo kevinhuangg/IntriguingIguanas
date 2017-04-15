@@ -7,7 +7,6 @@ module.exports = function(app, passport) {
     (req, res) => {
       //DB query goes here for userID
       var username = req.body.username
-      console.log(username)
       var userid;
       User.getUserIDbyName(username)
       .then(results => {
