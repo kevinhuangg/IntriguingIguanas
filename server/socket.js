@@ -1,6 +1,15 @@
-const { addList } = require('../database/db-queries/list.js')
-const { fetchBoard } = require('../database/db-queries/board.js')
-const { fetchLists } = require('../database/db-queries/list.js') 
+// const { addList } = require('../database/db-queries/list.js')
+const {
+  fetchBoard
+} = require('../database/db-queries/board.js')
+const {
+  addList,
+  fetchLists
+} = require('../database/db-queries/list.js')
+const {
+  addTask,
+  fetchTasks
+} = require('../database/db-queries/task.js')
 
 var sockets = require('socket.io');
 var io;
@@ -10,54 +19,78 @@ var rooms = [];
 var currentBoard = null;
 
 module.exports = {
-  io: function() {
-    return io;
-  },
-  init: function(server) {
-    io = sockets(server);
+    io: function() {
+      return io;
+    },
+    init: function(server) {
+      io = sockets(server);
 
-    io.on('connection', function(socket) {
-      console.log('Connected to ' + socket);
-      
-      socket.on('join-board', function(data) {
-        var room = data.taskBoardId.toString()
-        
-        fetchLists(data.taskBoardId)
-        .then(lists => {
-          socket.emit('update-board', lists)
-          socket.to(room).emit('update-board', lists)
-        })    
-        socket.join(room)
-        io.of('/').in(room).clients(function(error, clients) {
-          if (error) throw error;
-          console.log(`Clients in room ${room}: ${clients}`);
-        });
-// <------------- CREATE LIST ------------->
-        socket.on('create-list', function(data) {
-          addList(data.name, data.boardId)
-          .then(msg => {
-            fetchLists(data.boardId)
+      io.on('connection', function(socket) {
+        console.log('Connected to ' + socket);
+
+        socket.on('join-board', function(data) {
+          var room = data.taskBoardId.toString()
+
+          fetchLists(data.taskBoardId)
             .then(lists => {
               socket.emit('update-board', lists)
               socket.to(room).emit('update-board', lists)
             })
-            .catch(err => {
-              console.log('Retrieving board error')
+          socket.join(room)
+          io.of('/').in(room).clients(function(error, clients) {
+            if (error) throw error;
+            console.log(`Clients in room ${room}: ${clients}`);
+          });
+        // <------------- CREATE LIST ------------->
+        socket.on('create-list', function(data) {
+          addList(data.name, data.boardId)
+            .then(msg => {
+              fetchLists(data.boardId)
+                .then(lists => {
+                  socket.emit('update-board', lists)
+                  socket.to(room).emit('update-board', lists)
+                })
+                .catch(err => {
+                  console.log('Retrieving board error')
+                })
             })
-          })
-          .catch(err => {
-            console.log('Error creating list', err)
-          })
+            .catch(err => {
+              console.log('Error creating list', err)
+            })
         });
 
+        // ------------- TASKS -------------
+        socket.on('create-task', function(data) {
+          addTask(data.list_id, data.text)
+            .then(results => {
+              socket.emit('update-listID-' + data.list_id)
+              socket.to(room).emit('update-listID-' + data.list_id)
+            })
+            .catch(err => {
+              console.log('Error creating tasks', err)
+            })
+        });
+
+
+        socket.on('fetch-tasks', (data) => {
+          fetchTasks(data.list_id)
+            .then(pgData => {
+              let tasksFetched = 'tasks-fetched-listID-' + data.list_id
+
+              socket.emit(tasksFetched, pgData.rows)
+              socket.to(room).emit(tasksFetched, pgData.rows)
+            })
+            .catch(err => {
+              console.log('Retrieving tasks error')
+            })
+        })
+
+        socket.on('disconnect', function() {
+          console.log('client disconnected')
+        });
+
+        return io;
       })
-
-      socket.on('disconnect', function () {
-        console.log('client disconnected')
-      });
     })
-
-    return io;
   }
-
 }

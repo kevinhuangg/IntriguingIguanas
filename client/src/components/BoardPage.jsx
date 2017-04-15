@@ -1,7 +1,7 @@
 import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
-import { createList, listsFetched } from '../actions/List.js'
+import { listsFetched } from '../actions/List.js'
 import io from 'socket.io-client'
 
 export class BoardPage extends React.Component {
@@ -13,15 +13,13 @@ export class BoardPage extends React.Component {
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateList = this.onCreateList.bind(this)
-
   }
 
   componentWillMount() {
     var socket = io();
     this.setState({
       socket: socket
-    }, () =>{
-      console.log('INSIDE SET STATE CALLBACK')
+    }, () => {
       this.state.socket.emit('join-board', { taskBoardId: this.props.board_id })
       this.state.socket.on('update-board', (res) => {
         this.props.listsFetched(res.rows)
@@ -58,6 +56,7 @@ export class BoardPage extends React.Component {
             key={ index }
             socket = { this.state.socket }
             listname={ list.listname }
+            list_id={ list.id }
             index={ index }
           />) }
       </div>
@@ -75,7 +74,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createList: (boardname, board_id) => { dispatch(createList(boardname, board_id)) },
     listsFetched: (lists) => { dispatch(listsFetched(lists)) }
   }
 }

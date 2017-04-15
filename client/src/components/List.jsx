@@ -1,7 +1,6 @@
 import React from 'react'
 import Task from './Task.jsx'
 import { connect } from 'react-redux'
-import { createTask } from '../actions/Task.js'
 import { editingListName, saveListName } from '../actions/List.js'
 
 export class List extends React.Component {
@@ -9,18 +8,29 @@ export class List extends React.Component {
     super(props)
     this.state = {
       text: '',
-      isEditing: false
+      isEditing: false,
+      tasks: []
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateTask = this.onCreateTask.bind(this)
     this.onEditListName = this.onEditListName.bind(this)
-    this.saveListName = this.saveListName.bind(this)
+    this.updateListName = this.updateListName.bind(this)
 
-    var socket = this.props.socket
-
-    socket.on('update tasks', (tasks) => {
-
+    this.props.socket.on('update-listID-' + this.props.list_id, () => {
+      this.props.socket.emit('fetch-tasks', { list_id: this.props.list_id })
     })
+
+    let tasksFetched = 'tasks-fetched-listID-' + this.props.list_id
+    this.props.socket.on(tasksFetched, (tasks) => {
+      console.log('---> TASKS ON tasks-fetched', tasks)
+      this.setState({
+        tasks: tasks
+      })
+    })
+  }
+
+  componentWillMount() {
+    this.props.socket.emit('fetch-tasks', { list_id: this.props.list_id })
   }
 
   onInputChange(e) {
@@ -30,7 +40,7 @@ export class List extends React.Component {
   }
 
   onCreateTask() {
-    this.props.createTask(this.state.text, this.props.list_id)
+    this.props.socket.emit('create-task', { list_id: this.props.list_id, text: this.state.text })
   }
 
   onEditListName() {
@@ -39,12 +49,11 @@ export class List extends React.Component {
     })
   }
 
-  saveListName() {
-    this.props.saveListName(false)
+  updateListName() {
+    this.props.saveListName()
   }
 
   render() {
-    // console.log(this.props)
     return (
       <div>
         <div>
@@ -52,30 +61,22 @@ export class List extends React.Component {
           { this.state.isEditing &&
             <div>
               <input type='text' value=''/>
-              <button>Save</button>
+              <button>SAVE</button>
             </div>
           }
         </div>
         <input onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateTask }>CREATE TASK</button>
+
+        { this.state.tasks.map((task, index) =>
+          <Task
+            key={ index }
+            text={ task.text }
+            // assigned={ this.state.assigned }
+          />) }
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    ...state.list,
-    list_id: state.list.id
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createTask: (taskname, list_id) => {
-      dispatch(createTask(taskname, list_id))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(List)
+export default List
