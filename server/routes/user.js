@@ -3,7 +3,7 @@
 const db = require('../../database/db-queries/User.js');
 const bcrypt = require('bcrypt');
 
-module.exports.postUser = function(req, res) {
+module.exports.postUser = function(req, res) { //user account creation
   const saltRounds = 10; 
   bcrypt.hash(req.body.password, saltRounds)
   .then(hash => {
