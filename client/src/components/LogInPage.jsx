@@ -10,7 +10,7 @@ export class LogInPage extends React.Component {
       username: '',
       password: ''
     }
-  
+
     this.handleUsernameChange = this.handleUsernameChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -27,19 +27,23 @@ export class LogInPage extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     this.props.submitLogIn(this.state.username, this.state.password)
+    this.setState({
+      username: '',
+      password: ''
+    })
   }
 
   render() {
     return (
       <div className='ui raised very padded text container segment'>
         <div className = 'ui huge header'>Login</div>
-        <form className='ui form' onSubmit={ this.handleSubmit }> 
+        <form className='ui form' onSubmit={ this.handleSubmit }>
           <div className='field'>
             <label>Username:</label>
             <div className='ui left icon input'>
-              <input 
-                type='text' 
-                value={ this.state.username } 
+              <input
+                type='text'
+                value={ this.state.username }
                 placeholder='Username'
                 onChange={ this.handleUsernameChange }
               />
@@ -49,7 +53,7 @@ export class LogInPage extends React.Component {
           <div className='field'>
             <label>Password:</label>
             <div className='ui left icon input'>
-              <input 
+              <input
                 type='text'
                 value={ this.state.password }
                 placeholder='Password'
@@ -58,9 +62,10 @@ export class LogInPage extends React.Component {
               <i className='lock icon'></i>
             </div>
           </div>
-          <button className='ui primary button' type='submit'>Login</button>        
+          <button className='ui primary button' type='submit'>Login</button>
         </form>
-        <div>Don't have an account? Click here to
+        <div>{ this.props.error }</div>
+        <div>Don't have an account?
           <Link to='/signup'> Sign Up</Link>
         </div>
       </div>
@@ -69,7 +74,8 @@ export class LogInPage extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    ...state
+    ...state,
+    error: state.LogIn.error
   }
 }
 

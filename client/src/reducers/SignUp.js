@@ -1,8 +1,8 @@
 let initialState = {
   // username: '',
   // password: '',
-  error: null, 
-  isValidating: false, 
+  error: null,
+  isValidating: false,
   isInvalid: false
 }
 
@@ -22,10 +22,10 @@ const SignUp = (state=initialState, action) => {
       }
     case 'SIGN_UP_FAILURE':
       return {
-        ...state, 
+        ...state,
         isValidating: false,
         isInvalid: true,
-        error: action.error
+        error: 'Username or email has been taken!'
       }
     case 'SIGN_UP_SUCCESS':
       return {
@@ -33,7 +33,7 @@ const SignUp = (state=initialState, action) => {
       }
     default:
       return state
-  } 
+  }
 }
 
 export default SignUp
