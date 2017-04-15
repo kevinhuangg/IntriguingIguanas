@@ -74,6 +74,7 @@ export class Lobby extends React.Component {
     console.log('> BOARDS', this.props.boards)
     return (
       <div>
+        <SideBar />
         <input
           value={ this.state.boardName }
           onChange={ this.handleBoardNameChange }

@@ -10,6 +10,7 @@ export class HomePage extends React.Component {
 
   render() {
     return (
+<<<<<<< HEAD
     <div>
       <nav className="navbar navbar-default">
       <div className="container-fluid">
