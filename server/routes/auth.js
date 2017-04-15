@@ -1,9 +1,9 @@
 const User = require('../../database/db-queries/user.js');
 
 
-module.exports = function(app, passport) { 
-  app.post('/login', 
-    passport.authenticate('local-login'), 
+module.exports = function(app, passport) {
+  app.post('/login',
+    passport.authenticate('local-login'),
     (req, res) => {
       //DB query goes here for userID
       var username = req.body.username
@@ -19,9 +19,3 @@ module.exports = function(app, passport) {
       .catch(error => {
         console.log(error)
       }) //username
-
-
-    }
-  )
-
-}

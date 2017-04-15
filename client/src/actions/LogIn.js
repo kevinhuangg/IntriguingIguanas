@@ -6,9 +6,9 @@ export function LoggingIn() {
   }
 }
 
-export function LogInFailure(error) {
+export function LogInError(error) {
   return {
-    type: 'LOG_IN_FAILURE',
+    type: 'LOG_IN_ERROR',
     error
   }
 }
@@ -28,13 +28,14 @@ export function LogIn(username, password) {
     .then(data => {
       var username = JSON.parse(data.config.data).username
       var user_id = data.data.user_id
-      console.log('USERID', user_id)
       const route = data.data.redirect
       dispatch(LogInSuccess(username, user_id))
       if (typeof route === 'string') {
         window.location = '/#' + route
-      } 
+      }
     })
-    .catch(error => dispatch(LogInFailure(error)))
+    .catch(error => {
+      dispatch(LogInError(error))
+    })
   }
 }
