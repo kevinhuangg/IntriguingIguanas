@@ -21,7 +21,6 @@ module.exports = {
       
       socket.on('join-board', function(data) {
         var room = data.taskBoardId.toString()
-        //TODO: refactor when done with testing create list
         fetchBoard(data.taskBoardId)
         .then(rows => {
           socket.emit('update-board', rows)
