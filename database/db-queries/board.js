@@ -19,7 +19,7 @@ module.exports = {
   },
   //fetch board based on user_id
   fetchBoardNames:  (userId) => {
-    return db.query(`SELECT boards.boardname FROM boards INNER JOIN users_boards ON boards.id=users_boards.board_id WHERE users_boards.user_id=${userId}`)
+    return db.query(`SELECT boards.boardname, boards.id FROM boards INNER JOIN users_boards ON boards.id=users_boards.board_id WHERE users_boards.user_id=${userId}`)
   },
   //fetch board with an id
   fetchBoard: (boardId) => {
