@@ -15,7 +15,7 @@ export class List extends React.Component {
     this.onCreateTask = this.onCreateTask.bind(this)
     this.onEditListName = this.onEditListName.bind(this)
     this.saveListName = this.saveListName.bind(this)
-    
+
     var socket = this.props.socket
 
     socket.on('update tasks', (tasks) => {
@@ -66,15 +66,14 @@ export class List extends React.Component {
 const mapStateToProps = (state) => {
   return {
     ...state.list,
-    // PROBLEM HERE!
     list_id: state.list.id
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createTask: (taskname, list_id) => { 
-      dispatch(createTask(taskname, list_id)) 
+    createTask: (taskname, list_id) => {
+      dispatch(createTask(taskname, list_id))
     }
   }
 }

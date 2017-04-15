@@ -13,7 +13,6 @@ module.exports = {
   editListName: (name, boardID) => {
     return db.query(`UPDATE lists SET listname='${name}' WHERE board_id=${boardID}`)
   },
-
   //delete task from db using list id
   deleteList: (listID) => {
     return db.query(`DELETE FROM lists WHERE id=${listID}`)

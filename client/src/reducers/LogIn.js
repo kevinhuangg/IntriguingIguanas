@@ -1,5 +1,5 @@
 let initialState = {
-  username: null, 
+  username: null,
   user_id: null,
   error: null,
   isValidating: false,
@@ -18,9 +18,9 @@ const LogIn = (state=initialState, action) => {
         ...state,
         isValidating: false,
         isInvalid: true,
-        error: action.error
-      } 
-    case 'LOG_IN_SUCCESS': 
+        error: 'Incorrect username or password!'
+      }
+    case 'LOG_IN_SUCCESS':
       return {
         ...initialState,
         username: action.username,
