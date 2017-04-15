@@ -53,23 +53,5 @@ export class List extends React.Component {
   }
 }
 
-<<<<<<< HEAD
-const mapStateToProps = (state) => {
-  return {
-    ...state.list,
-    list_id: state.list.id
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createTask: (taskname, list_id) => {
-      dispatch(createTask(taskname, list_id))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(List)
-=======
 export default List
->>>>>>> properly display fetched data from db
+

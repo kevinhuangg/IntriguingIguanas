@@ -68,7 +68,6 @@ export class LogInPage extends React.Component {
         <div>Don't have an account?
           <Link to='/signup'> Sign Up</Link>
         </div>
-        </form>
       </div>
     )
   }
