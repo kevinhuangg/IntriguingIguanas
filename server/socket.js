@@ -62,9 +62,9 @@ module.exports = {
         // <------------- CREATE TASK ------------->
         socket.on('create-task', function(data) {
           addTask(data.listId, data.text)
-            .then((results) => {
-              socket.emit('update-list')
-              socket.to(room).emit('update-list')
+            .then(results => {
+              socket.emit('update-listID-' + data.listId)
+              socket.to(room).emit('update-listID-' + data.listId)
             })
             .catch(err => {
               console.log('Error creating tasks', err)
@@ -77,8 +77,8 @@ module.exports = {
           fetchTasks(data.list_id)
             .then(data => {
               console.log('---> SERVER TASKS', data.rows)
-              socket.emit('tasks-fetched', data.rows)
-              // socket.to(room).emit('tasks-fetched', data.rows)
+              socket.emit('tasks-fetched-listID-' + data.list_id, data.rows)
+              socket.to(room).emit('tasks-fetched-listID-' + data.list_id, data.rows)
             })
             .catch(err => {
               console.log('Retrieving tasks error')

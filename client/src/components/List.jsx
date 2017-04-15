@@ -18,14 +18,11 @@ export class List extends React.Component {
     this.onEditListName = this.onEditListName.bind(this)
     this.updateListName = this.updateListName.bind(this)
 
-    var socket = this.props.socket
-
-    socket.on('update-lists', () => {
-      this.props.socket.on('update-list', (res) => {
-      this.props.tasksFetched(res.rows)
+    this.props.socket.on('update-listID-' + this.props.list_id, () => {
+      this.props.socket.emit('fetch-tasks' + this.props.list_id, { list_id: this.props.list_id })
     })
 
-    this.props.socket.on('tasks-fetched', (tasks) => {
+    this.props.socket.on('tasks-fetched-listID-' + this.props.list_id, (tasks) => {
       console.log('---> TASKS ON tasks-fetched', tasks)
       this.setState({
         tasks: tasks
@@ -34,7 +31,8 @@ export class List extends React.Component {
   }
 
   componentWillMount() {
-    this.props.socket.emit('fetch-tasks', { list_id: this.props.list_id })
+    // 'fetch-tasks-listID-4'
+    this.props.socket.emit('fetch-tasks' + this.props.list_id, { list_id: this.props.list_id })
   }
 
   onInputChange(e) {
