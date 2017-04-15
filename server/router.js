@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const User = require('./routes/user');
 
+//lobby routes
+router.get('/lobby', Board.____);
+
 //board routes
 
 //list routes

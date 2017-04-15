@@ -58,7 +58,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     createBoard: (boardName) => { dispatch(createBoard(boardName)) },
-    fetchBoards: () => { dispatch(fetchBoards()) }
+    fetchBoards: (user_id) => { dispatch(fetchBoards(user_id)) }
   }
 }
 
