@@ -15,7 +15,7 @@ export class Lobby extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.fetchBoards()
+    //this.props.fetchBoards()
   }
 
   handleBoardNameChange(e) {
@@ -30,7 +30,7 @@ export class Lobby extends React.Component {
   }
 
   render() {
-    console.log('---> BOARD PROPS', this.props.boardlist);
+    console.log('---> BOARD PROPS', this.props);
     return (
       <div>
         <input
@@ -51,7 +51,9 @@ export class Lobby extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    ...state,
     boards: state.board.boards
+
   }
 }
 
