@@ -19,3 +19,6 @@ module.exports = function(app, passport) {
       .catch(error => {
         console.log(error)
       }) //username
+    }
+  )
+}
