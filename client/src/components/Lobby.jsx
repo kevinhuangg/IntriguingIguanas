@@ -71,11 +71,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lobby)
-
-
-
-
-          // return (<div
-          //   key={ board.boardname }
-          //   onClick={ () => this.props.sendToLobby(board.board_id) }
-          // > { board.boardName }</div> )
