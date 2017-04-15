@@ -7,13 +7,14 @@ export class List extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      newListName: '',
       text: '',
       isEditing: false,
       tasks: []
     }
-    this.onInputChange = this.onInputChange.bind(this)
+    this.onTaskInputChange = this.onTaskInputChange.bind(this)
     this.onCreateTask = this.onCreateTask.bind(this)
-    this.onEditListName = this.onEditListName.bind(this)
+    this.isEditingListName = this.isEditingListName.bind(this)
     this.updateListName = this.updateListName.bind(this)
 
     this.props.socket.on('update-listID-' + this.props.list_id, () => {
@@ -32,8 +33,8 @@ export class List extends React.Component {
   componentWillMount() {
     this.props.socket.emit('fetch-tasks', { list_id: this.props.list_id })
   }
-
-  onInputChange(e) {
+// ---------- TASKS ----------
+  onTaskInputChange(e) {
     this.setState({
       text: e.target.value
     })
@@ -43,21 +44,28 @@ export class List extends React.Component {
     this.props.socket.emit('create-task', { list_id: this.props.list_id, text: this.state.text })
   }
 
-  onEditListName() {
+// ----------- UPDATE LIST NAME -----------
+  isEditingListName() {
     this.setState({
       isEditing: !this.state.isEditing
     })
   }
 
+  onListNameInputChange(e) {
+    this.setState({
+      newListName: e.target.value
+    })
+  }
+
   updateListName() {
-    this.props.saveListName()
+    this.props.socket.emit('update-list-name', { list_id: this.props.list_id, listname: this.state.newListName })
   }
 
   render() {
     return (
       <div>
         <div>
-          <h4 onClick={ this.onEditListName }>{ this.props.listname }</h4>
+          <h4 onClick={ this.isEditingListName }>{ this.props.listname }</h4>
           { this.state.isEditing &&
             <div>
               <input type='text' value=''/>
@@ -65,7 +73,7 @@ export class List extends React.Component {
             </div>
           }
         </div>
-        <input onChange={ this.onInputChange }/>
+        <input onChange={ this.onTaskInputChange }/>
         <button onClick={ this.onCreateTask }>CREATE TASK</button>
 
         { this.state.tasks.map((task, index) =>

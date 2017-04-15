@@ -27,9 +27,6 @@ export class BoardPage extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-  }
-
   componentWillUnmount() {
     this.state.socket.emit('disconnect');
   }
