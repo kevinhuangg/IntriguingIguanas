@@ -54,16 +54,19 @@ export class List extends React.Component {
     })
   }
 
-  saveListName() {
-    this.props.saveListName(false)
+  updateListName() {
+    this.props.saveListName()
   }
 
   render() {
+<<<<<<< HEAD
 <<<<<<< HEAD
     // console.log(this.props)
 =======
     var tasks = this.state.tasks || this.props.tasks
 >>>>>>> Fix rendering of tasks
+=======
+>>>>>>> Commit for pull purpose
     return (
       <div>
         <div>
@@ -71,7 +74,7 @@ export class List extends React.Component {
           { this.state.isEditing &&
             <div>
               <input type='text' value=''/>
-              <button>Save</button>
+              <button>SAVE</button>
             </div>
           }
         </div>
@@ -111,6 +114,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
 <<<<<<< HEAD
+<<<<<<< HEAD
     createTask: (taskname, list_id) => {
       dispatch(createTask(taskname, list_id))
     }
@@ -118,6 +122,12 @@ const mapDispatchToProps = (dispatch) => {
     // createTask: (taskname, list_id) => { dispatch(createTask(taskname, list_id)) },
     tasksFetched: (tasks) => { dispatch(tasksFetched(tasks)) }
 >>>>>>> Create task from client to db
+=======
+    createTask: (taskname, list_id) => {
+      dispatch(createTask(taskname, list_id))
+    }
+
+>>>>>>> Commit for pull purpose
   }
 }
 
