@@ -18,7 +18,7 @@ export class List extends React.Component {
 
     var socket = this.props.socket
 
-    socket.on('update tasks', (tasks) => {
+    socket.on('update-lists', () => {
 
     })
   }
@@ -30,7 +30,9 @@ export class List extends React.Component {
   }
 
   onCreateTask() {
-    this.props.createTask(this.state.text, this.props.list_id)
+    // this.props.createTask(this.state.text, this.props.list_id)
+    var socket = this.props.route.socket
+    socket.emit('create-task', { listId: this.props.list_id, text: this.state.text })
   }
 
   onEditListName() {
@@ -58,6 +60,8 @@ export class List extends React.Component {
         </div>
         <input onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateTask }>CREATE TASK</button>
+
+
       </div>
     )
   }
