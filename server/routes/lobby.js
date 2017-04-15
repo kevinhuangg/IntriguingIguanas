@@ -12,3 +12,14 @@ module.exports.getUserBoards = (req, res, next) => {
     console.log(error)
   })
 }
+
+module.exports.createBoard = (req, res, next) => {
+
+  Board.addBoard(name, user_id)
+  .then(results => {
+
+  })
+  .catch(error => {
+    
+  })
+}
