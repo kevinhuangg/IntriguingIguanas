@@ -24,7 +24,7 @@ export function createBoard(boardName , user_id) {
   return (dispatch) => {
     dispatch(creatingBoard())
 
-    axios.post('lobby', {
+    axios.post('/api/lobby', {
       boardname: boardName,
       user_id: user_id
     })
