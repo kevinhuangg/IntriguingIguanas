@@ -43,7 +43,7 @@ export class Lobby extends React.Component {
         <button onClick={ this.handleSubmit }>CREATE BOARD</button>
         { this.props.boards.map((board) => (
             <div>
-              <Link to={`/lobby/${board.board_id}`}>
+              <Link to={`/lobby/${board.id}`}>
               { board.boardname }
               </Link>
             </div>
