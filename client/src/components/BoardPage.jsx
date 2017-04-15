@@ -2,26 +2,38 @@ import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
 import { createList, listsFetched } from '../actions/List.js'
+import io from 'socket.io-client'
 
 export class BoardPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      listName: ''
+      listName: '',
+      socket: null
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateList = this.onCreateList.bind(this)
-    
-    var socket = this.props.route.socket
 
-    socket.on('update-board', (res) => {
-      this.props.listsFetched(res.rows)
-    })
   }
 
   componentWillMount() {
-    var socket = this.props.route.socket
-    socket.emit('join-board', { taskBoardId: this.props.board_id })
+    var socket = io();
+    this.setState({
+      socket: socket
+    }, () =>{
+      console.log('INSIDE SET STATE CALLBACK')
+      this.state.socket.emit('join-board', { taskBoardId: this.props.board_id })
+      this.state.socket.on('update-board', (res) => {
+        this.props.listsFetched(res.rows)
+      })
+    });
+  }
+
+  componentDidUpdate() {
+  }
+
+  componentWillUnmount() {
+    this.state.socket.emit('disconnect');
   }
 
   onInputChange(e) {
@@ -31,8 +43,7 @@ export class BoardPage extends React.Component {
   }
 
   onCreateList() {
-    var socket = this.props.route.socket
-    socket.emit('create-list', { boardId: this.props.board_id, name: this.state.listName })
+    this.state.socket.emit('create-list', { boardId: this.props.board_id, name: this.state.listName })
   }
 
   render() {
@@ -45,7 +56,7 @@ export class BoardPage extends React.Component {
         { this.props.lists.map((list, index) =>
           <List
             key={ index }
-            socket = { this.props.route.socket }
+            socket = { this.state.socket }
             listname={ list.listname }
             index={ index }
           />) }
