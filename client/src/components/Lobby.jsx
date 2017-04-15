@@ -29,7 +29,7 @@ export class Lobby extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.createBoard(this.state.boardName)
+    this.props.createBoard(this.state.boardName, this.props.LogIn.user_id)
   }
 
   render() {
@@ -64,7 +64,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createBoard: (boardName) => { dispatch(createBoard(boardName)) },
+    createBoard: (boardName, user_id) => { dispatch(createBoard(boardName, user_id)) },
     fetchBoards: (user_id) => { dispatch(fetchBoards(user_id)) }
   }
 }

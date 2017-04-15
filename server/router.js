@@ -4,6 +4,7 @@ const Lobby = require('./routes/lobby')
 
 //lobby routes
 router.get('/lobby', Lobby.getUserBoards);
+router.post('/lobby', Lobby.createBoard);
 
 //board routes
 
