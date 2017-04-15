@@ -10,13 +10,13 @@ export class List extends React.Component {
     super(props)
     this.state = {
       text: '',
-      isEditing: false
+      isEditing: false,
       tasks: []
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateTask = this.onCreateTask.bind(this)
     this.onEditListName = this.onEditListName.bind(this)
-    this.saveListName = this.saveListName.bind(this)
+    this.updateListName = this.updateListName.bind(this)
 
     var socket = this.props.socket
 
@@ -26,7 +26,7 @@ export class List extends React.Component {
     })
 
     this.props.socket.on('tasks-fetched', (tasks) => {
-      console.log('---> TASKS', tasks)
+      console.log('---> TASKS ON tasks-fetched', tasks)
       this.setState({
         tasks: tasks
       })
@@ -59,14 +59,6 @@ export class List extends React.Component {
   }
 
   render() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    // console.log(this.props)
-=======
-    var tasks = this.state.tasks || this.props.tasks
->>>>>>> Fix rendering of tasks
-=======
->>>>>>> Commit for pull purpose
     return (
       <div>
         <div>
@@ -81,11 +73,7 @@ export class List extends React.Component {
         <input onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateTask }>CREATE TASK</button>
 
-<<<<<<< HEAD
         { this.props.tasks.map((task, index) =>
-=======
-        { tasks.map((task, index) =>
->>>>>>> Fix rendering of tasks
           <Task
             key={ index }
             text={ task.text }
@@ -96,39 +84,4 @@ export class List extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-<<<<<<< HEAD
-    ...state.list,
-<<<<<<< HEAD
-    list_id: state.list.id
-=======
-    tasks: state.task.tasks
->>>>>>> Create task from client to db
-=======
-    ...state.list
->>>>>>> Fix rendering of tasks
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    createTask: (taskname, list_id) => {
-      dispatch(createTask(taskname, list_id))
-    }
-=======
-    // createTask: (taskname, list_id) => { dispatch(createTask(taskname, list_id)) },
-    tasksFetched: (tasks) => { dispatch(tasksFetched(tasks)) }
->>>>>>> Create task from client to db
-=======
-    createTask: (taskname, list_id) => {
-      dispatch(createTask(taskname, list_id))
-    }
-
->>>>>>> Commit for pull purpose
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(List)
+export default List

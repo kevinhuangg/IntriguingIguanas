@@ -20,14 +20,8 @@ export class BoardPage extends React.Component {
     this.setState({
       socket: socket
     }, () => {
-<<<<<<< HEAD
       this.state.socket.emit('join-board', { taskBoardId: this.props.board_id })
       this.state.socket.on('update-board', (res) => {
-=======
-      console.log('INSIDE SETSTATE CALLBACK')
-      socket.emit('join-board', { taskBoardId: this.props.board_id })
-      socket.on('update-board', (res) => {
->>>>>>> Commit for pull purpose
         this.props.listsFetched(res.rows)
       })
     });
