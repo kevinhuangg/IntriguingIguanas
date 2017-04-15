@@ -7,7 +7,8 @@ const initialState = {
 
   fetching: false,
   createError: null,
-  fetchError: null
+  fetchError: null,
+  isEditingList: false
 }
 
 const list = (state = initialState, action) => {
@@ -45,6 +46,7 @@ const list = (state = initialState, action) => {
         ...state,
         fetchError: action.fetchError
       }
+    // ---------- EDIT ----------
 
     default:
       return state
