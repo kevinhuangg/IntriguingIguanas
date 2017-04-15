@@ -1,8 +1,6 @@
 import React from 'react'
 import Task from './Task.jsx'
 import { connect } from 'react-redux'
-import { tasksFetched } from '../actions/Task.js'
-import { createTask } from '../actions/Task.js'
 import { editingListName, saveListName } from '../actions/List.js'
 
 export class List extends React.Component {
@@ -19,10 +17,11 @@ export class List extends React.Component {
     this.updateListName = this.updateListName.bind(this)
 
     this.props.socket.on('update-listID-' + this.props.list_id, () => {
-      this.props.socket.emit('fetch-tasks' + this.props.list_id, { list_id: this.props.list_id })
+      this.props.socket.emit('fetch-tasks', { list_id: this.props.list_id })
     })
 
-    this.props.socket.on('tasks-fetched-listID-' + this.props.list_id, (tasks) => {
+    let tasksFetched = 'tasks-fetched-listID-' + this.props.list_id
+    this.props.socket.on(tasksFetched, (tasks) => {
       console.log('---> TASKS ON tasks-fetched', tasks)
       this.setState({
         tasks: tasks
@@ -31,8 +30,7 @@ export class List extends React.Component {
   }
 
   componentWillMount() {
-    // 'fetch-tasks-listID-4'
-    this.props.socket.emit('fetch-tasks' + this.props.list_id, { list_id: this.props.list_id })
+    this.props.socket.emit('fetch-tasks', { list_id: this.props.list_id })
   }
 
   onInputChange(e) {
@@ -42,8 +40,7 @@ export class List extends React.Component {
   }
 
   onCreateTask() {
-    // this.props.createTask(this.state.text, this.props.list_id)
-    this.props.socket.emit('create-task', { listId: this.props.list_id, text: this.state.text })
+    this.props.socket.emit('create-task', { list_id: this.props.list_id, text: this.state.text })
   }
 
   onEditListName() {
@@ -71,7 +68,7 @@ export class List extends React.Component {
         <input onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateTask }>CREATE TASK</button>
 
-        { this.props.tasks.map((task, index) =>
+        { this.state.tasks.map((task, index) =>
           <Task
             key={ index }
             text={ task.text }

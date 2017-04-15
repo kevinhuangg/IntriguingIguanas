@@ -1,7 +1,7 @@
 import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
-import { /*createList,*/ listsFetched } from '../actions/List.js'
+import { listsFetched } from '../actions/List.js'
 import io from 'socket.io-client'
 
 export class BoardPage extends React.Component {
@@ -74,7 +74,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // createList: (boardname, board_id) => { dispatch(createList(boardname, board_id)) },
     listsFetched: (lists) => { dispatch(listsFetched(lists)) }
   }
 }
