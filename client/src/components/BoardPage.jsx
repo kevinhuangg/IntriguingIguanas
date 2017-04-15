@@ -10,7 +10,8 @@ export class BoardPage extends React.Component {
     super(props)
     this.state = {
       listName: '',
-      socket: null
+      socket: null,
+      rows: null
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateList = this.onCreateList.bind(this)
@@ -24,9 +25,8 @@ export class BoardPage extends React.Component {
     }, () =>{
       this.state.socket.emit('join-board', { taskBoardId: this.props.board_id })
       this.state.socket.on('update-board', (res) => {
-        console.log(res.rows)
-        console.log(parseData(res.rows))
-        // this.props.listsFetched(res.rows)
+        let lists = parseData(res.rows)
+        this.props.listsFetched(lists)
       })
     });
   }
@@ -55,12 +55,9 @@ export class BoardPage extends React.Component {
         <input value={ this.state.listName } onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateList }>CREATE LIST</button>
 
-        { this.props.lists.map((list, index) =>
+        { this.props.lists.map(list =>
           <List
-            key={ index }
-            socket = { this.state.socket }
-            listname={ list.listname }
-            index={ index }
+            listObj={ list }
           />) }
       </div>
     )
@@ -69,12 +66,9 @@ export class BoardPage extends React.Component {
 
 const parseData = (rows) => {
   var result = [];
-  //iterate over rows object to build unique list names array
   var listNames = _.uniq(rows.map(row => {
-    //return array of unique list names
     return row.listname
   }))
-  //for each unique list id
   listNames.forEach(name => {
     var obj = {}
     obj[name] = [];

@@ -9,19 +9,21 @@ export class List extends React.Component {
     super(props)
     this.state = {
       text: '',
+      name: '',
+      tasks: null,
       isEditing: false
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateTask = this.onCreateTask.bind(this)
-    this.onEditListName = this.onEditListName.bind(this)
-    this.saveListName = this.saveListName.bind(this)
 
-    var socket = this.props.socket
-    socket.on('update tasks', (tasks) => {
-
-    })
   }
-
+  componentWillMount() {
+    for (var key in this.props.listObj) {
+      var name = key
+      var tasks = this.props.listObj[name]
+    }
+    this.setState({ name: name, tasks: tasks })
+  }
   onInputChange(e) {
     this.setState({
       text: e.target.value
@@ -32,27 +34,16 @@ export class List extends React.Component {
     this.props.createTask(this.state.text, this.props.list_id)
   }
 
-  onEditListName() {
-    this.setState({
-      isEditing: !this.state.isEditing
-    })
-  }
-
-  saveListName() {
-    this.props.saveListName(false)
-  }
-
   render() {
-    // console.log(this.props)
     return (
       <div>
         <div>
-          <h4 onClick={ this.onEditListName }>{ this.props.listname }</h4>
-          { this.state.isEditing &&
-            <div>
-              <input type='text' value=''/>
-              <button>Save</button>
-            </div>
+          <h4>{ this.state.name }</h4>
+          { this.state.tasks && this.state.tasks.map(task => {
+              if (task.text) {
+                return <Task task={task}/>
+              }
+            })
           }
         </div>
         <input onChange={ this.onInputChange }/>
@@ -62,6 +53,7 @@ export class List extends React.Component {
   }
 }
 
+<<<<<<< HEAD
 const mapStateToProps = (state) => {
   return {
     ...state.list,
@@ -78,3 +70,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(List)
+=======
+export default List
+>>>>>>> properly display fetched data from db
