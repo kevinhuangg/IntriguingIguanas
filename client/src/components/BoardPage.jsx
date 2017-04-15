@@ -1,7 +1,7 @@
 import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
-import { createList, fetchLists } from '../actions/List.js'
+import { createList, listsFetched } from '../actions/List.js'
 
 export class BoardPage extends React.Component {
   constructor(props) {
@@ -11,15 +11,17 @@ export class BoardPage extends React.Component {
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateList = this.onCreateList.bind(this)
-    console.log('---> LIST PROPS', this.props)
+    
+    var socket = this.props.route.socket
+
+    socket.on('update-board', (res) => {
+      this.props.listsFetched(res.rows)
+    })
   }
 
   componentWillMount() {
-    // this.props.fetchLists()
-    console.log('BOARD ID', this.props.params.taskBoardId)
-    var taskBoardId = this.props.params.taskBoardId
     var socket = this.props.route.socket
-    socket.emit('join-board', { taskBoardId: taskBoardId })
+    socket.emit('join-board', { taskBoardId: this.props.board_id })
   }
 
   onInputChange(e) {
@@ -29,21 +31,22 @@ export class BoardPage extends React.Component {
   }
 
   onCreateList() {
-    this.props.createList(this.state.listName, this.props.board_id)
+    var socket = this.props.route.socket
+    socket.emit('create-list', { boardId: this.props.board_id, name: this.state.listName })
   }
 
   render() {
     return (
       <div>
         <h3>{ this.props.boardname }</h3>
-        <input onChange={ this.onInputChange }/>
+        <input value={ this.state.listName } onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateList }>CREATE LIST</button>
 
         { this.props.lists.map((list, index) =>
           <List
             key={ index }
+            socket = { this.props.route.socket }
             listname={ list.listname }
-            tasks={ list.tasks }
             index={ index }
           />) }
       </div>
@@ -62,7 +65,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     createList: (boardname, board_id) => { dispatch(createList(boardname, board_id)) },
-    fetchLists: () => { dispatch(fetchLists()) }
+    listsFetched: (lists) => { dispatch(listsFetched(lists)) }
   }
 }
 

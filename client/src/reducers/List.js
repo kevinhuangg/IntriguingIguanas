@@ -1,46 +1,10 @@
+//state of the board page
+
 const initialState = {
   id: 1,
-  boardname: 'INCONCEIVABLE IGUANAS',
-  lists: [
-    {
-      id: 1,
-      listname: 'CURRENT SPRINT',
-      board_id: 1,
-      tasks: [
-        {
-          id: 1,
-          text: 'Set up database',
-          list_id: 1,
-          assigned: 'Enoch'
-        },
-        {
-          id: 2,
-          text: 'Build front-end!',
-          list_id: 1,
-          assigned: 'Christine'
-        }
-      ]
-    },
-    {
-      id: 2,
-      listname: 'FOR REVIEW',
-      board_id: 1,
-      tasks: [
-        {
-          id: 3,
-          text: 'Passport authentication',
-          list_id: 2,
-          assigned: 'Kevin'
-        },
-        {
-          id: 4,
-          text: 'Deployment',
-          list_id: 2,
-          assigned: 'Allen'
-        }
-      ]
-    }
-  ],
+  boardname: 'DUMMY',
+  lists: [],
+
   fetching: false,
   createError: null,
   fetchError: null
@@ -58,11 +22,11 @@ const list = (state = initialState, action) => {
         ...state,
         createError: action.createError
       }
-    case 'CREATE_LIST':
-      return {
-        ...state,
-        lists: [...state.lists, { listname: action.listname, board_id: action.board_id, tasks: [] }]
-      }
+    // case 'CREATE_LIST':
+    //   return {
+    //     ...state,
+    //     lists: lists
+    //   }
 
     // ------------ FETCH ------------
     case 'FETCHING_LISTS':
