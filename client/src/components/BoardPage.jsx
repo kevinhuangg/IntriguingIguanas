@@ -13,9 +13,7 @@ export class BoardPage extends React.Component {
     this.onCreateList = this.onCreateList.bind(this)
     
     var socket = this.props.route.socket
-    // socket.on('fetch-lists', (res) => {
-    //   this.props.listsFetched(res.rows)
-    // })
+
     socket.on('update-board', (res) => {
       this.props.listsFetched(res.rows)
     })
@@ -49,6 +47,7 @@ export class BoardPage extends React.Component {
         { this.props.lists.length > 0 && this.props.lists.map((list, index) =>
           <List
             key={ index }
+            socket = { this.props.route.socket }
             listname={ list.listname }
             index={ index }
           />) }

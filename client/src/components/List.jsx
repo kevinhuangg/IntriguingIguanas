@@ -11,7 +11,12 @@ export class List extends React.Component {
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateTask = this.onCreateTask.bind(this)
-    // console.log('---> TASK PROPS', this.props)
+    
+    var socket = this.props.socket
+
+    socket.on('update tasks', (tasks) => {
+
+    })
   }
 
   onInputChange(e) {

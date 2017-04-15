@@ -27,7 +27,6 @@ module.exports = {
           socket.emit('update-board', lists)
           socket.to(room).emit('update-board', lists)
         })    
-        socket.emit('fetch-lists')
         socket.join(room)
         io.of('/').in(room).clients(function(error, clients) {
           if (error) throw error;
