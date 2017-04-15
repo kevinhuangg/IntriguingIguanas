@@ -33,8 +33,6 @@ export class BoardPage extends React.Component {
   onCreateList() {
     var socket = this.props.route.socket
     socket.emit('create-list', { boardId: this.props.board_id, name: this.state.listName })
-    // this.setState({ listName: ''})
-
   }
 
   render() {
@@ -44,7 +42,7 @@ export class BoardPage extends React.Component {
         <input value={ this.state.listName } onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateList }>CREATE LIST</button>
 
-        { this.props.lists.length > 0 && this.props.lists.map((list, index) =>
+        { this.props.lists.map((list, index) =>
           <List
             key={ index }
             socket = { this.props.route.socket }
