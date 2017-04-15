@@ -7,13 +7,11 @@ import BoardPage from './BoardPage.jsx'
 import SignUpPage from './SignUpPage.jsx'
 import LogInPage from './LogInPage.jsx'
 import UserProfilePage from './UserProfilePage.jsx'
-import io from 'socket.io-client'
 
 export class App extends React.Component {
 	constructor(props) {
 		super(props)
     this.state = {
-      socket: null
     }
 
     this.sendToHome = this.sendToHome.bind(this)
@@ -25,10 +23,7 @@ export class App extends React.Component {
 	}
 
   componentWillMount() {
-    var socket = io();
-    this.setState({
-      socket: socket
-    });
+
   }
 
   componentWillUnmount() {
@@ -68,18 +63,15 @@ export class App extends React.Component {
             component={ HomePage }
             sendToLogin={ this.sendToLogin }
             sendToSignup={ this.sendToSignup }
-            socket={ this.state.socket }
           />
-          <Route
-            path="/lobby"
+          <Route 
+            path="/lobby" 
             component={ Lobby }
-            socket={ this.state.socket }
           />
           <Route
             path="/lobby/:taskBoardId"
             component={ BoardPage }
             sendToLobby={ this.sendToLobby }
-            socket={ this.state.socket }
           />
           <Route
             path="/signup"
@@ -87,13 +79,12 @@ export class App extends React.Component {
           />
           <Route
             path="/login"
-            component={ LogInPage }
+            component={ LogInPage } 
           />
-          <Route
-            path="/lobby/user/:id"
+          <Route 
+            path="/lobby/user/:id" 
             component= { UserProfilePage }
-            socket={ this.state.socket }
-          />
+          /> 
         </Router>
       </div>
     )

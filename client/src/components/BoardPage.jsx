@@ -2,6 +2,7 @@ import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
 import { createList, listsFetched } from '../actions/List.js'
+import io from 'socket.io-client'
 
 export class BoardPage extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export class BoardPage extends React.Component {
   }
 
   componentWillMount() {
-    var socket = this.props.route.socket
+    var socket = io();
     socket.emit('join-board', { taskBoardId: this.props.board_id })
   }
 
