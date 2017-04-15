@@ -11,6 +11,7 @@ export class List extends React.Component {
     this.state = {
       text: '',
       isEditing: false
+      tasks: []
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateTask = this.onCreateTask.bind(this)
@@ -23,6 +24,17 @@ export class List extends React.Component {
       this.props.socket.on('update-list', (res) => {
       this.props.tasksFetched(res.rows)
     })
+
+    this.props.socket.on('tasks-fetched', (tasks) => {
+      console.log('---> TASKS', tasks)
+      this.setState({
+        tasks: tasks
+      })
+    })
+  }
+
+  componentWillMount() {
+    this.props.socket.emit('fetch-tasks', { list_id: this.props.list_id })
   }
 
   onInputChange(e) {
@@ -47,7 +59,11 @@ export class List extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
     // console.log(this.props)
+=======
+    var tasks = this.state.tasks || this.props.tasks
+>>>>>>> Fix rendering of tasks
     return (
       <div>
         <div>
@@ -62,10 +78,14 @@ export class List extends React.Component {
         <input onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateTask }>CREATE TASK</button>
 
+<<<<<<< HEAD
         { this.props.tasks.map((task, index) =>
+=======
+        { tasks.map((task, index) =>
+>>>>>>> Fix rendering of tasks
           <Task
             key={ index }
-            text={ this.text }
+            text={ task.text }
             // assigned={ this.state.assigned }
           />) }
       </div>
@@ -75,12 +95,16 @@ export class List extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+<<<<<<< HEAD
     ...state.list,
 <<<<<<< HEAD
     list_id: state.list.id
 =======
     tasks: state.task.tasks
 >>>>>>> Create task from client to db
+=======
+    ...state.list
+>>>>>>> Fix rendering of tasks
   }
 }
 
