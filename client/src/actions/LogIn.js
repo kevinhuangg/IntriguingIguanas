@@ -13,10 +13,11 @@ export function LogInFailure(error) {
   }
 }
 
-export function LogInSuccess(username) {
+export function LogInSuccess(username, user_id) {
   return {
     type: 'LOG_IN_SUCCESS',
-    username
+    username,
+    user_id
   }
 }
 
@@ -25,11 +26,14 @@ export function LogIn(username, password) {
     dispatch(LoggingIn())
     axios.post('/login', {username, password})
     .then(data => {
-      dispatch(LogInSuccess(JSON.parse(data.config.data).username))
+      var username = JSON.parse(data.config.data).username
+      var user_id = data.data.user_id
+      console.log('USERID', user_id)
       const route = data.data.redirect
+      dispatch(LogInSuccess(username, user_id))
       if (typeof route === 'string') {
         window.location = '/#' + route
-      }
+      } 
     })
     .catch(error => dispatch(LogInFailure(error)))
   }

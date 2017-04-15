@@ -15,7 +15,9 @@ export class Lobby extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.fetchBoards()
+    console.log('LOBBY', this.props)
+    console.log('USERID', this.props.LogIn.user_id)
+    this.props.fetchBoards(this.props.LogIn.user_id)
   }
 
   handleBoardNameChange(e) {
@@ -30,7 +32,7 @@ export class Lobby extends React.Component {
   }
 
   render() {
-    console.log('---> BOARD PROPS', this.props.boardlist);
+    console.log('BOARDS', this.props.boards)
     return (
       <div>
         <input
@@ -38,12 +40,15 @@ export class Lobby extends React.Component {
           onChange={ this.handleBoardNameChange }
         />
         <button onClick={ this.handleSubmit }>CREATE BOARD</button>
-        { this.props.boards.map((board) => (
+        { this.props.boards.map((board) => 
+        {return(
           <div
             key={ board.boardname }
             onClick={ () => this.props.sendToLobby(board.board_id) }
-          > { board.boardName }</div>
-        )) }
+          >{ board.boardname }
+          </div>)
+        }
+        )}
       </div>
     )
   }
@@ -51,14 +56,17 @@ export class Lobby extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    boards: state.board.boards
+    ...state,
+    boards: state.board.boards,
+    user_id: state.LogIn.user_id
+
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     createBoard: (boardName) => { dispatch(createBoard(boardName)) },
-    fetchBoards: () => { dispatch(fetchBoards()) }
+    fetchBoards: (user_id) => { dispatch(fetchBoards(user_id)) }
   }
 }
 

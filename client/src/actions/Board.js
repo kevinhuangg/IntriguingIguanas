@@ -51,12 +51,16 @@ function fetchBoardsError(fetchError) {
   }
 }
 
-export function fetchBoards() {
+export function fetchBoards(user_id) {
   return (dispatch) => {
     dispatch(fetchingBoards())
-
-    axios.get('/board', {user_id})
-    .then(results => dispatch(boardsFetched(results.data)))
+    axios.get('/api/lobby', {
+      params: {
+        user_id : user_id
+      }})
+    .then(results => {
+      dispatch(boardsFetched(results.data))
+    })
     .catch(error => dispatch(fetchBoardsError(error)))
   }
 }

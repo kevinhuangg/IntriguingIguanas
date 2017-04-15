@@ -17,13 +17,13 @@ module.exports = {
   deleteBoard: (boardId) => {
     return db.query(`DELETE FROM boards WHERE id=${boardId}`)
   },
-  //fetch board list
+  //fetch board based on user_id
   fetchBoardNames:  (userId) => {
-    return db.query(`SELECT boards.boardname FROM boards INNER JOIN users_boards ON boards.id=user_board.board_id WHERE users_boads.user_id=${userId}`)
+    return db.query(`SELECT boards.boardname FROM boards INNER JOIN users_boards ON boards.id=users_boards.board_id WHERE users_boards.user_id=${userId}`)
   },
   //fetch board with an id
   fetchBoard: (boardId) => {
     return db.query(`SELECT * FROM boards LEFT JOIN lists ON boards.id=lists.board_id LEFT JOIN tasks on lists.id = tasks.list_id WHERE boards.id=${boardId}`)
-  },
+  }
 
 }
