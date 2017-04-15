@@ -23,11 +23,9 @@ export class App extends React.Component {
 	}
 
   componentWillMount() {
-
   }
 
   componentWillUnmount() {
-    this.state.socket.emit('disconnect');
   }
 
   sendToHome() {
