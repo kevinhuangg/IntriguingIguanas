@@ -32,7 +32,6 @@ export class BoardPage extends React.Component {
   }
 
   onCreateList() {
-    var socket = this.props.route.socket
     socket.emit('create-list', { boardId: this.props.board_id, name: this.state.listName })
   }
 
