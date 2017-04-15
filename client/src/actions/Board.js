@@ -54,8 +54,6 @@ function fetchBoardsError(fetchError) {
 export function fetchBoards(user_id) {
   return (dispatch) => {
     dispatch(fetchingBoards())
-    console.log('USER ID WITHIN FETCHBOARD', user_id)
-
     axios.get('/api/lobby', {
       params: {
         user_id : user_id
