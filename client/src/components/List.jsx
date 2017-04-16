@@ -7,6 +7,7 @@ export class List extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      currentListName: this.props.listname,
       newListName: '',
       text: '',
       isEditing: false,
@@ -16,16 +17,26 @@ export class List extends React.Component {
     this.onCreateTask = this.onCreateTask.bind(this)
     this.isEditingListName = this.isEditingListName.bind(this)
     this.updateListName = this.updateListName.bind(this)
+    this.onListNameInputChange = this.onListNameInputChange.bind(this)
 
-    this.props.socket.on('update-listID-' + this.props.list_id, () => {
-      this.props.socket.emit('fetch-tasks', { list_id: this.props.list_id })
+    var socket = this.props.socket
+
+    socket.on('update-listID-' + this.props.list_id, () => {
+      socket.emit('fetch-tasks', { list_id: this.props.list_id })
     })
 
     let tasksFetched = 'tasks-fetched-listID-' + this.props.list_id
-    this.props.socket.on(tasksFetched, (tasks) => {
+    
+    socket.on(tasksFetched, (tasks) => {
       console.log('---> TASKS ON tasks-fetched', tasks)
       this.setState({
         tasks: tasks
+      })
+    })
+
+    socket.on('update-list-name-' + this.props.list_id, (res) => {
+      this.setState({
+        currentListName: res.listname
       })
     })
   }
@@ -59,17 +70,26 @@ export class List extends React.Component {
 
   updateListName() {
     this.props.socket.emit('update-list-name', { list_id: this.props.list_id, listname: this.state.newListName })
+    this.setState({
+      newListName: '',
+      isEditing: !this.state.isEditing
+    })
+  }
+
+  deleteList() {
+    this.props.socket.emit('delete-list', { list_id: this.props.list_id })
   }
 
   render() {
     return (
       <div>
         <div>
-          <h4 onClick={ this.isEditingListName }>{ this.props.listname }</h4>
+          <h4 onClick={ this.isEditingListName }>{ this.state.currentListName }</h4>
           { this.state.isEditing &&
             <div>
-              <input type='text' value=''/>
-              <button>SAVE</button>
+            <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
+            <button onClick={ this.updateListName }>SAVE</button>
+            <button onClick={ this.deleteList }>DELETE</button>
             </div>
           }
         </div>
