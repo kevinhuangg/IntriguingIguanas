@@ -68,7 +68,6 @@ export class BoardPage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state,
     ...state.list,
     board_id: state.list.id,
     lists: state.list.lists
