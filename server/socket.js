@@ -52,10 +52,21 @@ module.exports = {
         });
 
         socket.on('update-list-name', (req) => {
-          task.updateListName(req.listname, req.list_id)
+          list.updateListName(req.listname, req.list_id)
           .then(succes => {
             socket.emit('update-list-name-' + req.list_id, { listname: req.listname })
-            socket.to(room).emit('update-list-name-' + req.list_id)
+            socket.to(room).emit('update-list-name-' + req.list_id, { listname: req.listname })
+          })
+          .catch(err => {
+            console.log('Error updating list name')
+          })
+        })
+
+        socket.on('delete-list', (req) => {
+          list.deleteList(req.listname, req.list_id)
+          .then(succes => {
+            socket.emit('update-list-name-' + req.list_id, { listname: req.listname })
+            socket.to(room).emit('update-list-name-' + req.list_id, { listname: req.listname })
           })
           .catch(err => {
             console.log('Error updating list name')

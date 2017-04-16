@@ -17,5 +17,4 @@ module.exports = {
   deleteList: (listID) => {
     return db.query(`DELETE FROM lists WHERE id=${listID}`)
   },
-
 }
