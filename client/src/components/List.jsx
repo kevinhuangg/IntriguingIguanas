@@ -18,6 +18,7 @@ export class List extends React.Component {
     this.isEditingListName = this.isEditingListName.bind(this)
     this.updateListName = this.updateListName.bind(this)
     this.onListNameInputChange = this.onListNameInputChange.bind(this)
+    this.deleteList = this.deleteList.bind(this)
 
     var socket = this.props.socket
 

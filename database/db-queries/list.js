@@ -15,6 +15,6 @@ module.exports = {
   },
   //delete task from db using list id
   deleteList: (listID) => {
-    return db.query(`DELETE FROM lists WHERE id=${listID}`)
+    return db.query(`DELETE FROM lists WHERE id=${listID} RETURNING board_id`)
   },
 }

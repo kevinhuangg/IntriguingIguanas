@@ -25,8 +25,7 @@ module.exports = {
 
           list.fetchLists(data.taskBoardId)
             .then(lists => {
-              socket.emit('update-board', lists)
-              socket.to(room).emit('update-board', lists)
+              io.in(room).emit('update-board', lists)
             })
           socket.join(room)
           io.of('/').in(room).clients(function(error, clients) {
@@ -39,8 +38,7 @@ module.exports = {
             .then(msg => {
               list.fetchLists(data.boardId)
                 .then(lists => {
-                  socket.emit('update-board', lists)
-                  socket.to(room).emit('update-board', lists)
+                  io.in(room).emit('update-board', lists)
                 })
                 .catch(err => {
                   console.log('Retrieving board error')
@@ -53,9 +51,8 @@ module.exports = {
 
         socket.on('update-list-name', (req) => {
           list.updateListName(req.listname, req.list_id)
-          .then(succes => {
-            socket.emit('update-list-name-' + req.list_id, { listname: req.listname })
-            socket.to(room).emit('update-list-name-' + req.list_id, { listname: req.listname })
+          .then(success => {
+            io.in(room).emit('update-list-name-' + req.list_id, { listname: req.listname })
           })
           .catch(err => {
             console.log('Error updating list name')
@@ -63,13 +60,19 @@ module.exports = {
         })
 
         socket.on('delete-list', (req) => {
-          list.deleteList(req.listname, req.list_id)
-          .then(succes => {
-            socket.emit('update-list-name-' + req.list_id, { listname: req.listname })
-            socket.to(room).emit('update-list-name-' + req.list_id, { listname: req.listname })
+          list.deleteList(req.list_id)
+          .then(pgData => {
+            console.log('---> pgData', pgData)
+            list.fetchLists(pgData.rows[0].board_id)
+              .then(lists => {
+                io.in(room).emit('update-board', lists)
+              })
+              .catch(err => {
+                console.log('Retrieving board error')
+              })
           })
           .catch(err => {
-            console.log('Error updating list name')
+            console.log('Error deleting list')
           })
         })
 
@@ -77,8 +80,7 @@ module.exports = {
         socket.on('create-task', function(data) {
           task.addTask(data.list_id, data.text)
             .then(results => {
-              socket.emit('update-listID-' + data.list_id)
-              socket.to(room).emit('update-listID-' + data.list_id)
+              io.in(room).emit('update-listID-' + data.list_id)
             })
             .catch(err => {
               console.log('Error creating tasks', err)
@@ -91,8 +93,7 @@ module.exports = {
             .then(pgData => {
               let tasksFetched = 'tasks-fetched-listID-' + data.list_id
 
-              socket.emit(tasksFetched, pgData.rows)
-              socket.to(room).emit(tasksFetched, pgData.rows)
+              io.in(room).emit(tasksFetched, pgData.rows)
             })
             .catch(err => {
               console.log('Retrieving tasks error')
