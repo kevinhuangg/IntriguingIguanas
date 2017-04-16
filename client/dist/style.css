@@ -1,3 +1,11 @@
+h1.homepage {
+  font-size: 35px;
+}
+
+h2.homepage {
+  font-size: 25px;
+}
+
 .navbar {
   margin-bottom: 0;
 }
@@ -21,11 +29,15 @@
 
 .navbar-brand>img {
   height: 100%;
-  padding: 9px; /* firefox bug fix */
+  padding: 15px; /* firefox bug fix */
   width: auto;
 }
 
-.jumbotron{
-  padding: 80px;
+.jumbotron {
+  padding: 300px 600px 80px 80px;
   height: 100%;
+  background-image: url(./background.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  font-color: white;
 }
