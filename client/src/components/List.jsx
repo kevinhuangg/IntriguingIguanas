@@ -26,7 +26,7 @@ export class List extends React.Component {
     })
 
     let tasksFetched = 'tasks-fetched-listID-' + this.props.list_id
-    
+
     socket.on(tasksFetched, (tasks) => {
       console.log('---> TASKS ON tasks-fetched', tasks)
       this.setState({
