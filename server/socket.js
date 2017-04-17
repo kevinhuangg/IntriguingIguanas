@@ -38,14 +38,14 @@ module.exports = {
         // -------------- LISTS --------------
         socket.on('create-list', function(data) {
           list.addList(data.name, data.board_id)
-            .then(msg => {
-              list.fetchLists(data.board_id)
-                .then(lists => {
-                  io.in(room).emit('update-board', lists)
-                })
-                .catch(err => {
-                  console.log('Retrieving board error')
-                })
+          .then(msg => {
+            list.fetchLists(data.board_id)
+              .then(lists => {
+                io.in(room).emit('update-board', lists)
+              })
+              .catch(err => {
+                console.log('Retrieving board error')
+              })
             })
             .catch(err => {
               console.log('CREATE LIST ERR')
@@ -68,13 +68,13 @@ module.exports = {
           .then(pgData => {
             console.log('pgData', pgData)
             list.fetchLists(pgData.rows[0].board_id)
-              .then(lists => {
-                console.log('>> LISTS', lists)
-                io.in(room).emit('update-board', lists)
-              })
-              .catch(err => {
-                console.log('UPDATE BOARD ERR')
-              })
+            .then(lists => {
+              console.log('>> LISTS', lists)
+              io.in(room).emit('update-board', lists)
+            })
+            .catch(err => {
+              console.log('UPDATE BOARD ERR')
+            })
           })
           .catch(err => {
             console.log('DELETE LIST ERR')
@@ -82,41 +82,59 @@ module.exports = {
         });
 
         // -------------- TASKS --------------
-        socket.on('create-task', function(data) {
+        socket.on('add-task', function(data) {
           task.addTask(data.list_id, data.text)
-            .then(results => {
-              io.in(room).emit('update-listID-' + data.list_id)
-            })
-            .catch(err => {
-              console.log('CREATE TASK ERR', err)
-            })
+          .then(success => {
+            io.in(room).emit('update-listID-' + data.list_id)
+          })
+          .catch(err => {
+            console.log('ADD TASK ERR', err)
+          })
         });
 
         socket.on('fetch-tasks', (data) => {
           task.fetchTasks(data.list_id)
+          .then(pgData => {
+            let tasksFetched = 'tasks-fetched-listID-' + data.list_id
+
+            io.in(room).emit(tasksFetched, pgData.rows)
+          })
+          .catch(err => {
+            console.log('FETCH TASKS ERR')
+          })
+        });
+
+        socket.on('edit-task', (req) {
+          task.editTask(req.task_id, req.newText)
+          .then(success => {
+            task.fetchTasks(req.list_id)
             .then(pgData => {
-              let tasksFetched = 'tasks-fetched-listID-' + data.list_id
+              let tasksFetched = 'tasks-fetched-listID-' + req.list_id
 
               io.in(room).emit(tasksFetched, pgData.rows)
             })
             .catch(err => {
-              console.log('FETCH TASKS ERR')
+              console.log('FETCH TASKS ERR', err)
             })
-        });
+          })
+          .catch(err => {
+            console.log('EDIT TASK ERR', err)
+          })
+        })
 
-        //--------------INVITE USERS------------
+        //------------ INVITE USERS ------------
         socket.on('invite-user-to-board', (data) => {
           User.addUserToBoard(data.invitee, data.board_id)
-            .then(pgData => {
-              console.log(`${data.invitee} added to board id of ${data.board_id}`)
-            })
-            .catch(err => {
-              console.log(error)
-            })
+          .then(pgData => {
+            console.log(`${data.invitee} added to board id of ${data.board_id}`)
+          })
+          .catch(err => {
+            console.log(error)
+          })
           //databasequery here
         })
 
-        //-------------DISCONNECT---------------
+        //------------- DISCONNECT -------------
         socket.on('disconnect', function() {
           // socket.disconnect()
           console.log('Client disconnected!')
