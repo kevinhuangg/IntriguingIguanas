@@ -2,6 +2,7 @@ let initialState = {
   // username: '',
   // password: '',
   error: null,
+  consoleError: null,
   isValidating: false,
   isInvalid: false
 }
@@ -25,6 +26,7 @@ const SignUp = (state=initialState, action) => {
         ...state,
         isValidating: false,
         isInvalid: true,
+        consoleError: action.error,
         error: 'Username or email has been taken!'
       }
     case 'SIGN_UP_SUCCESS':
