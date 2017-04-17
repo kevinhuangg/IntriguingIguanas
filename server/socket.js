@@ -103,6 +103,13 @@ module.exports = {
 
         //--------------INVITE USERS------------
         socket.on('invite-user-to-board', (data) => {
+          addUserToBoard(data.invitee, data.board_id)
+            .then(pgData => {
+              console.log(`${data.invitee} added to board id of ${data.board_id}`)
+            })
+            .catch(err => {
+              console.log(error)
+            })
           //databasequery here
         })
 

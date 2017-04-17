@@ -19,7 +19,8 @@ module.exports = {
   addUserToBoard: (username, board_id) => {
     return db.query(`SELECT * FROM users WHERE username='${username}'`)
     .then(result => {
-      var user_id = results.rows[0].id
+      var user_id = result.rows[0].id
+      console.log('USERIDDDDDD', user_id)
       return db.query(`INSERT INTO users_boards (user_id, board_id) VALUES (${user_id},${board_id})`)
     })
     .catch(error => {
