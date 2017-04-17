@@ -49,11 +49,7 @@ export class BoardPage extends React.Component {
   render() {
     return (
       <div>
-<<<<<<< HEAD
         <h3>{ this.state.boardName }</h3>
-=======
-        <h3>{ this.state.boardname }</h3>
->>>>>>> Fix socket (dis)connection as leaving BoardPage component
         <input value={ this.state.listName } onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateList }>CREATE LIST</button>
 
@@ -73,7 +69,6 @@ export class BoardPage extends React.Component {
 const mapStateToProps = (state) => {
   return {
     ...state.list,
-    board_id: state.list.board_id,
     lists: state.list.lists
   }
 }
