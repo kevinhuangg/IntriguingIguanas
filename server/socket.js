@@ -103,7 +103,7 @@ module.exports = {
 
         //--------------INVITE USERS------------
         socket.on('invite-user-to-board', (data) => {
-          addUserToBoard(data.invitee, data.board_id)
+          User.addUserToBoard(data.invitee, data.board_id)
             .then(pgData => {
               console.log(`${data.invitee} added to board id of ${data.board_id}`)
             })
@@ -115,7 +115,7 @@ module.exports = {
 
         //-------------DISCONNECT---------------
         socket.on('disconnect', function() {
-          socket.disconnect()
+          // socket.disconnect()
           console.log('Client disconnected!')
         });
 

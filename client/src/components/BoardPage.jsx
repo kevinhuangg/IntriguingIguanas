@@ -11,7 +11,7 @@ export class BoardPage extends React.Component {
       listName: '',
       socket: null,
       board_id: this.props.params.board_id,
-      boardName: this.props.params.boardName
+      boardName: this.props.params.boardName,
       invitee: 'Invite someone...'
     }
     this.onInputChange = this.onInputChange.bind(this)
