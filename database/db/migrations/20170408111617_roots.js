@@ -10,6 +10,7 @@ exports.up = function(knex, Promise) { //CHAIN PROMISES
       table.increments();
       table.string('boardname').notNullable();
       table.timestamp('timestamp').defaultTo(knex.fn.now());
+      table.integer('current_order')
     });
   }).then(() => {
     return knex.schema.createTable('users_boards', (table) => {
@@ -24,6 +25,7 @@ exports.up = function(knex, Promise) { //CHAIN PROMISES
       table.increments();
       table.integer('board_id').notNullable();
       table.string('listname').notNullable();
+      table.integer('current_order')
     })
   }).then(() => {
     return knex.schema.createTable('tasks', (table) => {
@@ -31,6 +33,7 @@ exports.up = function(knex, Promise) { //CHAIN PROMISES
       table.integer('list_id').notNullable();
       table.string('text').notNullable();
       table.integer('assigned')
+      table.integer('current_order').notNullable();
     })
   })
 };

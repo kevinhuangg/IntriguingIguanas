@@ -12,9 +12,9 @@ exports.seed = function(knex, Promise) {
       return knex('boards').del()
       .then(() => {
         return knex('boards').insert([
-          {boardname: 'board1'},
-          {boardname: 'board2'},
-          {boardname: 'board3'}
+          {boardname: 'board1', current_order: 0},
+          {boardname: 'board2', current_order: 0},
+          {boardname: 'board3', current_order: 0}
         ]);
       });
     }).then(() => {
@@ -30,18 +30,18 @@ exports.seed = function(knex, Promise) {
       return knex('lists').del()
       .then(() => {
         return knex('lists').insert([
-          {board_id: 1, listname: 'list1'},
-          {board_id: 1, listname: 'list2'},
-          {board_id: 2, listname: 'list1'}
+          {board_id: 1, listname: 'list1', current_order: 0},
+          {board_id: 1, listname: 'list2', current_order: 500},
+          {board_id: 2, listname: 'list1', current_order: 0}
         ]);
       });
     }).then(() => {
       return knex('tasks').del()
       .then(() => {
         return knex('tasks').insert([
-          {list_id: 1, text: 'text1'},
-          {list_id: 2, text: 'text2'},
-          {list_id: 3, text: 'text3'}
+          {list_id: 1, text: 'text1', current_order: 0},
+          {list_id: 2, text: 'text2', current_order: 0},
+          {list_id: 3, text: 'text3', current_order: 0}
         ]);
       });
     });
