@@ -11,28 +11,30 @@ var rooms = [];
 var currentBoard = null;
 
 module.exports = {
-    io: function() {
-      return io;
-    },
-    init: function(server) {
-      io = sockets(server);
+  io: function() {
+    return io;
+  },
+  init: function(server) {
+    io = sockets(server);
 
-      io.on('connection', function(socket) {
-        console.log('Connected to ' + socket);
+    io.on('connection', function(socket) {
+      console.log('Connected to ' + socket);
 
-        socket.on('join-board', function(data) {
-          var room = data.taskBoardId.toString()
+      socket.on('join-board', function(data) {
+        var room = data.taskBoardId.toString()
 
-          list.fetchLists(data.taskBoardId)
-            .then(lists => {
-              io.in(room).emit('update-board', lists)
-            })
-          socket.join(room)
-          io.of('/').in(room).clients(function(error, clients) {
-            if (error) throw error;
-            console.log(`Clients in room ${room}: ${clients}`);
+        list.fetchLists(data.taskBoardId)
+          .then(lists => {
+            io.in(room).emit('update-board', lists)
           });
-        // <------------- LISTS ------------->
+
+        socket.join(room)
+        io.of('/').in(room).clients(function(error, clients) {
+          if (error) throw error;
+          console.log(`Clients in room ${room}: ${clients}`);
+        });
+
+        // -------------- LISTS --------------
         socket.on('create-list', function(data) {
           list.addList(data.name, data.boardId)
             .then(msg => {
@@ -45,7 +47,7 @@ module.exports = {
                 })
             })
             .catch(err => {
-              console.log('Error creating list')
+              console.log('CREATE LIST ERR')
             })
         });
 
@@ -55,9 +57,9 @@ module.exports = {
             io.in(room).emit('update-list-name-' + req.list_id, { listname: req.listname })
           })
           .catch(err => {
-            console.log('Error updating list name')
+            console.log('UPDATE LIST ERR')
           })
-        })
+        });
 
         socket.on('delete-list', (req) => {
           list.deleteList(req.list_id)
@@ -68,25 +70,24 @@ module.exports = {
                 io.in(room).emit('update-board', lists)
               })
               .catch(err => {
-                console.log('Retrieving board error')
+                console.log('UPDATE BOARD ERR')
               })
           })
           .catch(err => {
-            console.log('Error deleting list')
+            console.log('DELETE LIST ERR')
           })
-        })
+        });
 
-        // ------------- TASKS -------------
+        // -------------- TASKS --------------
         socket.on('create-task', function(data) {
           task.addTask(data.list_id, data.text)
             .then(results => {
               io.in(room).emit('update-listID-' + data.list_id)
             })
             .catch(err => {
-              console.log('Error creating tasks', err)
+              console.log('CREATE TASK ERR', err)
             })
         });
-
 
         socket.on('fetch-tasks', (data) => {
           task.fetchTasks(data.list_id)
@@ -96,12 +97,12 @@ module.exports = {
               io.in(room).emit(tasksFetched, pgData.rows)
             })
             .catch(err => {
-              console.log('Retrieving tasks error')
+              console.log('FETCH TASKS ERR')
             })
-        })
+        });
 
         socket.on('disconnect', function() {
-          console.log('client disconnected')
+          console.log('Client disconnected!')
         });
 
         return io;

@@ -1,7 +1,7 @@
 //state of the board page
 
 const initialState = {
-  id: 1,
+  board_id: 1,
   boardname: 'DUMMY',
   lists: [],
 
