@@ -28,7 +28,6 @@ module.exports.createBoard = (req, res, next) => {
 module.exports.editBoard = (req, res, next) => {
   var board_id = req.body.params.board_id;
   var name = req.body.params.boardname;
-  console.log(board_id, name, "MEOW")
   Board.editBoardName(name, board_id)
   .then(results => {
     res.send();
