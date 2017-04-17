@@ -3,7 +3,9 @@ const initialState = {
 
   fetchingBoards: false,
   creatingBoard: false,
+  deletingBoard: false,
   createError: null,
+  deleteError: null,
   fetchError: null
 }
 
@@ -24,6 +26,23 @@ function board(state = initialState, action) {
         ...state,
         creatingBoard: false,
         createError: action.createError
+      }
+
+    // ------------ DELETE ------------
+    case 'DELETING_BOARD':
+      return {
+        ...state,
+        deletingBoard: true
+      }
+    case 'BOARD_DELETED':
+      return {
+        ...initialState
+      }
+    case 'DELETE_BOARD_ERROR':
+      return {
+        ...state,
+        deletingBoard: false,
+        deleteError: action.deleteError
       }
 
     // ------------ FETCH ------------

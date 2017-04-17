@@ -5,6 +5,8 @@ const Lobby = require('./routes/lobby')
 //lobby routes
 router.get('/lobby', Lobby.getUserBoards);
 router.post('/lobby', Lobby.createBoard);
+router.delete('/lobby', Lobby.deleteBoard);
+router.put('/lobby', Lobby.editBoard);
 
 //board routes
 
@@ -16,5 +18,4 @@ router.post('/lobby', Lobby.createBoard);
 //Create new user
 router.post('/signup', User.postUser);
 
-module.exports = router; 
-  
+module.exports = router;

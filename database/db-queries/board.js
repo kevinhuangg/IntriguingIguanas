@@ -1,7 +1,7 @@
 const db = require('../db.js');
 
 module.exports = {
-  //add list to db
+  //add board to db
   addBoard: (name, userId) =>{
     return db.query(`INSERT INTO boards (boardname) VALUES ('${name}') RETURNING id`)
       .then(board => {
@@ -12,13 +12,20 @@ module.exports = {
         console.log(error)
       })
   },
-  //edit list name in db
+  //edit board name in db
   editBoardName: (name, boardId) => {
-    return db.query(`UPDATE boards SET boardname='${name}' WHERE board_id=${boardId}`)
+    return db.query(`UPDATE boards SET boardname='${name}' WHERE id=${boardId}`)
   },
-  //delete task from db using list id
+  //delete board from db using board id
   deleteBoard: (boardId) => {
-    return db.query(`DELETE FROM boards WHERE id=${boardId}`)
+    return db.query(`DELETE FROM boards WHERE id=${boardId} RETURNING id`)
+    .then(board => {
+      var board = board.rows[0].id
+      return db.query(`DELETE FROM users_boards WHERE id=${board}`)
+    })
+    .catch(error => {
+      console.log(error)
+    })
   },
   //fetch board based on user_id
   fetchBoardNames:  (userId) => {

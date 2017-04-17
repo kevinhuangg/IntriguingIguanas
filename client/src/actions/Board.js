@@ -20,7 +20,7 @@ function boardError(createError) {
   }
 }
 
-export function createBoard(boardName , user_id) {
+export function createBoard(boardName, user_id) {
   return (dispatch) => {
     dispatch(creatingBoard())
 
@@ -29,9 +29,93 @@ export function createBoard(boardName , user_id) {
       user_id: user_id
     })
     .then(results => {
+      dispatch(boardCreated());
+    })
+    .then(() => {
       dispatch(fetchBoards(user_id));
     })
     .catch(error => dispatch(boardError(error)))
+  }
+}
+
+// ------------ EDIT ------------
+function editingBoard() {
+  return {
+    type: 'EDITING_BOARD'
+  }
+}
+
+function boardEdited() {
+  return {
+    type: 'BOARD_EDITED'
+  }
+}
+
+function editBoardError(editError) {
+  return {
+    type: 'EDIT_BOARD_ERROR',
+    editError
+  }
+}
+
+export function editBoard(boardName, board_id, user_id) {
+  return (dispatch) => {
+    dispatch(editingBoard())
+
+    axios.put('/api/lobby', {
+      params: {
+      boardname: boardName,
+      board_id: board_id,
+      user_id: user_id
+    }
+    })
+    .then(results => {
+      dispatch(boardEdited());
+    })
+    .then(() => {
+      dispatch(fetchBoards(user_id));
+    })
+    .catch(error => dispatch(editBoardError(error)))
+  }
+}
+
+// ------------ DELETE ------------
+function deletingBoard() {
+  return {
+    type: 'DELETING_BOARD'
+  }
+}
+
+function boardDeleted() {
+  return {
+    type: 'BOARD_DELETED'
+  }
+}
+
+function deleteBoardError(deleteError) {
+  return {
+    type: 'DELETE_BOARD_ERROR',
+    deleteError
+  }
+}
+
+export function deleteBoard(board_id , user_id) {
+  return (dispatch) => {
+    dispatch(deletingBoard())
+
+    axios.delete('/api/lobby', {
+      params: {
+      board_id: board_id,
+      user_id: user_id
+    }
+    })
+    .then(results => {
+      dispatch(boardDeleted());
+    })
+    .then(() => {
+      dispatch(fetchBoards(user_id));
+    })
+    .catch(error => dispatch(deleteBoardError(error)))
   }
 }
 
