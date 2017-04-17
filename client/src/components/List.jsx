@@ -7,24 +7,37 @@ export class List extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      currentListName: this.props.listname,
+      newListName: '',
       text: '',
       isEditing: false,
       tasks: []
     }
-    this.onInputChange = this.onInputChange.bind(this)
+    this.onTaskInputChange = this.onTaskInputChange.bind(this)
     this.onCreateTask = this.onCreateTask.bind(this)
-    this.onEditListName = this.onEditListName.bind(this)
+    this.isEditingListName = this.isEditingListName.bind(this)
     this.updateListName = this.updateListName.bind(this)
+    this.onListNameInputChange = this.onListNameInputChange.bind(this)
+    this.deleteList = this.deleteList.bind(this)
 
-    this.props.socket.on('update-listID-' + this.props.list_id, () => {
-      this.props.socket.emit('fetch-tasks', { list_id: this.props.list_id })
+    var socket = this.props.socket
+
+    socket.on('update-listID-' + this.props.list_id, () => {
+      socket.emit('fetch-tasks', { list_id: this.props.list_id })
     })
 
     let tasksFetched = 'tasks-fetched-listID-' + this.props.list_id
-    this.props.socket.on(tasksFetched, (tasks) => {
-      console.log('---> TASKS ON tasks-fetched', tasks)
+
+    socket.on(tasksFetched, (tasks) => {
+      console.log('> TASKS OF LIST ' + this.props.list_id, tasks)
       this.setState({
         tasks: tasks
+      })
+    })
+
+    socket.on('update-list-name-' + this.props.list_id, (res) => {
+      this.setState({
+        currentListName: res.listname
       })
     })
   }
@@ -32,8 +45,8 @@ export class List extends React.Component {
   componentWillMount() {
     this.props.socket.emit('fetch-tasks', { list_id: this.props.list_id })
   }
-
-  onInputChange(e) {
+// ---------- TASKS ----------
+  onTaskInputChange(e) {
     this.setState({
       text: e.target.value
     })
@@ -43,29 +56,45 @@ export class List extends React.Component {
     this.props.socket.emit('create-task', { list_id: this.props.list_id, text: this.state.text })
   }
 
-  onEditListName() {
+// ----------- UPDATE LIST NAME -----------
+  isEditingListName() {
     this.setState({
       isEditing: !this.state.isEditing
     })
   }
 
+  onListNameInputChange(e) {
+    this.setState({
+      newListName: e.target.value
+    })
+  }
+
   updateListName() {
-    this.props.saveListName()
+    this.props.socket.emit('update-list-name', { list_id: this.props.list_id, listname: this.state.newListName })
+    this.setState({
+      newListName: '',
+      isEditing: !this.state.isEditing
+    })
+  }
+
+  deleteList() {
+    this.props.socket.emit('delete-list', { list_id: this.props.list_id })
   }
 
   render() {
     return (
       <div>
         <div>
-          <h4 onClick={ this.onEditListName }>{ this.props.listname }</h4>
+          <h4 onClick={ this.isEditingListName }>{ this.state.currentListName }</h4>
           { this.state.isEditing &&
             <div>
-              <input type='text' value=''/>
-              <button>SAVE</button>
+            <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
+            <button onClick={ this.updateListName }>SAVE</button>
+            <button onClick={ this.deleteList }>DELETE</button>
             </div>
           }
         </div>
-        <input onChange={ this.onInputChange }/>
+        <input onChange={ this.onTaskInputChange }/>
         <button onClick={ this.onCreateTask }>CREATE TASK</button>
 
         { this.state.tasks.map((task, index) =>

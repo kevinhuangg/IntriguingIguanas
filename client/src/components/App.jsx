@@ -32,9 +32,9 @@ export class App extends React.Component {
     hashHistory.push('/')
   }
 
-  sendToLobby(taskBoardID) {
-    if (taskBoardID) {
-      hashHistory.push('/lobby/:taskBoardID')
+  sendToLobby(board_id) {
+    if (board_id) {
+      hashHistory.push('/lobby/:board_id')
       return
     }
     hashHistory.push('/lobby')
@@ -62,12 +62,12 @@ export class App extends React.Component {
             sendToLogin={ this.sendToLogin }
             sendToSignup={ this.sendToSignup }
           />
-          <Route 
-            path="/lobby" 
+          <Route
+            path="/lobby"
             component={ Lobby }
           />
           <Route
-            path="/lobby/:boardName/:taskBoardId"
+            path="/lobby/:boardName/:board_id"
             component={ BoardPage }
             sendToLobby={ this.sendToLobby }
           />
@@ -77,12 +77,12 @@ export class App extends React.Component {
           />
           <Route
             path="/login"
-            component={ LogInPage } 
+            component={ LogInPage }
           />
-          <Route 
-            path="/lobby/user/:id" 
+          <Route
+            path="/lobby/user/:id"
             component= { UserProfilePage }
-          /> 
+          />
         </Router>
       </div>
     )

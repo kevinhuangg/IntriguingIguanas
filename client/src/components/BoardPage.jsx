@@ -10,7 +10,7 @@ export class BoardPage extends React.Component {
     this.state = {
       listName: '',
       socket: null,
-      board_id: this.props.params.taskBoardId,
+      board_id: this.props.params.board_id,
       boardName: this.props.params.boardName
     }
     this.onInputChange = this.onInputChange.bind(this)
@@ -18,19 +18,18 @@ export class BoardPage extends React.Component {
   }
 
   componentWillMount() {
-    console.log('BOARD NAMEEE', this.props)
-    var socket = io();
+    const socket = io()
     this.setState({
       socket: socket
-    }, () => {
-      this.state.socket.emit('join-board', { taskBoardId: this.state.board_id })
-      this.state.socket.on('update-board', (res) => {
-        this.props.listsFetched(res.rows)
-      })
-    });
+    })
+    socket.emit('join-board', { board_id: this.state.board_id }
+    )
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
+    this.state.socket.on('update-board', (res) => {
+      this.props.listsFetched(res.rows)
+    })
   }
 
   componentWillUnmount() {
@@ -44,7 +43,7 @@ export class BoardPage extends React.Component {
   }
 
   onCreateList() {
-    this.state.socket.emit('create-list', { boardId: this.state.board_id, name: this.state.listName })
+    this.state.socket.emit('create-list', { board_id: this.state.board_id, name: this.state.listName })
   }
 
   render() {
@@ -70,7 +69,6 @@ export class BoardPage extends React.Component {
 const mapStateToProps = (state) => {
   return {
     ...state.list,
-    board_id: state.list.id,
     lists: state.list.lists
   }
 }
