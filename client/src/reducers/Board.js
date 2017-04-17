@@ -1,6 +1,6 @@
 const initialState = {
-  boards: [{boardname: 'INCONCEIVABLE IGUANAS'}, {boardname: 'ERRANDS'}],
-  
+  boards: [],
+
   fetchingBoards: false,
   creatingBoard: false,
   createError: null,
@@ -35,7 +35,11 @@ function board(state = initialState, action) {
     case 'BOARDS_FETCHED':
       return {
         ...state,
-        boards: action.boards
+        boards: action.boards,
+        fetchingBoards: false,
+        creatingBoard: false,
+        createError: null,
+        fetchError: null
       }
     case 'FETCH_BOARDS_ERROR':
       return {

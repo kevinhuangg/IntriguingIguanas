@@ -2,7 +2,6 @@ var pg = require('pg');
 var knex = require('./db/knex.js').config;
 
 var client = new pg.Client(knex.connection);
-console.log('database: ', knex.connection);
 
 client.connect();
 

@@ -21,9 +21,9 @@ module.exports = {
       console.log('Connected to ' + socket);
 
       socket.on('join-board', function(data) {
-        var room = data.taskBoardId.toString()
+        var room = data.board_id.toString()
 
-        list.fetchLists(data.taskBoardId)
+        list.fetchLists(data.board_id)
           .then(lists => {
             io.in(room).emit('update-board', lists)
           });
@@ -36,9 +36,9 @@ module.exports = {
 
         // -------------- LISTS --------------
         socket.on('create-list', function(data) {
-          list.addList(data.name, data.boardId)
+          list.addList(data.name, data.board_id)
             .then(msg => {
-              list.fetchLists(data.boardId)
+              list.fetchLists(data.board_id)
                 .then(lists => {
                   io.in(room).emit('update-board', lists)
                 })
@@ -64,7 +64,6 @@ module.exports = {
         socket.on('delete-list', (req) => {
           list.deleteList(req.list_id)
           .then(pgData => {
-            console.log('---> pgData', pgData)
             list.fetchLists(pgData.rows[0].board_id)
               .then(lists => {
                 io.in(room).emit('update-board', lists)
@@ -102,6 +101,7 @@ module.exports = {
         });
 
         socket.on('disconnect', function() {
+          socket.disconnect()
           console.log('Client disconnected!')
         });
 

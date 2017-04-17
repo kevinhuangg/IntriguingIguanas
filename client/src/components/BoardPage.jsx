@@ -4,40 +4,36 @@ import { connect } from 'react-redux'
 import { listsFetched } from '../actions/List.js'
 import io from 'socket.io-client'
 
-
-const socket = io()
-
 export class BoardPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       listName: '',
       socket: null,
-      board_id: this.props.params.taskBoardId,
+      board_id: this.props.params.board_id,
       boardName: this.props.params.boardName
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateList = this.onCreateList.bind(this)
+  }
 
-    socket.on('update-board', (res) => {
+  componentWillMount() {
+    const socket = io()
+    this.setState({
+      socket: socket
+    })
+    socket.emit('join-board', { board_id: this.state.board_id }
+    )
+  }
+
+  componentDidMount() {
+    this.state.socket.on('update-board', (res) => {
       this.props.listsFetched(res.rows)
     })
   }
 
-  componentWillMount() {
-    var socket = io();
-    this.setState({
-      socket: socket
-    }, () => {
-      this.state.socket.emit('join-board', { taskBoardId: this.state.board_id })
-    });
-    socket.emit('join-board',
-      { taskBoardId: this.props.board_id }
-    )
-  }
-
   componentWillUnmount() {
-    socket.emit('disconnect');
+    this.state.socket.emit('disconnect');
   }
 
   onInputChange(e) {
@@ -47,20 +43,24 @@ export class BoardPage extends React.Component {
   }
 
   onCreateList() {
-    socket.emit('create-list', { boardId: this.state.board_id, name: this.state.listName })
+    this.state.socket.emit('create-list', { board_id: this.state.board_id, name: this.state.listName })
   }
 
   render() {
     return (
       <div>
+<<<<<<< HEAD
         <h3>{ this.state.boardName }</h3>
+=======
+        <h3>{ this.state.boardname }</h3>
+>>>>>>> Fix socket (dis)connection as leaving BoardPage component
         <input value={ this.state.listName } onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateList }>CREATE LIST</button>
 
         { this.props.lists.map((list, index) =>
           <List
             key={ index }
-            socket = { socket }
+            socket = { this.state.socket }
             listname={ list.listname }
             list_id={ list.id }
             index={ index }

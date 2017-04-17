@@ -10,21 +10,21 @@ export class Lobby extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      boardName: ''
+      boardNameInput: ''
     }
     this.handleBoardNameChange = this.handleBoardNameChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentWillMount() {
-    console.log('LOBBY', this.props)
-    console.log('USERID', this.props.LogIn.user_id)
+    console.log('> LOBBY', this.props)
+    console.log('> USER_ID', this.props.LogIn.user_id)
     this.props.fetchBoards(this.props.LogIn.user_id)
   }
 
   handleBoardNameChange(e) {
     this.setState({
-      boardName: e.target.value
+      boardNameInput: e.target.value
     })
   }
 
@@ -34,12 +34,11 @@ export class Lobby extends React.Component {
   }
 
   render() {
-    console.log('BOARDS', this.props.boards)
+    console.log('> BOARDS', this.props.boards)
     return (
       <div>
-        <SideBar />
         <input
-          value={ this.state.boardName }
+          value={ this.state.boardNameInput }
           onChange={ this.handleBoardNameChange }
         />
         <button onClick={ this.handleSubmit }>CREATE BOARD</button>

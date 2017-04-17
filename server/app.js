@@ -49,6 +49,6 @@ app.use('/api', router)
 var port = process.env.PORT || 3000
 var server = app.listen(port, function(){
 	console.log(`Magical unicorns will arrive on port ${port}!`);
-  console.log('DB CONNECTION AT',dbConfig.config.connection)
+  console.log('Database connected -', dbConfig.config.connection)
 });
 var io = require('./socket.js').init(server);
