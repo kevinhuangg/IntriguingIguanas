@@ -29,8 +29,6 @@ export function createBoard(boardName, user_id) {
       user_id: user_id
     })
     .then(results => {
-<<<<<<< HEAD
-=======
       dispatch(boardCreated());
     })
     .then(() => {
@@ -115,7 +113,6 @@ export function deleteBoard(board_id , user_id) {
       dispatch(boardDeleted());
     })
     .then(() => {
->>>>>>> Add delete board functions
       dispatch(fetchBoards(user_id));
     })
     .catch(error => dispatch(deleteBoardError(error)))
