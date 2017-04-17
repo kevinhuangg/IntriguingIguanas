@@ -67,7 +67,7 @@ export class App extends React.Component {
             component={ Lobby }
           />
           <Route
-            path="/lobby/:taskBoardId"
+            path="/lobby/:boardName/:taskBoardId"
             component={ BoardPage }
             sendToLobby={ this.sendToLobby }
           />

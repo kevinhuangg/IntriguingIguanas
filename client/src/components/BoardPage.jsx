@@ -10,14 +10,15 @@ export class BoardPage extends React.Component {
     this.state = {
       listName: '',
       socket: null,
-      board_id: this.props.params.taskBoardId
+      board_id: this.props.params.taskBoardId,
+      boardName: this.props.params.boardName
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateList = this.onCreateList.bind(this)
   }
 
   componentWillMount() {
-    console.log('BOARD IDDDD', this.state.board_id)
+    console.log('BOARD NAMEEE', this.props)
     var socket = io();
     this.setState({
       socket: socket
@@ -49,7 +50,7 @@ export class BoardPage extends React.Component {
   render() {
     return (
       <div>
-        <h3>{ this.props.boardname }</h3>
+        <h3>{ this.state.boardName }</h3>
         <input value={ this.state.listName } onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateList }>CREATE LIST</button>
 
