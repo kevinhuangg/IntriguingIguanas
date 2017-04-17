@@ -65,7 +65,8 @@ export class Lobby extends React.Component {
   editBoardName(board_id) {
     this.props.editBoard(this.state.newBoardName, board_id, this.props.LogIn.user_id)
     this.setState({
-      newBoardName: ''
+      newBoardName: '',
+      isEditing: !this.state.isEditing
     })
   }
 
