@@ -64,9 +64,11 @@ export function deleteBoard(board_id , user_id) {
   return (dispatch) => {
     dispatch(deletingBoard())
 
-    axios.post('/api/lobby', {
+    axios.delete('/api/lobby', {
+      params: {
       board_id: board_id,
       user_id: user_id
+    }
     })
     .then(results => {
       dispatch(boardDeleted());

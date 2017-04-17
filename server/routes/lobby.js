@@ -26,8 +26,7 @@ module.exports.createBoard = (req, res, next) => {
 }
 
 module.exports.deleteBoard = (req, res, next) => {
-  var board_id = req.body.board_id;
-  console.log(board_id, "BOARD_ID")
+  var board_id = req.query.board_id;
   Board.deleteBoard(board_id)
   .then(results => {
     res.send();

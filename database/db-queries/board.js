@@ -21,7 +21,6 @@ module.exports = {
     return db.query(`DELETE FROM boards WHERE id=${boardId} RETURNING id`)
     .then(board => {
       var board = board.rows[0].id
-      console.log(board, "MEOW");
       return db.query(`DELETE FROM users_boards WHERE id=${board}`)
     })
     .catch(error => {
