@@ -50,10 +50,6 @@ export class BoardPage extends React.Component {
     })
   }
 
-  onCreateList() {
-    this.state.socket.emit('create-list', { boardId: this.state.board_id, name: this.state.listName })
-  }
-
   onInviteeInputChange(e) {
     this.setState({
       invitee: e.target.value

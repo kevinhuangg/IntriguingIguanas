@@ -1,7 +1,5 @@
 import React from 'react'
 import Task from './Task.jsx'
-import { connect } from 'react-redux'
-import { editingListName, saveListName } from '../actions/List.js'
 
 export class List extends React.Component {
   constructor(props) {
@@ -13,29 +11,27 @@ export class List extends React.Component {
       isEditing: false,
       tasks: []
     }
+
     this.onTaskInputChange = this.onTaskInputChange.bind(this)
-    this.onAddTask = this.onAddTask.bind(this)
+    this.addTask = this.addTask.bind(this)
+
     this.isEditingListName = this.isEditingListName.bind(this)
-    this.updateListName = this.updateListName.bind(this)
     this.onListNameInputChange = this.onListNameInputChange.bind(this)
+    this.updateListName = this.updateListName.bind(this)
     this.deleteList = this.deleteList.bind(this)
 
     var socket = this.props.socket
 
-    socket.on('update-listID-' + this.props.list_id, () => {
-      socket.emit('fetch-tasks', { list_id: this.props.list_id })
-    })
-
-    let tasksFetched = 'tasks-fetched-listID-' + this.props.list_id
-
+    // --------- TASKS FETCHED ---------
+    let tasksFetched = `tasks-fetched-listID-${this.props.list_id}`
     socket.on(tasksFetched, (tasks) => {
-      console.log('>> TASKS OF LIST ' + this.props.list_id, tasks)
+      console.log('> TASKS OF LIST ' + this.props.list_id, tasks)
       this.setState({
         tasks: tasks
       })
     })
 
-    socket.on('update-list-name-' + this.props.list_id, (res) => {
+    socket.on(`update-list-name-${this.props.list_id}`, (res) => {
       this.setState({
         currentListName: res.listname
       })
@@ -43,28 +39,24 @@ export class List extends React.Component {
   }
 
   componentWillMount() {
-    this.props.socket.emit('fetch-tasks', { list_id: this.props.list_id })
+    this.props.socket.emit('fetch-tasks', {
+      list_id: this.props.list_id
+    })
   }
-// ---------- ADD/EDIT/DELETE TASKS ----------
+
+// ---------- ADD TASK ----------
   onTaskInputChange(e) {
     this.setState({
       text: e.target.value
     })
   }
 
-  onAddTask() {
-    this.props.socket.emit('add-task', { list_id: this.props.list_id, text: this.state.text })
+  addTask() {
+    this.props.socket.emit('add-task', {
+      list_id: this.props.list_id,
+      text: this.state.text
+    })
   }
-
-  editTask() {
-
-  }
-
-  deleteTask() {
-
-  }
-
-
 
 // ----------- EDIT/DELETE LIST -----------
   isEditingListName() {
@@ -80,15 +72,20 @@ export class List extends React.Component {
   }
 
   updateListName() {
-    this.props.socket.emit('update-list-name', { list_id: this.props.list_id, listname: this.state.newListName })
+    this.props.socket.emit('update-list-name', {
+      list_id: this.props.list_id,
+      listname: this.state.newListName
+    })
     this.setState({
       newListName: '',
-      isEditing: !this.state.isEditing
+      isEditing: false
     })
   }
 
   deleteList() {
-    this.props.socket.emit('delete-list', { list_id: this.props.list_id })
+    this.props.socket.emit('delete-list', {
+      list_id: this.props.list_id
+    })
   }
 
   render() {
@@ -105,13 +102,16 @@ export class List extends React.Component {
           }
         </div>
         <input onChange={ this.onTaskInputChange }/>
-        <button onClick={ this.onAddTask }>ADD TASK</button>
+        <button onClick={ this.addTask }>ADD TASK</button>
 
         { this.state.tasks.map((task, index) =>
           <Task
             key={ index }
             text={ task.text }
-            // assigned={ this.state.assigned }
+            task_id={ task.id }
+            list_id={ task.list_id }
+            socket={ this.props.socket }
+            // assigned={ task.assigned }
           />) }
       </div>
     )
