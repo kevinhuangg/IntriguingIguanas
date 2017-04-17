@@ -100,6 +100,12 @@ module.exports = {
             })
         });
 
+        //--------------INVITE USERS------------
+        socket.on('invite-user-to-board', (data) => {
+          //databasequery here
+        })
+
+        //-------------DISCONNECT---------------
         socket.on('disconnect', function() {
           socket.disconnect()
           console.log('Client disconnected!')
