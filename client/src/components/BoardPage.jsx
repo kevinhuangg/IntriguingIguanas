@@ -18,6 +18,7 @@ export class BoardPage extends React.Component {
     this.onCreateList = this.onCreateList.bind(this)
     this.onInviteeInputChange = this.onInviteeInputChange.bind(this)
     this.clearInviteeInput = this.clearInviteeInput.bind(this)
+    this.inviteUser = this.inviteUser.bind(this)
   }
 
   componentWillMount() {
@@ -45,6 +46,10 @@ export class BoardPage extends React.Component {
     })
   }
 
+  onCreateList() {
+    this.state.socket.emit('create-list', { boardId: this.state.board_id, name: this.state.listName })
+  }
+
   onInviteeInputChange(e) {
     this.setState({
       invitee: e.target.value
@@ -61,6 +66,10 @@ export class BoardPage extends React.Component {
     this.state.socket.emit('create-list', { board_id: this.state.board_id, name: this.state.listName })
   }
 
+  inviteUser() {
+    this.state.socket.emit('invite-user-to-board', {invitee: this.state.invitee, board_id: this.state.board_id})
+  }
+
   render() {
     return (
       <div>
@@ -70,7 +79,7 @@ export class BoardPage extends React.Component {
             onChange={ this.onInviteeInputChange }
             onClick= { this.clearInviteeInput }
           />
-          <button onClick={ this.onCreateList }>INVITE</button>
+          <button onClick={ this.inviteUser }>INVITE</button>
         </div>
         <div>
           <input value={ this.state.listName } onChange={ this.onInputChange }/>
