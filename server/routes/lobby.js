@@ -16,8 +16,19 @@ module.exports.getUserBoards = (req, res, next) => {
 module.exports.createBoard = (req, res, next) => {
   var name = req.body.boardname;
   var user_id = req.body.user_id;
-  console.log(name, user_id)
   Board.addBoard(name, user_id)
+  .then(results => {
+    res.send();
+  })
+  .catch(error => {
+    console.log(error);
+  })
+}
+
+module.exports.deleteBoard = (req, res, next) => {
+  var board_id = req.body.board_id;
+  console.log(board_id, "BOARD_ID")
+  Board.deleteBoard(board_id)
   .then(results => {
     res.send();
   })

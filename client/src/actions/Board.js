@@ -20,7 +20,7 @@ function boardError(createError) {
   }
 }
 
-export function createBoard(boardName , user_id) {
+export function createBoard(boardName, user_id) {
   return (dispatch) => {
     dispatch(creatingBoard())
 
@@ -29,6 +29,50 @@ export function createBoard(boardName , user_id) {
       user_id: user_id
     })
     .then(results => {
+<<<<<<< HEAD
+=======
+      dispatch(boardCreated());
+    })
+    .then(() => {
+      dispatch(fetchBoards(user_id));
+    })
+    .catch(error => dispatch(boardError(error)))
+  }
+}
+
+// ------------ DELETE ------------
+function deletingBoard() {
+  return {
+    type: 'DELETING_BOARD'
+  }
+}
+
+function boardDeleted() {
+  return {
+    type: 'BOARD_DELETED'
+  }
+}
+
+function boardError(deleteError) {
+  return {
+    type: 'DELETE_BOARD_ERROR',
+    deleteError
+  }
+}
+
+export function deleteBoard(board_id , user_id) {
+  return (dispatch) => {
+    dispatch(deletingBoard())
+
+    axios.post('/api/lobby', {
+      board_id: board_id,
+      user_id: user_id
+    })
+    .then(results => {
+      dispatch(boardDeleted());
+    })
+    .then(() => {
+>>>>>>> Add delete board functions
       dispatch(fetchBoards(user_id));
     })
     .catch(error => dispatch(boardError(error)))

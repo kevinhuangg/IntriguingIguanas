@@ -16,9 +16,17 @@ module.exports = {
   editBoardName: (name, boardId) => {
     return db.query(`UPDATE boards SET boardname='${name}' WHERE board_id=${boardId}`)
   },
-  //delete task from db using list id
+  //delete board from db using board id
   deleteBoard: (boardId) => {
-    return db.query(`DELETE FROM boards WHERE id=${boardId}`)
+    return db.query(`DELETE FROM boards WHERE id=${boardId} RETURNING id`)
+    .then(board => {
+      var board = board.rows[0].id
+      console.log(board, "MEOW");
+      return db.query(`DELETE FROM users_boards WHERE id=${board}`)
+    })
+    .catch(error => {
+      console.log(error)
+    })
   },
   //fetch board based on user_id
   fetchBoardNames:  (userId) => {
