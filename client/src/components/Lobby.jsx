@@ -3,18 +3,14 @@ import { hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import BoardPage from './BoardPage.jsx'
-<<<<<<< HEAD
-import { createBoard, fetchBoards } from '../actions/Board'
 import SideBar from './SideBar.jsx'
-=======
 import { createBoard, fetchBoards, deleteBoard } from '../actions/Board'
->>>>>>> Add delete board functions
 
 export class Lobby extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      boardNameInput: ''
+      boardName: ''
     }
     this.handleBoardNameChange = this.handleBoardNameChange.bind(this)
     this.createBoard = this.createBoard.bind(this)
@@ -30,13 +26,16 @@ export class Lobby extends React.Component {
 
   handleBoardNameChange(e) {
     this.setState({
-      boardNameInput: e.target.value
+      boardName: e.target.value
     })
   }
 
   createBoard(e) {
     e.preventDefault()
-    this.props.createBoard(this.state.boardNameInput, this.props.LogIn.user_id)
+    this.props.createBoard(this.state.boardName, this.props.LogIn.user_id)
+    this.setState({
+      boardName: ''
+    })
   }
 
   deleteBoard(board_id) {
