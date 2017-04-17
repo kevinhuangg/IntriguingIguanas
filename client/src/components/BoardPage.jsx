@@ -11,10 +11,14 @@ export class BoardPage extends React.Component {
       listName: '',
       socket: null,
       board_id: this.props.params.board_id,
-      boardName: this.props.params.boardName
+      boardName: this.props.params.boardName,
+      invitee: 'Invite someone...'
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateList = this.onCreateList.bind(this)
+    this.onInviteeInputChange = this.onInviteeInputChange.bind(this)
+    this.clearInviteeInput = this.clearInviteeInput.bind(this)
+    this.inviteUser = this.inviteUser.bind(this)
   }
 
   componentWillMount() {
@@ -43,15 +47,46 @@ export class BoardPage extends React.Component {
   }
 
   onCreateList() {
+    this.state.socket.emit('create-list', { boardId: this.state.board_id, name: this.state.listName })
+  }
+
+  onInviteeInputChange(e) {
+    this.setState({
+      invitee: e.target.value
+    })
+  }
+
+  clearInviteeInput(e) {
+    this.setState({
+      invitee: ''
+    })
+  }
+
+  onCreateList() {
     this.state.socket.emit('create-list', { board_id: this.state.board_id, name: this.state.listName })
+  }
+
+  inviteUser() {
+    this.state.socket.emit('invite-user-to-board', {invitee: this.state.invitee, board_id: this.state.board_id})
+    alert(`${this.state.invitee} was successfully invited to ${this.state.boardName}`)
+    this.clearInviteeInput()
   }
 
   render() {
     return (
       <div>
         <h3>{ this.state.boardName }</h3>
-        <input value={ this.state.listName } onChange={ this.onInputChange }/>
-        <button onClick={ this.onCreateList }>CREATE LIST</button>
+        <div>
+          <input value={ this.state.invitee } 
+            onChange={ this.onInviteeInputChange }
+            onClick= { this.clearInviteeInput }
+          />
+          <button onClick={ this.inviteUser }>INVITE</button>
+        </div>
+        <div>
+          <input value={ this.state.listName } onChange={ this.onInputChange }/>
+          <button onClick={ this.onCreateList }>CREATE LIST</button>
+        </div>
 
         { this.props.lists.map((list, index) =>
           <List

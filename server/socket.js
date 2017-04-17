@@ -2,6 +2,7 @@
 const board = require('../database/db-queries/board.js')
 const list = require('../database/db-queries/list.js')
 const task = require('../database/db-queries/task.js')
+const User = require('../database/db-queries/User.js')
 
 var sockets = require('socket.io');
 var io;
@@ -100,8 +101,21 @@ module.exports = {
             })
         });
 
+        //--------------INVITE USERS------------
+        socket.on('invite-user-to-board', (data) => {
+          User.addUserToBoard(data.invitee, data.board_id)
+            .then(pgData => {
+              console.log(`${data.invitee} added to board id of ${data.board_id}`)
+            })
+            .catch(err => {
+              console.log(error)
+            })
+          //databasequery here
+        })
+
+        //-------------DISCONNECT---------------
         socket.on('disconnect', function() {
-          socket.disconnect()
+          // socket.disconnect()
           console.log('Client disconnected!')
         });
 

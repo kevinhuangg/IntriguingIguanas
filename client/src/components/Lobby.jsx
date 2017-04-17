@@ -30,7 +30,7 @@ export class Lobby extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.createBoard(this.state.boardName, this.props.LogIn.user_id)
+    this.props.createBoard(this.state.boardNameInput, this.props.LogIn.user_id)
   }
 
   render() {
