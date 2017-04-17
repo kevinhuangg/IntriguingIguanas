@@ -2,6 +2,7 @@
 const board = require('../database/db-queries/board.js')
 const list = require('../database/db-queries/list.js')
 const task = require('../database/db-queries/task.js')
+const User = require('../database/db-queries/User.js')
 
 var sockets = require('socket.io');
 var io;
