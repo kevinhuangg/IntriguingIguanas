@@ -50,7 +50,7 @@ export class Task extends React.Component {
     return (
       <div>
         <div onClick={ this.isEditing }>
-          { this.props.text }
+          > { this.props.text }
         </div>
         { this.state.isEditing &&
           <div>
