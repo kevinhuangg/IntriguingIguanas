@@ -11,8 +11,6 @@ export class Lobby extends React.Component {
     super(props)
     this.state = {
       forms: {createBoardName: '', editBoardName: ''},
-      boardName: '',
-      newBoardName: '',
       editingBoardId: null,
       isEditing: false
     }
