@@ -82,6 +82,18 @@ module.exports = {
         });
 
         // -------------- TASKS --------------
+        socket.on('fetch-tasks', (req) => {
+          task.fetchTasks(req.list_id)
+          .then(pgData => {
+            let tasksFetched = `tasks-fetched-listID-${req.list_id}`
+
+            io.in(room).emit(tasksFetched, pgData.rows)
+          })
+          .catch(err => {
+            console.log('FETCH TASKS ERR')
+          })
+        });
+
         socket.on('add-task', function(req) {
           task.addTask(req.list_id, req.text)
           .then(success => {
@@ -100,18 +112,6 @@ module.exports = {
           })
         });
 
-        socket.on('fetch-tasks', (req) => {
-          task.fetchTasks(req.list_id)
-          .then(pgData => {
-            let tasksFetched = `tasks-fetched-listID-${req.list_id}`
-
-            io.in(room).emit(tasksFetched, pgData.rows)
-          })
-          .catch(err => {
-            console.log('FETCH TASKS ERR')
-          })
-        });
-
         socket.on('update-task', (req) => {
           task.updateTask(req.task_id, req.newText)
           .then(success => {
@@ -127,6 +127,24 @@ module.exports = {
           })
           .catch(err => {
             console.log('UPDATE TASK ERR', err)
+          })
+        });
+
+        socket.on('delete-task', (req) => {
+          task.deleteTask(req.task_id)
+          .then(success => {
+            task.fetchTasks(req.list_id)
+            .then(pgData => {
+              let tasksFetched = `tasks-fetched-listID-${req.list_id}`
+
+              io.in(room).emit(tasksFetched, pgData.rows)
+            })
+            .catch(err => {
+              console.log('FETCH TASKS ERR', err)
+            })
+          })
+          .catch(err => {
+            console.log('DELETE TASK ERR', err)
           })
         });
 
