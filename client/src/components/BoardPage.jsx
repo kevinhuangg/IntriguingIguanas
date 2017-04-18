@@ -8,16 +8,13 @@ export class BoardPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      listName: '',
       socket: null,
+      forms: {createListName: '', inviteUser: ''},
       board_id: this.props.params.board_id,
       boardName: this.props.params.boardName,
-      invitee: 'Invite someone...',
       lists: []
     }
-    this.onInputChange = this.onInputChange.bind(this)
     this.onCreateList = this.onCreateList.bind(this)
-    this.onInviteeInputChange = this.onInviteeInputChange.bind(this)
     this.inviteUser = this.inviteUser.bind(this)
   }
 
@@ -26,12 +23,9 @@ export class BoardPage extends React.Component {
     this.setState({
       socket: socket
     })
-    socket.emit('join-board', { board_id: this.state.board_id }
-    )
-  }
-
-  componentDidMount() {
-    this.state.socket.on('update-board', (res) => {
+    socket.emit('join-board', { board_id: this.state.board_id })
+    
+    socket.on('update-board', (res) => {
       console.log('LISTS RECEIVED', res.rows)
       // this.props.listsFetched(res.rows)
       this.setState({
@@ -44,37 +38,38 @@ export class BoardPage extends React.Component {
     this.state.socket.emit('disconnect');
   }
 
-  onInputChange(e) {
+  handleChange(form, e) {
+    const forms = this.state.forms
+    forms[form] = e.target.value;
     this.setState({
-      listName: e.target.value
-    })
-  }
-
-  onInviteeInputChange(e) {
-    this.setState({
-      invitee: e.target.value
+      forms: forms
     })
   }
 
   onCreateList() {
     this.state.socket.emit('create-list', {
       board_id: this.state.board_id,
-      name: this.state.listName
+      name: this.state.forms.createListName
     })
     this.setState({
-      listName: ''
+      forms: { createListName: '', 
+               inviteUser: this.state.forms.inviteUser }
     })
-
   }
 
   inviteUser() {
-    this.state.socket.emit('invite-user-to-board', {invitee: this.state.invitee, board_id: this.state.board_id})
-
-    this.setState({
-      invitee: ''
+    this.state.socket.emit('invite-user-to-board', { 
+      invitee: this.state.forms.inviteUser,
+      board_id: this.state.board_id
     })
 
-    alert(`${this.state.invitee} was successfully invited to ${this.state.boardName}`)
+    alert(`${this.state.forms.inviteUser} was successfully invited to ${this.state.boardName}`)
+
+    this.setState({
+      forms: { createListName: this.state.forms.createListName,
+               inviteUser: '' }
+    })
+
   }
 
   render() {
@@ -82,14 +77,16 @@ export class BoardPage extends React.Component {
       <div>
         <h3>{ this.state.boardName }</h3>
         <div>
-          <input value={ this.state.invitee }
-            onChange={ this.onInviteeInputChange }
-            onClick= { this.clearInviteeInput }
+          <input 
+            value={ this.state.forms.inviteUser }
+            onChange={ this.handleChange.bind(this, 'inviteUser') }
           />
           <button onClick={ this.inviteUser }>INVITE</button>
         </div>
-
-        <input value={ this.state.listName } onChange={ this.onInputChange }/>
+        <input 
+          value={ this.state.forms.createListName } 
+          onChange={ this.handleChange.bind(this, 'createListName') }
+        />
         <button onClick={ this.onCreateList }>CREATE LIST</button>
         { console.log('LISTS TO RENDER', this.state.lists) }
         { this.state.lists.map((list, index) =>
