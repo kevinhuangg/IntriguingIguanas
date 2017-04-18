@@ -160,6 +160,12 @@ module.exports = {
           //databasequery here
         })
 
+        //------------ VIDEO CHAT ------------
+        socket.on('start-video-chat', (stream) => {
+          console.log(stream, "STREAMMM")
+          socket.to(room).emit('initiate-peer-video', stream)
+        })
+
         //------------- DISCONNECT -------------
         socket.on('disconnect', function() {
           // socket.disconnect()

@@ -1,5 +1,6 @@
 import React from 'react'
 import List from './List.jsx'
+import Video from './Video.jsx'
 import { connect } from 'react-redux'
 import { listsFetched } from '../actions/List.js'
 import io from 'socket.io-client'
@@ -95,6 +96,7 @@ export class BoardPage extends React.Component {
             listname={ list.listname }
             list_id={ list.id }
           />) }
+        <Video socket={ this.state.socket }/>
       </div>
     )
   }
