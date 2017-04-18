@@ -56,6 +56,9 @@ export class List extends React.Component {
       list_id: this.props.list_id,
       text: this.state.text
     })
+    this.setState({
+      text: ''
+    })
   }
 
 // ----------- EDIT/DELETE LIST -----------
