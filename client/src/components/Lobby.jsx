@@ -61,7 +61,6 @@ export class Lobby extends React.Component {
   }
 
   render() {
-    console.log('> BOARDS', this.props.boards)
     return (
       <div>
         <input

@@ -56,6 +56,9 @@ export class List extends React.Component {
       list_id: this.props.list_id,
       text: this.state.text
     })
+    this.setState({
+      text: ''
+    })
   }
 
 // ----------- EDIT/DELETE LIST -----------
@@ -101,7 +104,7 @@ export class List extends React.Component {
             </div>
           }
         </div>
-        <input onChange={ this.onTaskInputChange }/>
+        <input onChange={ this.onTaskInputChange } value={ this.state.text } />
         <button onClick={ this.addTask }>ADD TASK</button>
 
         { this.state.tasks.map((task, index) =>
