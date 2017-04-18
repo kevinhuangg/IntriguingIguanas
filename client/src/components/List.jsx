@@ -107,11 +107,10 @@ export class List extends React.Component {
         <input onChange={ this.onTaskInputChange } value={ this.state.text } />
         <button onClick={ this.addTask }>ADD TASK</button>
 
-        { this.state.tasks.map((task, index) =>
+        { this.state.tasks.map(task =>
           <Task
-            key={ index }
+            key={ task.id }
             text={ task.text }
-            task_id={ task.id }
             list_id={ task.list_id }
             socket={ this.props.socket }
             // assigned={ task.assigned }

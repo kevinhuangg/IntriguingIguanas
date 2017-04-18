@@ -30,13 +30,16 @@ export class Lobby extends React.Component {
     const forms = this.state.forms
     forms[form] = e.target.value
     this.setState({ forms: forms })
-  } 
+  }
 
   createBoard(e) {
     e.preventDefault()
     this.props.createBoard(this.state.forms.createBoardName, this.props.LogIn.user_id)
     this.setState({
-      forms: {createBoardName: '', editBoardName: this.state.forms.editBoardName }
+      forms: {
+        createBoardName: '',
+        editBoardName: this.state.forms.editBoardName
+      }
     })
   }
 
@@ -55,7 +58,10 @@ export class Lobby extends React.Component {
   editBoardName(board_id) {
     this.props.editBoard(this.state.forms.editBoardName, board_id, this.props.LogIn.user_id)
     this.setState({
-      forms: {createBoardName: this.state.forms.createBoardName, editBoardName: ''},
+      forms: {
+        createBoardName: this.state.forms.createBoardName,
+        editBoardName: ''
+      },
       isEditing: !this.state.isEditing
     })
   }

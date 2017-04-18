@@ -29,7 +29,7 @@ export class Task extends React.Component {
 
   updateTask() {
     this.props.socket.emit('update-task', {
-      task_id: this.props.task_id,
+      task_id: this.props.key,
       list_id: this.props.list_id,
       newText: this.state.newTaskTextInput
     })
@@ -41,7 +41,7 @@ export class Task extends React.Component {
 
   deleteTask() {
     this.props.socket.emit('delete-task', {
-      task_id: this.props.task_id,
+      task_id: this.props.key,
       list_id: this.props.list_id
     })
   }
