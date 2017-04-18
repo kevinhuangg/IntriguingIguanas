@@ -63,12 +63,13 @@ export class BoardPage extends React.Component {
       board_id: this.state.board_id
     })
 
+    alert(`${this.state.form.inviteUser} was successfully invited to ${this.state.boardName}`)
+    
     this.setState({
       forms: { createListName: this.state.forms.createListName,
                inviteUser: '' }
     })
 
-    alert(`${this.state.invitee} was successfully invited to ${this.state.boardName}`)
   }
 
   render() {
