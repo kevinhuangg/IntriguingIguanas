@@ -2,7 +2,6 @@ import React from 'react'
 import Lobby from './Lobby.jsx'
 import BoardPage from './BoardPage.jsx'
 import { Link } from 'react-router'
-import Video from './Video.jsx'
 
 export class HomePage extends React.Component {
   constructor(props) {

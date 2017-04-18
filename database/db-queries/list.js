@@ -7,7 +7,14 @@ module.exports = {
   },
   //add list to db
   addList: (name, boardID) => {
-    return db.query(`INSERT INTO lists (listname, board_id) VALUES ('${name}', ${boardID})`)
+    return db.query(`SELECT coalesce(max(current_order),0) as max_order FROM lists WHERE board_id=${boardID}`)
+    .then(list => {
+      var new_order = list.rows[0].max_order + 500;
+      return db.query(`INSERT INTO lists (listname, board_id, current_order) VALUES ('${name}', ${boardID}, ${new_order})`)
+    })
+    .catch(err => {
+      console.log(err);
+    })
   },
   //update list name in db
   updateListName: (newName, listID) => {
