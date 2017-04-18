@@ -104,7 +104,7 @@ export class List extends React.Component {
             </div>
           }
         </div>
-        <input onChange={ this.onTaskInputChange }/>
+        <input onChange={ this.onTaskInputChange } value={ this.state.text } />
         <button onClick={ this.addTask }>ADD TASK</button>
 
         { this.state.tasks.map((task, index) =>
