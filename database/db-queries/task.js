@@ -7,7 +7,7 @@ module.exports = {
   deleteTasksByListID: (list_id) => {
     return db.query(`DELETE FROM tasks WHERE list_id=${list_id}`);
   },
-  editTask: (task_id, text) => {
+  updateTask: (task_id, text) => {
     return db.query(`UPDATE tasks SET text='${text}' WHERE id=${task_id}`);
   },
   addTask: (list_id, text) => {
