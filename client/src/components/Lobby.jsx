@@ -10,16 +10,13 @@ export class Lobby extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      boardName: '',
-      newBoardName: '',
+      forms: {createBoardName: '', editBoardName: ''},
       editingBoardId: null,
       isEditing: false
     }
-    this.handleBoardNameChange = this.handleBoardNameChange.bind(this)
     this.createBoard = this.createBoard.bind(this)
     this.deleteBoard = this.deleteBoard.bind(this)
     this.isEditingBoardName = this.isEditingBoardName.bind(this)
-    this.editBoardNameChange = this.editBoardNameChange.bind(this)
     this.editBoardName = this.editBoardName.bind(this)
   }
 
@@ -29,18 +26,17 @@ export class Lobby extends React.Component {
     this.props.fetchBoards(this.props.LogIn.user_id)
   }
 
-
-  handleBoardNameChange(e) {
-    this.setState({
-      boardName: e.target.value
-    })
-  }
+  handleChange(form, e) {
+    const forms = this.state.forms
+    forms[form] = e.target.value
+    this.setState({ forms: forms })
+  } 
 
   createBoard(e) {
     e.preventDefault()
-    this.props.createBoard(this.state.boardName, this.props.LogIn.user_id)
+    this.props.createBoard(this.state.forms.createBoardName, this.props.LogIn.user_id)
     this.setState({
-      boardName: ''
+      forms: {createBoardName: '', editBoardName: this.state.forms.editBoardName }
     })
   }
 
@@ -56,16 +52,10 @@ export class Lobby extends React.Component {
     })
   }
 
-  editBoardNameChange(e) {
-    this.setState({
-      newBoardName: e.target.value
-    })
-  }
-
   editBoardName(board_id) {
-    this.props.editBoard(this.state.newBoardName, board_id, this.props.LogIn.user_id)
+    this.props.editBoard(this.state.forms.editBoardName, board_id, this.props.LogIn.user_id)
     this.setState({
-      newBoardName: '',
+      forms: {createBoardName: this.state.forms.createBoardName, editBoardName: ''},
       isEditing: !this.state.isEditing
     })
   }
@@ -75,8 +65,8 @@ export class Lobby extends React.Component {
     return (
       <div>
         <input
-          value={ this.state.boardName }
-          onChange={ this.handleBoardNameChange }
+          value={ this.state.forms.createBoardName }
+          onChange={ this.handleChange.bind(this, 'createBoardName') }
         />
         <button onClick={ this.createBoard }>CREATE BOARD</button>
         { this.props.boards.map((board) => (
@@ -87,7 +77,7 @@ export class Lobby extends React.Component {
               <button onClick={ () => { this.isEditingBoardName(board.id) } }>EDIT</button>
               { this.state.isEditing && this.state.editingBoardId === board.id &&
                 <div>
-                  <input value={ this.state.newBoardName } onChange={ this.editBoardNameChange }/>
+                  <input value={ this.state.forms.editBoardName } onChange={ this.handleChange.bind(this, 'editBoardName') }/>
                   <button onClick={ () => { this.editBoardName(board.id) } }>SAVE</button>
                 </div>
               }
