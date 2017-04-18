@@ -1,6 +1,8 @@
 import React from 'react'
 import Task from './Task.jsx'
 
+import { Grid, Card } from 'semantic-ui-react'
+
 export class List extends React.Component {
   constructor(props) {
     super(props)
@@ -25,7 +27,6 @@ export class List extends React.Component {
     // --------- TASKS FETCHED ---------
     let tasksFetched = `tasks-fetched-listID-${this.props.list_id}`
     socket.on(tasksFetched, (tasks) => {
-      console.log('> TASKS OF LIST ' + this.props.list_id, tasks)
       this.setState({
         tasks: tasks
       })
@@ -94,8 +95,14 @@ export class List extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <h4 onClick={ this.isEditingListName }>{ this.state.currentListName }</h4>
+        <Card>
+          <Card.Content>
+          <Card.Header onClick={ this.isEditingListName }>
+            { this.state.currentListName }
+          </Card.Header>
+          </Card.Content>
+
+          <Card.Content>
           { this.state.isEditing &&
             <div>
             <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
@@ -103,7 +110,6 @@ export class List extends React.Component {
             <button onClick={ this.deleteList }>DELETE</button>
             </div>
           }
-        </div>
         <input onChange={ this.onTaskInputChange } value={ this.state.text } />
         <button onClick={ this.addTask }>ADD TASK</button>
 
@@ -111,10 +117,13 @@ export class List extends React.Component {
           <Task
             key={ task.id }
             text={ task.text }
+            task_id={ task.id }
             list_id={ task.list_id }
             socket={ this.props.socket }
             // assigned={ task.assigned }
           />) }
+          </Card.Content>
+        </Card>
       </div>
     )
   }
