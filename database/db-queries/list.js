@@ -3,7 +3,7 @@ const db = require('../db.js');
 module.exports = {
   //fetch list to db
   fetchLists: (boardID) => {
-    return db.query(`SELECT * FROM lists WHERE board_id=${boardID}`)
+    return db.query(`SELECT * FROM lists WHERE board_id=${boardID} order by current_order`)
   },
   //add list to db
   addList: (name, boardID) => {
