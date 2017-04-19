@@ -37,7 +37,7 @@ export class LogInPage extends React.Component {
     return (
       <div className="ui middle aligned center aligned grid">
         <div className="column">
-          <h2 className="ui teal image header">
+          <h2 className="ui image header">
             <img src="../../dist/Logo.png" className="image"/>
             <div className="content">
               Log in to Root.io
