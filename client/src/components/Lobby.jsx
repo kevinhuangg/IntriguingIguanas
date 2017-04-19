@@ -60,31 +60,6 @@ export class Lobby extends React.Component {
     })
   }
 
-  deleteBoard(board_id) {
-    this.props.deleteBoard(board_id, this.props.LogIn.user_id)
-  }
-
-
-  isEditingBoardName(board_id) {
-    this.setState({
-      isEditing: !this.state.isEditing,
-      editingBoardId: board_id
-    })
-  }
-
-  editBoardNameChange(e) {
-    this.setState({
-      newBoardName: e.target.value
-    })
-  }
-
-  editBoardName(board_id) {
-    this.props.editBoard(this.state.newBoardName, board_id, this.props.LogIn.user_id)
-    this.setState({
-      newBoardName: ''
-    })
-  }
-
   render() {
     return (
       <div>
