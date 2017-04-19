@@ -60,6 +60,10 @@ export class Lobby extends React.Component {
     })
   }
 
+  deleteBoard(board_id) {
+    this.props.deleteBoard(board_id, this.props.LogIn.user_id)
+  }
+
   render() {
     return (
       <div>
