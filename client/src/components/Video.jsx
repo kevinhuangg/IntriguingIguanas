@@ -16,55 +16,64 @@ class VideoChat extends React.Component {
         video: videoOptions
       },
       err: null,
-      peerStream: false
+      peerStream: null,
+      myVideo: null,
+      displayVideo: false
     }
-    this.requestVideoFeed = this.requestVideoFeed.bind(this)
-    this.requestPeerVideo = this.requestPeerVideo.bind(this)
+    this.startVideoCall = this.startVideoCall.bind(this)
+    this.startMyStream = this.startMyStream.bind(this)
+    this.sendMyStream = this.sendMyStream.bind(this)
+    this.receiveRemoteStream = this.receiveRemoteStream.bind(this)
+
+    this.props.socket.on('initiate-peer-video', stream => {
+      this.receiveRemoteStream(stream)
+    })
   }
 
   componentDidMount() {
-    this.requestVideoFeed()
-    this.requestPeerVideo()
   }
 
-  requestPeerVideo() {
-    let peerVideo = document.getElementById('peerVideo')
-    this.props.socket.on('initiate-peer-video', (stream) => {
-      console.log("reached initiate-peer-video")
-      peerVideo.srcObject = stream
-      this.setState({
-        peerStream: true
+
+  startMyStream(stream) {
+    // return navigator.mediaDevices.getUserMedia(this.state.constrants)
+    //   .then(this.sendMyStream)
+    //   .catch(err => {
+    //     this.setState({err: err})
+    //   })
+    this.setState({
+      myVideo: window.URL.createObjectURL(stream)
+    })
+  }
+
+  sendMyStream(stream) {
+    this.props.socket.emit('start-video-chat', this.state.myVideo)
+  }
+
+  receiveRemoteStream(stream) {
+    this.setState({
+      peerStream: stream,
+    })
+  }
+
+  startVideoCall() {
+    return navigator.mediaDevices.getUserMedia(this.state.constraints)
+      .then(this.startMyStream)
+      .then(this.sendMyStream)
+      .catch(err => {
+        this.setState({err: err})
       })
-    })
   }
 
-  requestVideoFeed() {
-    var context = this;
-    let myVideo = document.getElementById('myVideo')
-
-    navigator.mediaDevices.getUserMedia(this.state.constraints)
-    .then(stream => {
-      console.log(stream.getTracks(), "CLIENT STREAM")
-      if ("srcObject" in myVideo) {
-        myVideo.srcObject = stream;
-      } else {
-        myVideo.src = window.URL.createObjectURL(stream);
-      }
-      // myVideo.onloadmetadata = function(e) {
-      //   myVideo.play();
-      // }
-        context.props.socket.emit('start-video-chat', stream)
-    })
-    .catch(err => {
-      this.setState({err: err})
-    })
-  }
   render() {
     return (
       <div>
-        <video id='myVideo' autoPlay></video>
-        { this.state.peerVideo &&
-          <video id='peerVideo' autoPlay></video> }
+        {this.state.myVideo &&
+        <video id='myVideo' src={ this.state.myVideo } autoPlay></video> }
+        { this.state.peerStream &&
+        <video id='peerVideo' src={ this.state.peerStream } autoPlay></video> }
+        <button onClick={ this.startVideoCall }>
+          Call Team
+        </button>
       </div>
     )
   }
