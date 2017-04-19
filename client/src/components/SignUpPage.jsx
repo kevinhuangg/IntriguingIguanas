@@ -39,40 +39,54 @@ export class SignUpPage extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={ this.handleSubmit }>
-          <label>
-          Username:
-            <input
-              type='text'
-              value={ this.state.username }
-              onChange={ this.handleUsernameChange }
-            />
-          </label>
-          <label>
-          Email:
-            <input
-              type='text'
-              value={ this.state.email }
-              onChange={ this.handleEmailChange }
-            />
-          </label>
-          <label>
-          Password:
-            <input
-              type='text'
-              value={ this.state.password }
-              onChange={ this.handlePasswordChange }
-            />
-          </label>
-          <input
-            type='submit'
-            value='Signup'
-          />
-        </form>
-        <div>{ this.props.error }</div>
-        Already a user?
-          <Link to='/login'> Login</Link>
+      <div className="ui middle aligned center aligned grid">
+        <div className="column">
+          <h2 className="ui image header">
+            <img src="../../dist/Logo.png" className="image"/>
+            <div className="content">
+              Create an Account
+            </div>
+          </h2>
+          <form className="ui large form">
+            <div className="ui stacked segment">
+              <div className="field">
+              <div className="input-name">Username</div>
+                <input
+                  type="text"
+                  value={ this.state.username }
+                  placeholder="Username"
+                  onChange={ this.handleUsernameChange }
+                />
+              </div>
+              <div className="field">
+              <div className="input-name">Email</div>
+                <input
+                  type="text"
+                  value={ this.state.email }
+                  placeholder="Username"
+                  onChange={ this.handleEmailChange }
+                />
+              </div>
+              <div className="field">
+              <div className="input-name">Password</div>
+                <input
+                  type="password"
+                  value={ this.state.password }
+                  onChange={ this.handlePasswordChange }
+                  placeholder="Password"
+                 />
+              </div>
+              <div className="ui fluid massive blue submit button" onClick={ this.handleSubmit }>Sign Up</div>
+            </div>
+
+            <div className="ui error message"></div>
+
+          </form>
+
+          <div className="ui message">
+            Already a user? <Link to='/login'> Login</Link>
+          </div>
+        </div>
       </div>
     )
   }

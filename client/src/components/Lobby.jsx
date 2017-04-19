@@ -42,11 +42,6 @@ export class Lobby extends React.Component {
     })
   }
 
-  deleteBoard(board_id) {
-    this.props.deleteBoard(board_id, this.props.LogIn.user_id)
-  }
-
-
   isEditingBoardName(board_id) {
     this.setState({
       isEditing: !this.state.isEditing,
@@ -63,6 +58,10 @@ export class Lobby extends React.Component {
       },
       isEditing: !this.state.isEditing
     })
+  }
+
+  deleteBoard(board_id) {
+    this.props.deleteBoard(board_id, this.props.LogIn.user_id)
   }
 
   render() {

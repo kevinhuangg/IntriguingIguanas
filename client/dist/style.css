@@ -1,3 +1,14 @@
+body .grid {
+  height: 100%;
+}
+
+.image {
+  margin-top: -100px;
+}
+.column {
+  max-width: 450px;
+}
+
 h1.homepage {
   font-size: 35px;
 }
@@ -41,3 +52,22 @@ h2.homepage {
   background-size: 100%;
   font-color: white;
 }
+
+.content {
+  font-size: 35px;
+  /*color: #265a88;*/
+  color: #1678c2;
+  padding-bottom: 5px;
+}
+
+.field {
+  font-size: 15px;
+  text-align: left;
+}
+
+.input-name {
+  padding-bottom: 5px;
+  color: #1678c2;
+  font-weight: bold;
+}
+
