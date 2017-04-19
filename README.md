@@ -38,12 +38,20 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
 ```
 
-### Server Setup
-The `database/db` folder contains data that we need for both development and backend tests. With `knex` installed, you can refer to the commands in this link(http://mherman.org/blog/2016/04/28/test-driven-development-with-node/#.WNqmIHQrJo5) to create the tables and fill in data (No need to create schema and dummy data again). Make sure you have created the databases (psql), following tables, and migrate the migration script in `database/db/migrations`, and seed the data from `database/db/seeds`.
+### Server/Database Setup
+The `database/db` folder contains data that we need for both development and backend tests. With `knex` installed, you can refer to the commands in this link(http://mherman.org/blog/2016/04/28/test-driven-development-with-node/#.WNqmIHQrJo5) to create the tables and fill in data (No need to create schema and dummy data again). Make sure you have created the databases (psql), following tables, and migrate the migration script in `database/db/migrations`, and seed the data from `database/db/seeds`. 
+```sh
+knex migrate:latest --env development
+knex seed:run --env development
+```
+
+To have access to the sessions table, run:
+```sh
+psql rootsdb < node_modules/connect-pg-simple/table.sql
+```
 
 ### Roadmap
 
