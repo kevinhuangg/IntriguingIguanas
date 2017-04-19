@@ -99,6 +99,8 @@ export class List extends React.Component {
   }
 
   render() {
+    var leftArrow = '\u25C0'
+    var rightArrow = '\u25B6'
     return (
       <div>
         <Card>
@@ -114,6 +116,8 @@ export class List extends React.Component {
               <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
               <button onClick={ this.updateListName }>SAVE</button>
               <button onClick={ this.deleteList }>DELETE</button>
+              <button >{leftArrow}</button>
+              <button >{rightArrow}</button>
               </Segment>
             }
           </Card.Header>

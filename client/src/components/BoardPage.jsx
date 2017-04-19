@@ -22,6 +22,7 @@ export class BoardPage extends React.Component {
     }
     this.onCreateList = this.onCreateList.bind(this)
     this.inviteUser = this.inviteUser.bind(this)
+    this.moveList = this.moveList.bind(this)
   }
 
   componentWillMount() {
@@ -75,10 +76,14 @@ export class BoardPage extends React.Component {
       forms: { createListName: this.state.forms.createListName,
                inviteUser: '' }
     })
+  }
+
+  moveList() {
 
   }
 
   render() {
+    console.log('LISTSSSSS', this.state.lists)
     return (
       <div>
         <h3>{ this.state.boardName }</h3>
