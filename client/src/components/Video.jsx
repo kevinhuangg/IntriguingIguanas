@@ -12,7 +12,7 @@ class VideoChat extends React.Component {
     super(props)
     this.state = {
       constraints: {
-        audio: true,
+        audio: false,
         video: videoOptions
       },
       err: null,

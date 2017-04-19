@@ -1,7 +1,13 @@
 import React from 'react'
 import Task from './Task.jsx'
 
-import { Grid, Card } from 'semantic-ui-react'
+import {
+  Grid,
+  Card,
+  Menu,
+  Segment,
+  Header
+} from 'semantic-ui-react'
 
 export class List extends React.Component {
   constructor(props) {
@@ -96,33 +102,44 @@ export class List extends React.Component {
     return (
       <div>
         <Card>
-          <Card.Content>
-          <Card.Header onClick={ this.isEditingListName }>
-            { this.state.currentListName }
+
+          {/* ----- LIST NAME ----- */}
+          <Card.Content className='list-header'>
+          <Card.Header>
+            <Header as='h2' color='teal' onClick={ this.isEditingListName }>
+              { this.state.currentListName }
+            </Header>
+            { this.state.isEditing &&
+              <Segment>
+              <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
+              <button onClick={ this.updateListName }>SAVE</button>
+              <button onClick={ this.deleteList }>DELETE</button>
+              </Segment>
+            }
           </Card.Header>
           </Card.Content>
 
+          {/* ----- TASKS ----- */}
           <Card.Content>
-          { this.state.isEditing &&
-            <div>
-            <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
-            <button onClick={ this.updateListName }>SAVE</button>
-            <button onClick={ this.deleteList }>DELETE</button>
-            </div>
-          }
-        <input onChange={ this.onTaskInputChange } value={ this.state.text } />
-        <button onClick={ this.addTask }>ADD TASK</button>
-
-        { this.state.tasks.map(task =>
-          <Task
-            key={ task.id }
-            text={ task.text }
-            task_id={ task.id }
-            list_id={ task.list_id }
-            socket={ this.props.socket }
-            // assigned={ task.assigned }
-          />) }
+          { this.state.tasks.map(task =>
+            <Segment key={ task.id }>
+            <Task
+              text={ task.text }
+              task_id={ task.id }
+              list_id={ task.list_id }
+              socket={ this.props.socket }
+              // assigned={ task.assigned }
+            />
+            </Segment>
+          )}
           </Card.Content>
+
+          {/* ----- ADD TASK ----- */}
+          <Card.Content>
+          <input onChange={ this.onTaskInputChange } value={ this.state.text } />
+          <button onClick={ this.addTask }>ADD TASK</button>
+          </Card.Content>
+
         </Card>
       </div>
     )
