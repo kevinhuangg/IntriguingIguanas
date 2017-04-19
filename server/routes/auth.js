@@ -1,5 +1,4 @@
-const User = require('../../database/db-queries/user.js');
-
+const User = require('../../database/db-queries/User.js');
 
 module.exports = function(app, passport) {
   app.post('/login',
