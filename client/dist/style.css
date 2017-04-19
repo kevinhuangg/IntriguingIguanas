@@ -55,6 +55,8 @@ h2.homepage {
 
 .content {
   font-size: 35px;
+  /*color: #265a88;*/
+  color: #1678c2;
   padding-bottom: 5px;
 }
 
@@ -66,5 +68,4 @@ h2.homepage {
 .input-name {
   padding-bottom: 5px;
 }
-
 

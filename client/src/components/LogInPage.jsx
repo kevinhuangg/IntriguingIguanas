@@ -67,7 +67,7 @@ export class LogInPage extends React.Component {
                    />
                 </div>
               </div>
-              <div className="ui fluid massive teal submit button" onClick={ this.handleSubmit }>Login</div>
+              <div className="ui fluid massive blue submit button" onClick={ this.handleSubmit }>Login</div>
             </div>
 
             <div className="ui error message"></div>
