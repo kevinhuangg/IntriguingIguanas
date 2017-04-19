@@ -35,38 +35,48 @@ export class LogInPage extends React.Component {
 
   render() {
     return (
-      <div className='ui raised very padded text container segment'>
-        <div className = 'ui huge header'>Login</div>
-        <form className='ui form' onSubmit={ this.handleSubmit }>
-          <div className='field'>
-            <label>Username:</label>
-            <div className='ui left icon input'>
-              <input
-                type='text'
-                value={ this.state.username }
-                placeholder='Username'
-                onChange={ this.handleUsernameChange }
-              />
-              <i className='user icon'></i>
+      <div className="ui middle aligned center aligned grid">
+        <div className="column">
+          <h2 className="ui teal image header">
+            <img src="../../dist/Logo.png" className="image"/>
+            <div className="content">
+              Log in to Root.io
             </div>
-          </div>
-          <div className='field'>
-            <label>Password:</label>
-            <div className='ui left icon input'>
-              <input
-                type='text'
-                value={ this.state.password }
-                placeholder='Password'
-                onChange={ this.handlePasswordChange }
-              />
-              <i className='lock icon'></i>
+          </h2>
+          <form className="ui large form">
+            <div className="ui stacked segment">
+              <div className="field">
+                <div className="ui left icon input">
+                  <i className="user icon"></i>
+                  <input
+                    type="text"
+                    value={ this.state.username }
+                    placeholder="Username"
+                    onChange={ this.handleUsernameChange }
+                  />
+                </div>
+              </div>
+              <div className="field">
+                <div className="ui left icon input">
+                  <i className="lock icon"></i>
+                  <input
+                    type="password"
+                    value={ this.state.password }
+                    onChange={ this.handlePasswordChange }
+                    placeholder="Password"
+                   />
+                </div>
+              </div>
+              <div className="ui fluid massive teal submit button" onClick={ this.handleSubmit }>Login</div>
             </div>
+
+            <div className="ui error message"></div>
+
+          </form>
+
+          <div className="ui message">
+            New to us? <Link to='/signup'> Sign Up</Link>
           </div>
-          <button className='ui primary button' type='submit'>Login</button>
-        </form>
-        <div>{ this.props.error }</div>
-        <div>Don't have an account?
-          <Link to='/signup'> Sign Up</Link>
         </div>
       </div>
     )
