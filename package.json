@@ -8,7 +8,8 @@
     "build": "webpack -p",
     "dev": "webpack -d --watch & nodemon server/app.js",
     "test": "jest --config jest.config.js",
-    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
+    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress",
+    "postinstall": "psql rootsdb < node_modules/connect-pg-simple/table.sql"
   },
   "repository": {
     "type": "git",
