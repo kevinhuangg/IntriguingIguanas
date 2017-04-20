@@ -98,6 +98,17 @@ export class List extends React.Component {
     })
   }
 
+  // ----------MOVING TASK ----------
+  findIndexOfTask(task_id) {
+    var indexOfSource = undefined;
+    this.state.tasks.map((list, index) => {
+      if (list.id === list_id) {
+        indexOfSource = index;
+      }
+    })
+    return indexOfSource
+  }
+
   render() {
     var leftArrow = '\u25C0'
     var rightArrow = '\u25B6'
