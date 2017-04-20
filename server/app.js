@@ -27,10 +27,7 @@ app.use(express.static(__dirname + '/../client'));
 const options = {
   secret: 'rootio',
   resave: true,
-  saveUninitialized: false,
-  store: new pgStore({
-    conString: dbConfig.config.connection
-  })
+  saveUninitialized: false
 }
 
 app.use(session(options));
