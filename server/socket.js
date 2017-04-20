@@ -152,6 +152,10 @@ module.exports = {
           })
         });
 
+        socket.on('task-order-update-vertical', (req) => {
+          console.log(req.array);
+        });
+
         //------------ INVITE USERS ------------
         socket.on('invite-user-to-board', (data) => {
           User.addUserToBoard(data.invitee, data.board_id)
