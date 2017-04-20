@@ -113,7 +113,7 @@ export class List extends React.Component {
   }
 
   moveTaskVertical(direction, task_id) {
-    var indexOfSource = this.findIndexOtask(task_id);
+    var indexOfSource = this.findIndexOfTask(task_id);
     var data = {
       array: [ this.state.tasks[indexOfSource] ]
     }
@@ -122,7 +122,7 @@ export class List extends React.Component {
     } else if (direction === 'down') {
       data.array.push(this.state.tasks[indexOfSource + 1])
     }
-    this.state.socket.emit('task-order-update-vertical', data);
+    this.props.socket.emit('task-order-update-vertical', data);
   }
 
   render() {
