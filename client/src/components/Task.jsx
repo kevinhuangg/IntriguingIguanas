@@ -47,6 +47,8 @@ export class Task extends React.Component {
   }
 
   render() {
+    var upArrow = '\u25B2'
+    var downArrow = '\u25BC'
     return (
       <div>
         <div onClick={ this.isEditing }>
@@ -57,6 +59,9 @@ export class Task extends React.Component {
           <input type='text' value={ this.state.newTaskTextInput } onChange={ this.onTaskTextInputChange }/>
           <button onClick={ this.updateTask }>SAVE</button>
           <button onClick={ this.deleteTask }>DELETE</button>
+          <button >{ upArrow }</button>
+          <button >{ downArrow }</button>
+
           </div>
         }
       </div>
