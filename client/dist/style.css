@@ -66,6 +66,7 @@ h2.homepage {
 }
 
 .input-name {
+  font-size: 15px;
   padding-bottom: 5px;
   color: #1678c2;
   font-weight: bold;
