@@ -12,6 +12,7 @@ module.exports.postUser = function(req, res) { //user account creation
       res.status(201).send('User created')
     })
     .catch(error => {
+      console.log('error', error)
       res.status(404).send('Could not create user - duplicate username or email')
     })
   })
