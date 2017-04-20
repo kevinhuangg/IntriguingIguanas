@@ -81,6 +81,10 @@ module.exports = {
           })
         });
 
+        socket.on('list-order-update', (req) => {
+          console.log(req.array);
+        });
+
         // -------------- TASKS --------------
         socket.on('fetch-tasks', (req) => {
           task.fetchTasks(req.list_id)
