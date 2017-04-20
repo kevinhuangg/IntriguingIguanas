@@ -159,9 +159,23 @@ module.exports = {
             console.log(`${data.invitee} added to board id of ${data.board_id}`)
           })
           .catch(err => {
-            console.log(error)
+            console.log(err)
           })
-          //databasequery here
+        })
+
+        //------------ MOVE LIST ------------
+        socket.on('list-order-update', (data) => {
+          list.updateListOrder(data)
+          .then(success => {
+            return list.fetchLists(data.array[0].board_id)
+          })
+          .then(lists => {
+            console.log('>> LISTS', lists)
+            io.in(room).emit('update-board', lists)
+          })
+          .catch(err => {
+            console.log(err)
+          })
         })
 
         //------------ VIDEO CHAT ------------
