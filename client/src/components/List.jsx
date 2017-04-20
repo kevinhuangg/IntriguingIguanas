@@ -1,6 +1,14 @@
 import React from 'react'
 import Task from './Task.jsx'
 
+import {
+  Grid,
+  Card,
+  Menu,
+  Segment,
+  Header
+} from 'semantic-ui-react'
+
 export class List extends React.Component {
   constructor(props) {
     super(props)
@@ -25,7 +33,6 @@ export class List extends React.Component {
     // --------- TASKS FETCHED ---------
     let tasksFetched = `tasks-fetched-listID-${this.props.list_id}`
     socket.on(tasksFetched, (tasks) => {
-      console.log('> TASKS OF LIST ' + this.props.list_id, tasks)
       this.setState({
         tasks: tasks
       })
@@ -94,27 +101,46 @@ export class List extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <h4 onClick={ this.isEditingListName }>{ this.state.currentListName }</h4>
-          { this.state.isEditing &&
-            <div>
-            <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
-            <button onClick={ this.updateListName }>SAVE</button>
-            <button onClick={ this.deleteList }>DELETE</button>
-            </div>
-          }
-        </div>
-        <input onChange={ this.onTaskInputChange } value={ this.state.text } />
-        <button onClick={ this.addTask }>ADD TASK</button>
+        <Card>
 
-        { this.state.tasks.map(task =>
-          <Task
-            key={ task.id }
-            text={ task.text }
-            list_id={ task.list_id }
-            socket={ this.props.socket }
-            // assigned={ task.assigned }
-          />) }
+          {/* ----- LIST NAME ----- */}
+          <Card.Content className='list-header'>
+          <Card.Header>
+            <Header as='h2' color='teal' onClick={ this.isEditingListName }>
+              { this.state.currentListName }
+            </Header>
+            { this.state.isEditing &&
+              <Segment>
+              <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
+              <button onClick={ this.updateListName }>SAVE</button>
+              <button onClick={ this.deleteList }>DELETE</button>
+              </Segment>
+            }
+          </Card.Header>
+          </Card.Content>
+
+          {/* ----- TASKS ----- */}
+          <Card.Content>
+          { this.state.tasks.map(task =>
+            <Segment key={ task.id }>
+            <Task
+              text={ task.text }
+              task_id={ task.id }
+              list_id={ task.list_id }
+              socket={ this.props.socket }
+              // assigned={ task.assigned }
+            />
+            </Segment>
+          )}
+          </Card.Content>
+
+          {/* ----- ADD TASK ----- */}
+          <Card.Content>
+          <input onChange={ this.onTaskInputChange } value={ this.state.text } />
+          <button onClick={ this.addTask }>ADD TASK</button>
+          </Card.Content>
+
+        </Card>
       </div>
     )
   }

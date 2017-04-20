@@ -5,6 +5,11 @@ import { connect } from 'react-redux'
 import { listsFetched } from '../actions/List.js'
 import io from 'socket.io-client'
 
+import {
+  Grid,
+  Card
+} from 'semantic-ui-react'
+
 export class BoardPage extends React.Component {
   constructor(props) {
     super(props)
@@ -89,14 +94,25 @@ export class BoardPage extends React.Component {
           onChange={ this.handleChange.bind(this, 'createListName') }
         />
         <button onClick={ this.onCreateList }>CREATE LIST</button>
-        { this.state.lists.map(list =>
-          <List
-            key={ list.id }
-            socket={ this.state.socket }
-            listname={ list.listname }
-            list_id={ list.id }
-          />) }
-        <Video socket={ this.state.socket }/>
+
+        {/* ----- VIDEOS ----- */}
+        {/* <div className='video'>
+          <Video socket={ this.state.socket }/>
+        </div> */}
+
+        {/* ----- LISTS SCROLL BOX ----- */}
+        <Grid className='lists-box' columns='4'>
+          { this.state.lists.map(list =>
+            <Grid.Column key={ list.id }>
+              <List
+                socket={ this.state.socket }
+                listname={ list.listname }
+                list_id={ list.id }
+              />
+            </Grid.Column>
+          )}
+        </Grid>
+
       </div>
     )
   }
