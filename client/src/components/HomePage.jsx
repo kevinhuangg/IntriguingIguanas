@@ -36,8 +36,8 @@ export class HomePage extends React.Component {
       <div className="jumbotron">
         <h1 className="homepage">Root.io is your one stop shop with all the tools necessary for live and remote collaboration.</h1>
         <h2 className="homepage">With shared project boards and video chat, your team can manage tasks seamlessly.</h2>
-        <button className="btn btn-primary btn-lg" onClick={ this.props.route.sendToSignup }>Sign Up</button>
-        <div onClick={ this.props.route.sendToLogin }>Already a Root.io user? Log in.</div>
+        <button className="ui primary button sign-up" onClick={ this.props.route.sendToSignup }>Sign Up</button>
+        <h4 onClick={ this.props.route.sendToLogin }>Already a Root.io user? Log in.</h4>
       </div>
     </div>
     )

@@ -50,14 +50,19 @@ h2.homepage {
 }
 
 .jumbotron {
-  padding: 300px 600px 80px 80px;
+  padding: 30px 60px 600px 600px;
   height: 100%;
   background-image: url(./background.jpg);
   background-repeat: no-repeat;
   background-size: 100%;
-  font-color: white;
+  text-decoration-color: white;
+  text-align: right;
+  position: absolute;
 }
 
+.ui.primary.button.sign-up {
+  font-size: 15;
+}
 .content {
   font-size: 35px;
   /*color: #265a88;*/
