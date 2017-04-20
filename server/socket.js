@@ -152,10 +152,6 @@ module.exports = {
           })
         });
 
-        socket.on('task-order-update-vertical', (req) => {
-          console.log(req.array);
-        });
-
         //------------ INVITE USERS ------------
         socket.on('invite-user-to-board', (data) => {
           User.addUserToBoard(data.invitee, data.board_id)
@@ -176,6 +172,24 @@ module.exports = {
           .then(lists => {
             console.log('>> LISTS', lists)
             io.in(room).emit('update-board', lists)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        })
+
+        //------------ MOVE TASK ------------
+        socket.on('task-order-update-vertical', (data) => {
+          console.log(data, "DATA")
+          task.updateTaskOrder(data)
+          .then(success => {
+            console.log(success, "SUCCESS")
+            return task.fetchTasks(data.array[0].list_id)
+          })
+          .then(pgData => {
+            console.log(pgData,"PGDATA")
+            let tasksFetched = `tasks-fetched-listID-${data.array[0].list_id}`
+            io.in(room).emit(tasksFetched, pgData.rows)
           })
           .catch(err => {
             console.log(err)
