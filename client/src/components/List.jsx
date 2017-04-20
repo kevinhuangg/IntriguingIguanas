@@ -116,8 +116,8 @@ export class List extends React.Component {
               <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
               <button onClick={ this.updateListName }>SAVE</button>
               <button onClick={ this.deleteList }>DELETE</button>
-              <button >{leftArrow}</button>
-              <button >{rightArrow}</button>
+              <button onClick={ this.props.moveList.bind(null, 'left', this.props.list_id) }>{leftArrow}</button>
+              <button onClick={ this.props.moveList.bind(null, 'right', this.props.list_id) }>{rightArrow}</button>
               </Segment>
             }
           </Card.Header>

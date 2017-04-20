@@ -23,6 +23,7 @@ export class BoardPage extends React.Component {
     this.onCreateList = this.onCreateList.bind(this)
     this.inviteUser = this.inviteUser.bind(this)
     this.moveList = this.moveList.bind(this)
+    this.findIndexOfList = this.findIndexOfList.bind(this)
   }
 
   componentWillMount() {
@@ -78,12 +79,30 @@ export class BoardPage extends React.Component {
     })
   }
 
-  moveList() {
+  findIndexOfList(list_id) {
+    var indexOfSource = undefined;
+    this.state.lists.map((list, index) => {
+      if (list.id === list_id) {
+        indexOfSource = index;
+      }
+    })
+    return indexOfSource
+  }
 
+  moveList(direction, list_id) {
+    var indexOfSource = this.findIndexOfList(list_id);
+    var data = {
+      array: [ this.state.lists[indexOfSource] ]
+    }
+    if (direction === 'left') {
+      data.array.push(this.state.lists[indexOfSource - 1])
+    } else if (direction === 'right') {
+      data.array.push(this.state.lists[indexOfSource + 1])
+    }
+    this.state.socket.emit('list-order-update', data);
   }
 
   render() {
-    console.log('LISTSSSSS', this.state.lists)
     return (
       <div>
         <h3>{ this.state.boardName }</h3>
@@ -113,11 +132,11 @@ export class BoardPage extends React.Component {
                 socket={ this.state.socket }
                 listname={ list.listname }
                 list_id={ list.id }
+                moveList = { this.moveList }
               />
             </Grid.Column>
           )}
         </Grid>
-
       </div>
     )
   }
