@@ -27,6 +27,9 @@ export class List extends React.Component {
     this.onListNameInputChange = this.onListNameInputChange.bind(this)
     this.updateListName = this.updateListName.bind(this)
     this.deleteList = this.deleteList.bind(this)
+    this.findIndexOfTask = this.findIndexOfTask.bind(this)
+    this.moveTaskVertical = this.moveTaskVertical.bind(this)
+
 
     var socket = this.props.socket
 
@@ -98,9 +101,34 @@ export class List extends React.Component {
     })
   }
 
+  // ----------MOVING TASK ----------
+  findIndexOfTask(task_id) {
+    var indexOfSource = undefined;
+    this.state.tasks.map((task, index) => {
+      if (task.id === task_id) {
+        indexOfSource = index;
+      }
+    })
+    return indexOfSource
+  }
+
+  moveTaskVertical(direction, task_id) {
+    var indexOfSource = this.findIndexOfTask(task_id);
+    var data = {
+      array: [ this.state.tasks[indexOfSource] ]
+    }
+    if (direction === 'up') {
+      data.array.push(this.state.tasks[indexOfSource - 1])
+    } else if (direction === 'down') {
+      data.array.push(this.state.tasks[indexOfSource + 1])
+    }
+    this.props.socket.emit('task-order-update-vertical', data);
+  }
+
   render() {
     var leftArrow = '\u25C0'
     var rightArrow = '\u25B6'
+    console.log('TASKSSSS', this.state.tasks)
     return (
       <div>
         <Card>
@@ -132,6 +160,8 @@ export class List extends React.Component {
               task_id={ task.id }
               list_id={ task.list_id }
               socket={ this.props.socket }
+              moveTaskVertical={ this.moveTaskVertical }
+
               // assigned={ task.assigned }
             />
             </Segment>

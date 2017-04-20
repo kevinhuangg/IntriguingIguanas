@@ -24,7 +24,7 @@ module.exports = {
     return db.query(`UPDATE tasks SET assigned='${user}' WHERE id=${task_id}`);
   },
   fetchTasks: (list_id) => {
-    return db.query(`SELECT * FROM tasks WHERE list_id=${list_id}`);
+    return db.query(`SELECT * FROM tasks WHERE list_id=${list_id} order by current_order`);
   },
   updateTaskOrder: (current_list_id, current_task_id, new_list_id, new_order) => {
     return db.query(`UPDATE tasks SET list_id=${new_list_id}, current_order=${new_order} WHERE id=${current_task_id}`);
