@@ -59,8 +59,8 @@ export class Task extends React.Component {
           <input type='text' value={ this.state.newTaskTextInput } onChange={ this.onTaskTextInputChange }/>
           <button onClick={ this.updateTask }>SAVE</button>
           <button onClick={ this.deleteTask }>DELETE</button>
-          <button >{ upArrow }</button>
-          <button >{ downArrow }</button>
+          <button onClick={ this.props.moveTaskVertical.bind(null, 'up', this.props.task_id)}>{ upArrow }</button>
+          <button onClick={ this.props.moveTaskVertical.bind(null, 'down', this.props.task_id)}>{ downArrow }</button>
 
           </div>
         }

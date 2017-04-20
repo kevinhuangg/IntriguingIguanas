@@ -28,6 +28,8 @@ export class List extends React.Component {
     this.updateListName = this.updateListName.bind(this)
     this.deleteList = this.deleteList.bind(this)
     this.findIndexOfTask = this.findIndexOfTask.bind(this)
+    this.moveTaskVertical = this.moveTaskVertical.bind(this)
+
 
     var socket = this.props.socket
 
@@ -158,6 +160,8 @@ export class List extends React.Component {
               task_id={ task.id }
               list_id={ task.list_id }
               socket={ this.props.socket }
+              moveTaskVertical={ this.moveTaskVertical }
+
               // assigned={ task.assigned }
             />
             </Segment>
