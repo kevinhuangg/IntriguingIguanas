@@ -63,7 +63,7 @@ export class SignUpPage extends React.Component {
                 <input
                   type="text"
                   value={ this.state.email }
-                  placeholder="Username"
+                  placeholder="Email"
                   onChange={ this.handleEmailChange }
                 />
               </div>
@@ -76,6 +76,7 @@ export class SignUpPage extends React.Component {
                   placeholder="Password"
                  />
               </div>
+              <div className="input-name">{this.props.error}</div>
               <div className="ui fluid massive blue submit button" onClick={ this.handleSubmit }>Sign Up</div>
             </div>
 

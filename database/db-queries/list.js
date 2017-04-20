@@ -24,4 +24,22 @@ module.exports = {
   deleteList: (listID) => {
     return db.query(`DELETE FROM lists WHERE id=${listID} RETURNING board_id`)
   },
+  updateListOrder: (data) => {
+    if (data.array[1]) {
+      var first_list = data.array[0].id;
+      var second_list = data.array[1].id;
+      var first_order = data.array[0].current_order;
+      var second_order = data.array[1].current_order;
+      var board_id = data.array[0].board_id;
+      return db.query(`UPDATE lists SET current_order=${second_order} WHERE id=${first_list}`)
+      .then(result => {
+        return db.query(`UPDATE lists SET current_order=${first_order} WHERE id=${second_list}`)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    } else {
+      return db.query(`SELECT * from lists`)
+    }
+  }
 }
