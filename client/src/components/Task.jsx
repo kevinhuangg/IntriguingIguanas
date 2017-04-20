@@ -29,7 +29,7 @@ export class Task extends React.Component {
 
   updateTask() {
     this.props.socket.emit('update-task', {
-      task_id: this.props.key,
+      task_id: this.props.task_id,
       list_id: this.props.list_id,
       newText: this.state.newTaskTextInput
     })
@@ -41,7 +41,7 @@ export class Task extends React.Component {
 
   deleteTask() {
     this.props.socket.emit('delete-task', {
-      task_id: this.props.key,
+      task_id: this.props.task_id,
       list_id: this.props.list_id
     })
   }
@@ -52,7 +52,7 @@ export class Task extends React.Component {
     return (
       <div>
         <div onClick={ this.isEditing }>
-          > { this.props.text }
+          • { this.props.text }
         </div>
         { this.state.isEditing &&
           <div>

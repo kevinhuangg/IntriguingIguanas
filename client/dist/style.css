@@ -1,3 +1,7 @@
+body {
+  font-family: 'Century Gothic';
+}
+
 body .grid {
   height: 100%;
 }
@@ -5,6 +9,7 @@ body .grid {
 .image {
   margin-top: -100px;
 }
+
 .column {
   max-width: 450px;
 }
@@ -72,17 +77,6 @@ h2.homepage {
   font-weight: bold;
 }
 
-.ui.four.column.grid.lists-box {
-  padding: 10px 0px 10px 0px;
-  right: 10px;
-  left: 10px;
-  height: 70%;
-  max-width: 100%;
-  position: absolute;
-  overflow-x: scroll;
-  flex-wrap: nowrap;
-}
-
 .video {
   padding: 10px;
   top: 10px;
@@ -93,6 +87,57 @@ h2.homepage {
   width: auto;
 }
 
-/*.list-header.content {
+.ui.grid.canvas {
+  margin: 10px;
+  padding: 5px;
+  height: 100%;
+  max-width: 100%;
+  position: absolute;
+  overflow-x: scroll;
+  flex-wrap: nowrap;
+}
 
-}*/
+.four.wide.column.list-column {
+  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
+}
+
+.ui.card.list {
+  border-radius: .50rem;
+  box-shadow: none;
+}
+
+.ui.card>.content,
+.ui.cards>.card>.content {
+  padding: 10px 10px 7px 10px;
+}
+
+.list-header.content {
+  padding: 10px 10px 7px 10px;
+  font-size: 13;
+  font-weight: bold;
+}
+
+.ui.segment.task {
+  border-radius: .50rem;
+  box-shadow: none;
+  font-size: 16;
+  margin: 2px;
+  padding: 6px;
+  height: 35px;
+  color: black;
+}
+
+/*----- INPUT BOXES -----*/
+.ui.action.input {
+  margin: 5px;
+}
+
+.ui.blue.right.labeled.icon.button {
+  font-size: 14;
+}
+
+.ui.blue.icon.button {
+  font-size: 14;
+}

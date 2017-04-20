@@ -131,12 +131,12 @@ export class List extends React.Component {
     console.log('TASKSSSS', this.state.tasks)
     return (
       <div>
-        <Card>
+        <Card className='list'>
 
           {/* ----- LIST NAME ----- */}
           <Card.Content className='list-header'>
           <Card.Header>
-            <Header as='h2' color='teal' onClick={ this.isEditingListName }>
+            <Header color='blue' onClick={ this.isEditingListName }>
               { this.state.currentListName }
             </Header>
             { this.state.isEditing &&
@@ -154,7 +154,7 @@ export class List extends React.Component {
           {/* ----- TASKS ----- */}
           <Card.Content>
           { this.state.tasks.map(task =>
-            <Segment key={ task.id }>
+            <Segment className='task' key={ task.id }>
             <Task
               text={ task.text }
               task_id={ task.id }
@@ -166,12 +166,15 @@ export class List extends React.Component {
             />
             </Segment>
           )}
-          </Card.Content>
+
 
           {/* ----- ADD TASK ----- */}
-          <Card.Content>
+
+          <div className="ui fluid input add-task">
           <input onChange={ this.onTaskInputChange } value={ this.state.text } />
-          <button onClick={ this.addTask }>ADD TASK</button>
+          <button className="ui blue icon button" onClick={ this.addTask }>
+          <i className="plus icon"></i></button>
+          </div>
           </Card.Content>
 
         </Card>

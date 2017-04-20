@@ -97,7 +97,6 @@ const mapStateToProps = (state) => {
     ...state,
     boards: state.board.boards,
     user_id: state.LogIn.user_id
-
   }
 }
 

@@ -25,14 +25,14 @@ export class HomePage extends React.Component {
 
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul className="nav navbar-nav">
-            <li className="active"><Link to='/signup'>Sign Up</Link></li>
+            <li><Link to='/signup'>Sign Up</Link></li>
             <li><Link to='/login'>Login</Link></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
           </ul>
         </div>
       </div>
-    </nav>
+      </nav>
       <div className="jumbotron">
         <h1 className="homepage">Root.io is your one stop shop with all the tools necessary for live and remote collaboration.</h1>
         <h2 className="homepage">With shared project boards and video chat, your team can manage tasks seamlessly.</h2>
