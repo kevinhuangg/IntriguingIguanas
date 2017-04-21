@@ -127,6 +127,7 @@ export class List extends React.Component {
   render() {
     var leftArrow = '\u25C0'
     var rightArrow = '\u25B6'
+
     return (
       <div>
         <Card className='list'>
