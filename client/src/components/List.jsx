@@ -30,7 +30,6 @@ export class List extends React.Component {
     this.findIndexOfTask = this.findIndexOfTask.bind(this)
     this.moveTaskVertical = this.moveTaskVertical.bind(this)
 
-
     var socket = this.props.socket
 
     // --------- TASKS FETCHED ---------
@@ -128,7 +127,6 @@ export class List extends React.Component {
   render() {
     var leftArrow = '\u25C0'
     var rightArrow = '\u25B6'
-    console.log('TASKSSSS', this.state.tasks)
     return (
       <div>
         <Card className='list'>

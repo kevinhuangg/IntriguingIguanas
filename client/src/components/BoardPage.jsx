@@ -107,32 +107,25 @@ export class BoardPage extends React.Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-default">
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
-            <a className="navbar-brand"><img src="./Logo.png"></img></a>
+        {/* ----- NAV BAR ----- */}
+        <div className="ui blue inverted stackable menu">
+          <div className="ui container">
+            <img className='logo' src="./Logo.png"></img>
           </div>
-
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul className="nav navbar-nav">
-              <li><Link to='/lobby'>Home</Link></li>
-              <li><Link to='/'>Sign Out</Link></li>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-            </ul>
-          </div>
+          <a className="item">
+            <Link to='/lobby'><i className="block layout icon"></i>BOARDS</Link>
+          </a>
+          <a className="item">
+            <Link to='/'><i className="sign out icon"></i>SIGN OUT</Link>
+          </a>
         </div>
-        </nav>
 
-        <Header as='h3' color='blue' icon='sticky note' content={ this.state.boardName }/>
+        <h4 className="ui header">
+        <div className="content board name">{this.state.boardName}</div>
+        </h4>
 
         {/* ----- INVITE USERS ----- */}
+        <div className='invite create list'>
         <div className="ui action input">
           <input
             value={ this.state.forms.inviteUser }
@@ -153,6 +146,7 @@ export class BoardPage extends React.Component {
             <i className="plus icon"></i>
             NEW LIST
           </button>
+        </div>
         </div>
 
         {/* ----- VIDEOS ----- */}
