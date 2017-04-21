@@ -36,6 +36,7 @@ export class BoardPage extends React.Component {
     socket.emit('join-board', { board_id: this.state.board_id })
 
     socket.on('update-board', (res) => {
+      console.log('this is working', res.rows)
       this.setState({
         lists: res.rows
       })

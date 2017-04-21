@@ -24,6 +24,11 @@ module.exports = {
       socket.on('join-board', function(data) {
         var room = data.board_id.toString()
 
+        board.fetchBoard(data.board_id)
+        .then(board => {
+          socket.emit('update-board', board)
+        })
+
         list.fetchLists(data.board_id)
           .then(lists => {
             io.in(room).emit('update-board', lists)
