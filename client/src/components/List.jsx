@@ -139,11 +139,15 @@ export class List extends React.Component {
             </Header>
             { this.state.isEditing &&
               <Segment>
+              <div className="ui fluid action input">
               <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
-              <button onClick={ this.updateListName }>SAVE</button>
-              <button onClick={ this.deleteList }>DELETE</button>
-              <button onClick={ this.props.moveList.bind(null, 'left', this.props.list_id) }>{leftArrow}</button>
-              <button onClick={ this.props.moveList.bind(null, 'right', this.props.list_id) }>{rightArrow}</button>
+              <button className="ui blue right labeled icon button" onClick={ this.updateListName }>SAVE</button>
+              </div>
+              <div>
+              <button className="ui blue labeled icon button"  onClick={ this.deleteList }>DELETE</button>
+              <button className="ui blue labeled icon button" onClick={ this.props.moveList.bind(null, 'left', this.props.list_id) }>{leftArrow}</button>
+              <button className="ui blue labeled icon button" onClick={ this.props.moveList.bind(null, 'right', this.props.list_id) }>{rightArrow}</button>
+              </div>
               </Segment>
             }
           </Card.Header>
@@ -167,8 +171,7 @@ export class List extends React.Component {
 
 
           {/* ----- ADD TASK ----- */}
-
-          <div className="ui fluid input add-task">
+          <div className="ui fluid action input add-task">
           <input onChange={ this.onTaskInputChange } value={ this.state.text } />
           <button className="ui blue icon button" onClick={ this.addTask }>
           <i className="plus icon"></i></button>
