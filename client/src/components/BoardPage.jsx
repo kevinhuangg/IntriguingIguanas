@@ -169,6 +169,24 @@ export class BoardPage extends React.Component {
   }
 }
 
+const parseData = (rows) => {
+  var result = [];
+  var listNames = _.uniq(rows.map(row => {
+    return row.listname
+  }))
+  listNames.forEach(name => {
+    var obj = {}
+    obj[name] = [];
+    rows.forEach(row => {
+      if (row.listname === name) {
+        obj[name].push(row)
+      }
+    })
+    result.push(obj)
+  })
+  return result
+}
+
 const mapStateToProps = (state) => {
   return {
     ...state,
