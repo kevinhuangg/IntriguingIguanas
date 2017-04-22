@@ -36,7 +36,7 @@ export class BoardPage extends React.Component {
     socket.emit('join-board', { board_id: this.state.board_id })
 
     socket.on('update-board', (res) => {
-      console.log('this is working', res.rows)
+      console.log('this is working', res)
       this.setState({
         lists: res.rows
       })
@@ -148,6 +148,7 @@ export class BoardPage extends React.Component {
             INVITE
           </button>
         </div>
+<<<<<<< HEAD
 
         </div>
 
