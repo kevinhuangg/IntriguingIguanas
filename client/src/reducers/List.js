@@ -49,7 +49,7 @@ const list = (state = initialState, action) => {
     // ----------MOVE TASK-------
     case 'MOVE_TASK': {
       let newLists = [...state.lists];
-      let {currentX, currentY, nextX, currentY} = action;
+      let {currentX, currentY, nextX, nextY} = action;
       if (currentX === nextX) {
         newLists[currentX].tasks.splice(nextY, 0, newLists[currentX].tasks.splice(currentY, 1)[0])
       } else {
