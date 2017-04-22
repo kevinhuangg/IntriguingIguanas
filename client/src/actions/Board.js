@@ -152,4 +152,25 @@ export function fetchBoards(user_id) {
     })
     .catch(error => dispatch(fetchBoardsError(error)))
   }
+
+function fetchingBoard() {
+  return {
+    type: 'FETCH_BOARD'
+  }
 }
+
+function boardFetched(board) {
+  return {
+    type: 'BOARD_FETCHED',
+    board: board
+  }
+}
+
+function fetchBoardError(fetchError) {
+  return {
+    type: 'FETCH_BOARD_ERROR',
+    fetchError: fetchError
+  }
+}
+
+
