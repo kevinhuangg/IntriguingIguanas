@@ -3,6 +3,7 @@ const board = require('../database/db-queries/board.js')
 const list = require('../database/db-queries/list.js')
 const task = require('../database/db-queries/task.js')
 const User = require('../database/db-queries/User.js')
+const parseSQLData  = require('./parseDataHelper.js')
 
 var sockets = require('socket.io');
 var io;
@@ -23,6 +24,12 @@ module.exports = {
 
       socket.on('join-board', function(data) {
         var room = data.board_id.toString()
+
+        board.fetchBoard(data.board_id)
+        .then(board => {
+          console.log(parseSQLData(board.rows))
+          socket.emit('update-board', board)
+        })
 
         list.fetchLists(data.board_id)
           .then(lists => {

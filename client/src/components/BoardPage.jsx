@@ -36,6 +36,7 @@ export class BoardPage extends React.Component {
     socket.emit('join-board', { board_id: this.state.board_id })
 
     socket.on('update-board', (res) => {
+      console.log('this is working', res)
       this.setState({
         lists: res.rows
       })
@@ -55,16 +56,18 @@ export class BoardPage extends React.Component {
   }
 
   onCreateList() {
-    this.state.socket.emit('create-list', {
-      board_id: this.state.board_id,
-      name: this.state.forms.createListName
-    })
-    this.setState({
-      forms: {
-        createListName: '',
-        inviteUser: this.state.forms.inviteUser
-      }
-    })
+    if (this.state.forms.createListName !== '') {
+      this.state.socket.emit('create-list', {
+        board_id: this.state.board_id,
+        name: this.state.forms.createListName
+      })
+      this.setState({
+        forms: {
+          createListName: '',
+          inviteUser: this.state.forms.inviteUser
+        }
+      })
+    }
   }
 
   inviteUser() {
@@ -148,10 +151,12 @@ export class BoardPage extends React.Component {
           </button>
         </div>
 
+
         </div>
 
         {/* ----- LISTS SCROLL BOX ----- */}
         <Grid className='canvas'>
+
           { this.state.lists.map(list =>
             <Grid.Column className='list-column' width={4} key={ list.id }>
               <List

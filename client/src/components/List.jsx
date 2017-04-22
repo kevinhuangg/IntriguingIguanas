@@ -61,13 +61,15 @@ export class List extends React.Component {
   }
 
   addTask() {
-    this.props.socket.emit('add-task', {
-      list_id: this.props.list_id,
-      text: this.state.text
-    })
-    this.setState({
-      text: ''
-    })
+    if (this.state.text !== '') {
+      this.props.socket.emit('add-task', {
+        list_id: this.props.list_id,
+        text: this.state.text
+      })
+      this.setState({
+        text: ''
+      })
+    }
   }
 
 // ----------- EDIT/DELETE LIST -----------
@@ -127,6 +129,7 @@ export class List extends React.Component {
   render() {
     var leftArrow = '\u25C0'
     var rightArrow = '\u25B6'
+
     return (
       <div>
         <Card className='list'>
