@@ -1,6 +1,5 @@
 import React from 'react'
 import List from './List.jsx'
-import Video from './Video.jsx'
 import { connect } from 'react-redux'
 import { listsFetched } from '../actions/List.js'
 import io from 'socket.io-client'
@@ -29,14 +28,19 @@ export class BoardPage extends React.Component {
   }
 
   componentWillMount() {
+    console.log(this.props.params.board_id, 'wooooo')
     const socket = io()
     this.setState({
       socket: socket
     })
     socket.emit('join-board', { board_id: this.state.board_id })
+    
+    socket.on('retrieve-board', (board) => {
+      console.log('retrieved board', board)
+    })
 
     socket.on('update-board', (res) => {
-      console.log('this is working', res)
+      console.log('this is working', res.rows)
       this.setState({
         lists: res.rows
       })

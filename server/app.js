@@ -5,7 +5,6 @@ const passConfig = require('./passportConfig.js')
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const dbConfig = require('../database/db/knex.js');
-const pgStore = require('connect-pg-simple')(session);
 const authorize = require('./routes/auth.js');
 const bodyParser = require('body-parser');
 const router = require('./router.js');
