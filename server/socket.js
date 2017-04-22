@@ -25,9 +25,10 @@ module.exports = {
       socket.on('join-board', function(data) {
         var room = data.board_id.toString()
         console.log(room)
-
+        console.log(data.board_id, "IDDDDDD")
         board.fetchBoard(data.board_id)
         .then(board => {
+          console.log(board.rows, "K")
           console.log(parseSQLData(board.rows))
           socket.emit('retrieve-board', parseSQLData(board.rows))
         })
