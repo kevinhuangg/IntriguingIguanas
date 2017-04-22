@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { LogIn } from '../actions/LogIn.js'
+import NavBar from './NavBar.jsx'
 import { Link } from 'react-router'
 
 export class LogInPage extends React.Component {
@@ -35,10 +36,11 @@ export class LogInPage extends React.Component {
 
   render() {
     return (
-      <div className="ui middle aligned center aligned grid">
+      <div>
+      <NavBar/>
+      <div className="ui top aligned center aligned grid">
         <div className="column">
           <h2 className="ui image header">
-            <img src="../../dist/Logo.png" className="image"/>
             <div className="content">
               Log in to Root.io
             </div>
@@ -68,7 +70,7 @@ export class LogInPage extends React.Component {
                 </div>
               </div>
               <div className="input-name">{this.props.error}</div>
-              <div className="ui fluid massive blue submit button" onClick={ this.handleSubmit }>Login</div>
+              <div className="ui fluid massive blue submit button" onClick={ this.handleSubmit }>LOGIN</div>
             </div>
 
             <div className="ui error message"></div>
@@ -80,9 +82,11 @@ export class LogInPage extends React.Component {
           </div>
         </div>
       </div>
+      </div>
     )
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     ...state,
@@ -91,7 +95,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-
   return {
     submitLogIn: (username, password) => { dispatch(LogIn(username, password)) }
   }

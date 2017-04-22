@@ -121,7 +121,7 @@ export class BoardPage extends React.Component {
         </div>
 
         <h4 className="ui header">
-        <div className="content board name">{this.state.boardName}</div>
+          <div className="content board name">{this.state.boardName}</div>
         </h4>
 
         <div className='invite create list'>

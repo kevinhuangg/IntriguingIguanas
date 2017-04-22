@@ -1,6 +1,7 @@
 import React from 'react'
 import Lobby from './Lobby.jsx'
 import BoardPage from './BoardPage.jsx'
+import NavBar from './NavBar.jsx'
 import { Link } from 'react-router'
 
 export class HomePage extends React.Component {
@@ -11,18 +12,7 @@ export class HomePage extends React.Component {
   render() {
     return (
     <div>
-      {/* ----- NAV BAR ----- */}
-      <div className="ui blue inverted stackable menu">
-        <div className="ui container">
-          <img className='logo' src="./Logo.png"></img>
-        </div>
-        <a className="item">
-          <Link to='/login'><i className="user icon"></i>LOG IN</Link>
-        </a>
-        <a className="item">
-          <Link to='/signup'><i className="add user icon"></i>SIGN UP</Link>
-        </a>
-      </div>
+      <NavBar/>
 
       <div className="jumbotron">
         <h1 className="homepage">Root.io is your one stop shop with all the tools necessary for live and remote collaboration.</h1>

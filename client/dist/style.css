@@ -7,9 +7,19 @@ body .grid {
 }
 
 .image {
-  margin-top: -100px;
-  min-width: 100%;
-  min-height: 100%;
+  margin-top: -80px;
+  width: 100%;
+}
+
+.image.login.signup {
+  width: 65px;
+  height: 60px;
+  filter: invert(100%);
+  margin-bottom: 10px;
+}
+
+.ui.image.header {
+  margin: 20px;
 }
 
 .column {

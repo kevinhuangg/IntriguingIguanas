@@ -130,7 +130,6 @@ export class List extends React.Component {
     return (
       <div>
         <Card className='list'>
-
           {/* ----- LIST NAME ----- */}
           <Card.Content className='list-header'>
           <Card.Header>
