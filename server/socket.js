@@ -25,7 +25,6 @@ module.exports = {
       socket.on('join-board', function(data) {
         var room = data.board_id.toString()
         console.log(room)
-
         board.fetchBoard(data.board_id)
         .then(board => {
           console.log(parseSQLData(board.rows))
@@ -33,6 +32,7 @@ module.exports = {
         })
         .catch(err => {
           console.log('error retrieving board', err)
+          socket.emit('retrieve-board', 'Error retrieving board')
         })
 
         list.fetchLists(data.board_id)

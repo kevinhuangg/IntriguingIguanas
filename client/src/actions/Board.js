@@ -136,7 +136,7 @@ function boardsFetched(boards) {
 function fetchBoardsError(fetchError) {
   return {
     type: 'FETCH_BOARDS_ERROR',
-    fetchError: fetchError
+    fetchBoardsError: fetchError
   }
 }
 
@@ -151,5 +151,25 @@ export function fetchBoards(user_id) {
       dispatch(boardsFetched(results.data))
     })
     .catch(error => dispatch(fetchBoardsError(error)))
+  }
+}
+
+// function fetchingBoard() {
+//   return {
+//     type: 'FETCH_BOARD'
+//   }
+// }
+
+export function boardFetched(board) {
+  return {
+    type: 'BOARD_FETCHED',
+    board: board
+  }
+}
+
+export function fetchBoardError(fetchError) {
+  return {
+    type: 'FETCH_BOARD_ERROR',
+    fetchBoardError: fetchBoardError
   }
 }
