@@ -30,7 +30,6 @@ export class List extends React.Component {
     this.findIndexOfTask = this.findIndexOfTask.bind(this)
     this.moveTaskVertical = this.moveTaskVertical.bind(this)
 
-
     var socket = this.props.socket
 
     // --------- TASKS FETCHED ---------
@@ -128,25 +127,29 @@ export class List extends React.Component {
   render() {
     var leftArrow = '\u25C0'
     var rightArrow = '\u25B6'
-    console.log('TASKSSSS', this.state.tasks)
     return (
       <div>
-        <Card>
-
+        <Card className='list'>
           {/* ----- LIST NAME ----- */}
           <Card.Content className='list-header'>
           <Card.Header>
-            <Header as='h2' color='teal' onClick={ this.isEditingListName }>
+            <Header color='blue' onClick={ this.isEditingListName }>
               { this.state.currentListName }
             </Header>
             { this.state.isEditing &&
-              <Segment>
-              <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
-              <button onClick={ this.updateListName }>SAVE</button>
-              <button onClick={ this.deleteList }>DELETE</button>
-              <button onClick={ this.props.moveList.bind(null, 'left', this.props.list_id) }>{leftArrow}</button>
-              <button onClick={ this.props.moveList.bind(null, 'right', this.props.list_id) }>{rightArrow}</button>
-              </Segment>
+              <div>
+              <div className="ui fluid action input">
+                <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
+                <button className="ui blue right icon button" onClick={ this.updateListName }><i className="thumbs up icon"></i>
+                </button>
+                <button className="ui red icon button" onClick={ this.deleteList }><i className="trash icon"></i>
+                </button>
+              </div>
+              <div>
+              {/*<button className="ui blue icon button" onClick={ this.props.moveList.bind(null, 'left', this.props.list_id) }>{leftArrow}</button>
+              <button className="ui blue icon button" onClick={ this.props.moveList.bind(null, 'right', this.props.list_id) }>{rightArrow}</button>*/}
+              </div>
+              </div>
             }
           </Card.Header>
           </Card.Content>
@@ -154,7 +157,7 @@ export class List extends React.Component {
           {/* ----- TASKS ----- */}
           <Card.Content>
           { this.state.tasks.map(task =>
-            <Segment key={ task.id }>
+            <Segment className='task' key={ task.id }>
             <Task
               text={ task.text }
               task_id={ task.id }
@@ -166,12 +169,13 @@ export class List extends React.Component {
             />
             </Segment>
           )}
-          </Card.Content>
 
           {/* ----- ADD TASK ----- */}
-          <Card.Content>
+          <div className="ui fluid action input add-task">
           <input onChange={ this.onTaskInputChange } value={ this.state.text } />
-          <button onClick={ this.addTask }>ADD TASK</button>
+          <button className="ui blue icon button" onClick={ this.addTask }>
+          <i className="plus icon"></i></button>
+          </div>
           </Card.Content>
 
         </Card>

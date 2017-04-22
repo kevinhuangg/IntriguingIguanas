@@ -1,10 +1,27 @@
+body {
+  font-family: 'Century Gothic';
+}
+
 body .grid {
   height: 100%;
 }
 
 .image {
-  margin-top: -100px;
+  margin-top: -80px;
+  width: 100%;
 }
+
+.image.login.signup {
+  width: 65px;
+  height: 60px;
+  filter: invert(100%);
+  margin-bottom: 10px;
+}
+
+.ui.image.header {
+  margin: 20px;
+}
+
 .column {
   max-width: 450px;
 }
@@ -17,47 +34,87 @@ h2.homepage {
   font-size: 25px;
 }
 
-.navbar {
+/*----- NAVBAR -----*/
+.ui.blue.inverted.stackable.menu {
+  height: 80px;
+  font-size: 17;
+  padding: 2px 0px 2px 0px;
   margin-bottom: 0;
+  border-radius: 0;
+  box-shadow: 2px 2px white;
+  display: fixed;
+  position: static;
 }
 
-.navbar-brand,
-.navbar-nav li a {
-  line-height: 90px;
-  height: 90px;
-  width: 90px;
-  text-align: center;
-  padding-top: 0;
+.item {
+  padding: 2px;
+  font-size: 17.5;
+  justify-content: flex-end;
+  vertical-align: middle;
+  position: absolute;
 }
 
+.ui.container {
+  padding: 2.5px 10px 2px 15px;
+  position: relative;
+}
+
+.logo {
+  width: 75px;
+  height: 70px;
+}
+
+/*----- HOMEPAGE -----*/
 .jumbotron {
-  margin-bottom: 0;
-}
-
-.navbar-brand {
-  padding: 0px; /* firefox bug fix */
-}
-
-.navbar-brand>img {
-  height: 100%;
-  padding: 15px; /* firefox bug fix */
-  width: auto;
-}
-
-.jumbotron {
-  padding: 300px 600px 80px 80px;
+  padding: 150px 150px 70px 150px;
   height: 100%;
   background-image: url(./background.jpg);
   background-repeat: no-repeat;
   background-size: 100%;
-  font-color: white;
+  text-decoration-color: white;
+  text-align: center;
+  text-shadow: 1px 1px gray;
+  position: absolute;
+}
+
+.ui.primary.button.sign-up {
+  font-size: 15;
 }
 
 .content {
   font-size: 35px;
-  /*color: #265a88;*/
   color: #1678c2;
   padding-bottom: 5px;
+}
+
+.ui.cards {
+  margin-left: 20px;
+}
+
+/*----- LOBBY -----*/
+.create.board {
+  margin: 10px 0px 0px 20px;
+}
+
+.ui.card.board {
+  border-radius: .50rem;
+}
+
+.board-header.content {
+  padding: 0px 20px 5px 0px;
+  font-size: 14;
+  font-weight: bold;
+  text-align: center;
+}
+
+.video {
+  padding: 10px;
+  top: 10px;
+  bottom: 10px
+  right: 10px;
+  left: 10px;
+  height: auto;
+  width: auto;
 }
 
 .field {
@@ -72,27 +129,93 @@ h2.homepage {
   font-weight: bold;
 }
 
-.ui.four.column.grid.lists-box {
-  padding: 10px 0px 10px 0px;
-  right: 10px;
-  left: 10px;
-  height: 70%;
-  max-width: 100%;
+/*----- BOARD PAGE -----*/
+.ui.header {
+  margin: 20px 0px 0px 25px;
+}
+
+.content.board.name {
+  color: #1678c2;
+  margin-top: 0px;
+}
+
+.invite.create.list {
+  margin: 10px 0px 0px 20px;
+}
+
+.ui.grid.canvas {
+  margin: 10px;
+  padding: 5px;
+  height: 72.5vh;
+  max-width: 98.5%;
   position: absolute;
   overflow-x: scroll;
   flex-wrap: nowrap;
+/*  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: #addbff;
+  background-color: #1678c2;*/
 }
 
-.video {
-  padding: 10px;
-  top: 10px;
-  bottom: 10px
-  right: 10px;
-  left: 10px;
+.four.wide.column.list-column {
+  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
+}
+
+.ui.card.list {
+  border-radius: .50rem;
+  box-shadow: none;
+}
+
+.ui.card>.content,
+.ui.cards>.card>.content {
+  padding: 15px 10px 5px 10px;
+}
+
+.list-header.content {
+  padding: 0px 20px 5px 0px;
+  font-size: 13;
+  font-weight: bold;
+}
+
+.ui.segment.task {
+  border-radius: .50rem;
+  box-shadow: none;
+  font-size: 16;
+  margin: 2px;
+  padding: 6px;
   height: auto;
-  width: auto;
+  color: black;
 }
 
-/*.list-header.content {
+/*----- INPUT BOXES -----*/
+.ui.fluid.action.input {
+  margin: 5px;
+}
 
-}*/
+.ui.input {
+  font-size: 14;
+  margin: 5px;
+}
+
+.ui.blue.right.labeled.icon.button {
+  font-size: 15;
+}
+
+.ui.blue.right.icon.button {
+  font-size: 15;
+}
+
+.ui.blue.button {
+  font-size: 15;
+}
+
+.ui.blue.button {
+  font-size: 15;
+}
+
+.ui.red.icon.button {
+  font-size: 15;
+}

@@ -4,10 +4,12 @@ import Video from './Video.jsx'
 import { connect } from 'react-redux'
 import { listsFetched } from '../actions/List.js'
 import io from 'socket.io-client'
+import { Link } from 'react-router'
 
 import {
   Grid,
-  Card
+  Card,
+  Header
 } from 'semantic-ui-react'
 
 export class BoardPage extends React.Component {
@@ -105,29 +107,53 @@ export class BoardPage extends React.Component {
   render() {
     return (
       <div>
-        <h3>{ this.state.boardName }</h3>
-        <div>
+        {/* ----- NAV BAR ----- */}
+        <div className="ui blue inverted stackable menu">
+          <div className="ui container">
+            <img className='logo' src="./Logo.png"></img>
+          </div>
+          <a className="item"><Link to='/lobby'>
+            <i className="block layout icon"></i>BOARDS
+          </Link></a>
+          <a className="item"><Link to='/'>
+            <i className="sign out icon"></i>SIGN OUT
+          </Link></a>
+        </div>
+
+        <h4 className="ui header">
+          <div className="content board name">{this.state.boardName}</div>
+        </h4>
+
+        <div className='invite create list'>
+        {/* ----- CREATE LIST ----- */}
+        <div className="ui action input">
+          <input
+            value={ this.state.forms.createListName }
+            onChange={ this.handleChange.bind(this, 'createListName') }
+          />
+          <button className="ui blue right labeled icon button" onClick={ this.onCreateList }>
+            <i className="plus icon"></i>
+            NEW LIST
+          </button>
+        </div>
+
+        {/* ----- INVITE USERS ----- */}
+        <div className="ui action input">
           <input
             value={ this.state.forms.inviteUser }
             onChange={ this.handleChange.bind(this, 'inviteUser') }
           />
-          <button onClick={ this.inviteUser }>INVITE</button>
+          <button className="ui blue right labeled icon button" onClick={ this.inviteUser }><i className="add user icon"></i>
+            INVITE
+          </button>
         </div>
-        <input
-          value={ this.state.forms.createListName }
-          onChange={ this.handleChange.bind(this, 'createListName') }
-        />
-        <button onClick={ this.onCreateList }>CREATE LIST</button>
 
-        {/* ----- VIDEOS ----- */}
-        {/* <div className='video'>
-          <Video socket={ this.state.socket }/>
-        </div> */}
+        </div>
 
         {/* ----- LISTS SCROLL BOX ----- */}
-        <Grid className='lists-box' columns='4'>
+        <Grid className='canvas'>
           { this.state.lists.map(list =>
-            <Grid.Column key={ list.id }>
+            <Grid.Column className='list-column' width={4} key={ list.id }>
               <List
                 socket={ this.state.socket }
                 listname={ list.listname }
@@ -144,8 +170,8 @@ export class BoardPage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state.list,
-    lists: state.list.lists
+    ...state,
+    user_id: state.LogIn.user_id
   }
 }
 
