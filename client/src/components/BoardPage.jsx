@@ -28,7 +28,6 @@ export class BoardPage extends React.Component {
   }
 
   componentWillMount() {
-    console.log(this.props.params.board_id, 'wooooo')
     const socket = io()
     this.setState({
       socket: socket
@@ -45,8 +44,6 @@ export class BoardPage extends React.Component {
 
   componentDidMount() {
     this.state.socket.on('retrieve-board', (board) => {
-      console.log(board, "BOARD")
-      console.log(this.props.boardFetched, "BOARDDDDD")
       if (typeof board === 'object' && typeof this.props.boardFetched === 'function'){
         this.props.boardFetched(board);
       } else {
@@ -197,7 +194,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  console.log(boardFetched, '&&&&')
   return {
     // listsFetched: (lists) => { dispatch(listsFetched(lists)) },
     boardFetched: (board) => { dispatch(boardFetched(board)) },
