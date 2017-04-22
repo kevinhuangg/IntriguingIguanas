@@ -160,14 +160,14 @@ export function fetchBoards(user_id) {
 //   }
 // }
 
-function boardFetched(board) {
+export function boardFetched(board) {
   return {
     type: 'BOARD_FETCHED',
     board: board
   }
 }
 
-function fetchBoardError(fetchError) {
+export function fetchBoardError(fetchError) {
   return {
     type: 'FETCH_BOARD_ERROR',
     fetchBoardError: fetchBoardError
