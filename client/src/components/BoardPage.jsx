@@ -1,7 +1,7 @@
 import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
-import { boardsFetched } from '../actions/List.js'
+import { boardFetched } from '../actions/List.js'
 import io from 'socket.io-client'
 import { Link } from 'react-router'
 
