@@ -123,8 +123,12 @@ export class BoardPage extends React.Component {
           </Link></a>
         </div>
 
+        {/* ----- BOARD NAME ----- */}
         <h4 className="ui header">
-          <div className="content board name">{this.state.boardName}</div>
+          <div className="content board name">
+            <i className="bookmark icon"></i>
+            {this.state.boardName}
+          </div>
         </h4>
 
         <div className='invite create list'>
