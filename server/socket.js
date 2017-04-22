@@ -24,17 +24,24 @@ module.exports = {
 
       socket.on('join-board', function(data) {
         var room = data.board_id.toString()
+        console.log(room)
 
         board.fetchBoard(data.board_id)
         .then(board => {
           console.log(parseSQLData(board.rows))
-          socket.emit('update-board', board)
+          socket.emit('retrieve-board', parseSQLData(board.rows))
+        })
+        .catch(err => {
+          console.log('error retrieving board', err)
         })
 
         list.fetchLists(data.board_id)
-          .then(lists => {
-            io.in(room).emit('update-board', lists)
-          });
+        .then(lists => {
+          io.in(room).emit('update-board', lists)
+        })
+        .catch(err => {
+          console.log('error fetching lists', err)
+        })
 
         socket.join(room)
         io.of('/').in(room).clients(function(error, clients) {
@@ -46,17 +53,14 @@ module.exports = {
         socket.on('create-list', function(req) {
           list.addList(req.name, req.board_id)
           .then(msg => {
-            list.fetchLists(req.board_id)
-              .then(lists => {
-                io.in(room).emit('update-board', lists)
-              })
-              .catch(err => {
-                console.log('Retrieving board error')
-              })
-            })
-            .catch(err => {
-              console.log('CREATE LIST ERR')
-            })
+            return list.fetchLists(req.board_id)
+          })
+          .then(lists => {
+            io.in(room).emit('update-board', lists)
+          })
+          .catch(err => {
+            console.log('CREATE LIST ERR', err)
+          })
         });
 
         socket.on('update-list-name', (req) => {
@@ -73,18 +77,15 @@ module.exports = {
           console.log('list_id', req.list_id)
           list.deleteList(req.list_id)
           .then(pgData => {
-            console.log('pgData', pgData)
-            list.fetchLists(pgData.rows[0].board_id)
-            .then(lists => {
-              console.log('>> LISTS', lists)
-              io.in(room).emit('update-board', lists)
-            })
-            .catch(err => {
-              console.log('UPDATE BOARD ERR')
-            })
+            // console.log('pgData', pgData)
+            return list.fetchLists(pgData.rows[0].board_id)
+          })
+          .then(lists => {
+            // console.log('>> LISTS', lists)
+            io.in(room).emit('update-board', lists)
           })
           .catch(err => {
-            console.log('DELETE LIST ERR')
+            console.log('DELETE LIST ERR', err)
           })
         });
 
@@ -108,15 +109,11 @@ module.exports = {
         socket.on('add-task', function(req) {
           task.addTask(req.list_id, req.text)
           .then(success => {
-            task.fetchTasks(req.list_id)
-            .then(pgData => {
-              let tasksFetched = `tasks-fetched-listID-${req.list_id}`
-
-              io.in(room).emit(tasksFetched, pgData.rows)
-            })
-            .catch(err => {
-              console.log('FETCH TASKS ERR', err)
-            })
+            return task.fetchTasks(req.list_id)
+          })
+          .then(pgData => {
+            let tasksFetched = `tasks-fetched-listID-${req.list_id}`
+            io.in(room).emit(tasksFetched, pgData.rows)
           })
           .catch(err => {
             console.log('ADD TASK ERR', err)
@@ -126,15 +123,11 @@ module.exports = {
         socket.on('update-task', (req) => {
           task.updateTask(req.task_id, req.newText)
           .then(success => {
-            task.fetchTasks(req.list_id)
-            .then(pgData => {
-              let tasksFetched = `tasks-fetched-listID-${req.list_id}`
-
-              io.in(room).emit(tasksFetched, pgData.rows)
-            })
-            .catch(err => {
-              console.log('FETCH TASKS ERR', err)
-            })
+            return task.fetchTasks(req.list_id)
+          })
+          .then(pgData => {
+            let tasksFetched = `tasks-fetched-listID-${req.list_id}`
+            io.in(room).emit(tasksFetched, pgData.rows)
           })
           .catch(err => {
             console.log('UPDATE TASK ERR', err)
@@ -144,15 +137,11 @@ module.exports = {
         socket.on('delete-task', (req) => {
           task.deleteTask(req.task_id)
           .then(success => {
-            task.fetchTasks(req.list_id)
-            .then(pgData => {
-              let tasksFetched = `tasks-fetched-listID-${req.list_id}`
-
-              io.in(room).emit(tasksFetched, pgData.rows)
-            })
-            .catch(err => {
-              console.log('FETCH TASKS ERR', err)
-            })
+            return task.fetchTasks(req.list_id)
+          })
+          .then(pgData => {
+            let tasksFetched = `tasks-fetched-listID-${req.list_id}`
+            io.in(room).emit(tasksFetched, pgData.rows)
           })
           .catch(err => {
             console.log('DELETE TASK ERR', err)
@@ -194,7 +183,7 @@ module.exports = {
             return task.fetchTasks(data.array[0].list_id)
           })
           .then(pgData => {
-            console.log(pgData,"PGDATA")
+            // console.log(pgData,"PGDATA")
             let tasksFetched = `tasks-fetched-listID-${data.array[0].list_id}`
             io.in(room).emit(tasksFetched, pgData.rows)
           })
@@ -203,11 +192,11 @@ module.exports = {
           })
         })
 
-        //------------ VIDEO CHAT ------------
-        socket.on('start-video-chat', (stream) => {
-          console.log(stream, "STREAMMM")
-          socket.to(room).emit('initiate-peer-video', stream)
-        })
+        // //------------ VIDEO CHAT ------------
+        // socket.on('start-video-chat', (stream) => {
+        //   console.log(stream, "STREAMMM")
+        //   socket.to(room).emit('initiate-peer-video', stream)
+        // })
 
         //------------- DISCONNECT -------------
         socket.on('disconnect', function() {
