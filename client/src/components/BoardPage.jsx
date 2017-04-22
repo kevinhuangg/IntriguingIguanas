@@ -1,7 +1,7 @@
 import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
-import { boardFetched } from '../actions/List.js'
+import { boardFetched, fetchBoardError } from '../actions/List.js'
 import io from 'socket.io-client'
 import { Link } from 'react-router'
 
@@ -33,10 +33,15 @@ export class BoardPage extends React.Component {
     this.setState({
       socket: socket
     })
-    socket.emit('join-board', { board_id: this.state.board_id })
+    socket.emit('join-board', { board_id: this.state.board_id }
+    )
 
     socket.on('retrieve-board', (board) => {
-      this.props.boardFetched(board);
+      if (typeof board === 'object'){
+        this.props.boardFetched(board);
+      } else {
+        this.props.fetchBoardError(board);
+      }
     })
 
     socket.on('update-board', (res) => {
@@ -191,7 +196,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     // listsFetched: (lists) => { dispatch(listsFetched(lists)) },
-    boardFetched: (board) => { dispatch(boardFetched(board)) }
+    boardFetched: (board) => { dispatch(boardFetched(board)) },
+    fetchBoardError: (board) => { dispatch(fetchBoardError(board)) }
   }
 }
 

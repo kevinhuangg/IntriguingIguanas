@@ -33,6 +33,7 @@ module.exports = {
         })
         .catch(err => {
           console.log('error retrieving board', err)
+          socket.emit('retrieve-board', 'Error retrieving board')
         })
 
         list.fetchLists(data.board_id)

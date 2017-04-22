@@ -1,7 +1,7 @@
 const initialState = {
   boards: [],
   board: null,
-  fetchingBoard: false,
+  // fetchingBoard: false,
   fetchBoardError: null,
   fetchingBoards: false,
   creatingBoard: false,
@@ -68,11 +68,11 @@ function board(state = initialState, action) {
         fetchBoardsError: action.fetchError
       }
 
-    case 'FETCHING_BOARD':
-      return {
-        ...state,
-        fetchingBoard: true
-      }
+    // case 'FETCHING_BOARD':
+    //   return {
+    //     ...state,
+    //     fetchingBoard: true
+    //   }
 
     case 'BOARD_FETCHED':
       return {
