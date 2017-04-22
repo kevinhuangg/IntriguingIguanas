@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Segment } from 'semantic-ui-react'
+
 export class Task extends React.Component {
   constructor(props) {
     super(props)
@@ -55,14 +57,17 @@ export class Task extends React.Component {
           • { this.props.text }
         </div>
         { this.state.isEditing &&
-          <div>
+        <div>
+        <div className="ui fluid action input">
           <input type='text' value={ this.state.newTaskTextInput } onChange={ this.onTaskTextInputChange }/>
-          <button onClick={ this.updateTask }>SAVE</button>
-          <button onClick={ this.deleteTask }>DELETE</button>
-          <button onClick={ this.props.moveTaskVertical.bind(null, 'up', this.props.task_id)}>{ upArrow }</button>
-          <button onClick={ this.props.moveTaskVertical.bind(null, 'down', this.props.task_id)}>{ downArrow }</button>
-
-          </div>
+          <button className="ui blue right icon button" onClick={ this.updateTask }><i className="thumbs up icon"></i>
+          </button>
+          <button className="ui red icon button" onClick={ this.deleteTask }><i className="trash icon"></i>
+          </button>
+          {/*<button onClick={ this.props.moveTaskVertical.bind(null, 'up', this.props.task_id)}>{ upArrow }</button>
+          <button onClick={ this.props.moveTaskVertical.bind(null, 'down', this.props.task_id)}>{ downArrow }</button>*/}
+        </div>
+        </div>
         }
       </div>
     )

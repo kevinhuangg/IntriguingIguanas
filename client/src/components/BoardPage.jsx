@@ -112,30 +112,19 @@ export class BoardPage extends React.Component {
           <div className="ui container">
             <img className='logo' src="./Logo.png"></img>
           </div>
-          <a className="item">
-            <Link to='/lobby'><i className="block layout icon"></i>BOARDS</Link>
-          </a>
-          <a className="item">
-            <Link to='/'><i className="sign out icon"></i>SIGN OUT</Link>
-          </a>
+          <a className="item"><Link to='/lobby'>
+            <i className="block layout icon"></i>BOARDS
+          </Link></a>
+          <a className="item"><Link to='/'>
+            <i className="sign out icon"></i>SIGN OUT
+          </Link></a>
         </div>
 
         <h4 className="ui header">
         <div className="content board name">{this.state.boardName}</div>
         </h4>
 
-        {/* ----- INVITE USERS ----- */}
         <div className='invite create list'>
-        <div className="ui action input">
-          <input
-            value={ this.state.forms.inviteUser }
-            onChange={ this.handleChange.bind(this, 'inviteUser') }
-          />
-          <button className="ui blue right labeled icon button" onClick={ this.inviteUser }><i className="add user icon"></i>
-            INVITE
-          </button>
-        </div>
-
         {/* ----- CREATE LIST ----- */}
         <div className="ui action input">
           <input
@@ -147,12 +136,19 @@ export class BoardPage extends React.Component {
             NEW LIST
           </button>
         </div>
+
+        {/* ----- INVITE USERS ----- */}
+        <div className="ui action input">
+          <input
+            value={ this.state.forms.inviteUser }
+            onChange={ this.handleChange.bind(this, 'inviteUser') }
+          />
+          <button className="ui blue right labeled icon button" onClick={ this.inviteUser }><i className="add user icon"></i>
+            INVITE
+          </button>
         </div>
 
-        {/* ----- VIDEOS ----- */}
-        {/* <div className='video'>
-          <Video socket={ this.state.socket }/>
-        </div> */}
+        </div>
 
         {/* ----- LISTS SCROLL BOX ----- */}
         <Grid className='canvas'>

@@ -8,8 +8,8 @@ body .grid {
 
 .image {
   margin-top: -100px;
-  width: 100%;
-  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .column {
@@ -33,16 +33,20 @@ h2.homepage {
   border-radius: 0;
   box-shadow: 2px 2px white;
   display: fixed;
-  position: relative;
+  position: static;
 }
 
 .item {
   padding: 2px;
   font-size: 17.5;
+  justify-content: flex-end;
+  vertical-align: middle;
+  position: absolute;
 }
 
 .ui.container {
   padding: 2.5px 10px 2px 15px;
+  position: relative;
 }
 
 .logo {
@@ -73,6 +77,26 @@ h2.homepage {
   padding-bottom: 5px;
 }
 
+.ui.cards {
+  margin-left: 20px;
+}
+
+/*----- LOBBY -----*/
+.create.board {
+  margin: 10px 0px 0px 20px;
+}
+
+.ui.card.board {
+  border-radius: .50rem;
+}
+
+.board-header.content {
+  padding: 0px 20px 5px 0px;
+  font-size: 14;
+  font-weight: bold;
+  text-align: center;
+}
+
 .video {
   padding: 10px;
   top: 10px;
@@ -95,12 +119,14 @@ h2.homepage {
   font-weight: bold;
 }
 
+/*----- BOARD PAGE -----*/
 .ui.header {
   margin: 20px 0px 0px 25px;
 }
 
 .content.board.name {
   color: #1678c2;
+  margin-top: 0px;
 }
 
 .invite.create.list {
@@ -110,15 +136,16 @@ h2.homepage {
 .ui.grid.canvas {
   margin: 10px;
   padding: 5px;
-  height: 100%;
+  height: 72.5vh;
   max-width: 98.5%;
   position: absolute;
   overflow-x: scroll;
   flex-wrap: nowrap;
-  border-style: solid;
-  border-width: 1.5px;
-  border-radius: 15px;
-  border-color: #1678c2;
+/*  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: #addbff;
+  background-color: #1678c2;*/
 }
 
 .four.wide.column.list-column {
@@ -134,11 +161,11 @@ h2.homepage {
 
 .ui.card>.content,
 .ui.cards>.card>.content {
-  padding: 15px 10px 0px 10px;
+  padding: 15px 10px 5px 10px;
 }
 
 .list-header.content {
-  padding: 10px 10px 7px 10px;
+  padding: 0px 20px 5px 0px;
   font-size: 13;
   font-weight: bold;
 }
@@ -149,19 +176,36 @@ h2.homepage {
   font-size: 16;
   margin: 2px;
   padding: 6px;
-  height: 35px;
+  height: auto;
   color: black;
 }
 
 /*----- INPUT BOXES -----*/
-.ui.action.input {
+.ui.fluid.action.input {
+  margin: 5px;
+}
+
+.ui.input {
+  font-size: 14;
   margin: 5px;
 }
 
 .ui.blue.right.labeled.icon.button {
-  font-size: 14;
+  font-size: 15;
 }
 
-.ui.blue.icon.button {
-  font-size: 14;
+.ui.blue.right.icon.button {
+  font-size: 15;
+}
+
+.ui.blue.button {
+  font-size: 15;
+}
+
+.ui.blue.button {
+  font-size: 15;
+}
+
+.ui.red.icon.button {
+  font-size: 15;
 }
