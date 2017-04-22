@@ -194,6 +194,9 @@ h2.homepage {
   padding: 6px;
   height: auto;
   color: black;
+  min-height: 60px;
+  max-height: 60px;
+  overflow-y: scroll;
 }
 
 /*----- INPUT BOXES -----*/
