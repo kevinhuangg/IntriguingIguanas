@@ -69,7 +69,8 @@ const list = (state = initialState, action) => {
         const task = newLists.splice(nextX, 1)[0];
 
         newLists.splice(nextX, 0, task);
-        return ...state.lists = newLists;
+        return { ...state,
+                lists: newLists }
       }
     // ---------- TOGGLE DRAGGING ----------
     case 'TOGGLE_DRAGGING':
