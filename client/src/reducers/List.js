@@ -3,7 +3,7 @@
 const initialState = {
   lists: [],
 
-  fetching: false, 
+  fetching: false,
   createError: null,
   fetchError: null,
   isEditingList: false,
@@ -61,8 +61,22 @@ const list = (state = initialState, action) => {
         lists: newLists
       }
     }
+    // ---------- MOVE LIST ----------
+    case 'MOVE_LIST':
+      {
+        const newLists = [...state.lists];
+        const { currentX, nextX } = action;
+        const task = newLists.splice(nextX, 1)[0];
 
-
+        newLists.splice(nextX, 0, task);
+        return ...state.lists = newLists;
+      }
+    // ---------- TOGGLE DRAGGING ----------
+    case 'TOGGLE_DRAGGING':
+      return {
+        ...state,
+        isDragging: action.isDragging
+      }
     default:
       return state
   }
