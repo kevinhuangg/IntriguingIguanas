@@ -41,7 +41,7 @@ h2.homepage {
   padding: 2px 0px 2px 0px;
   margin-bottom: 0;
   border-radius: 0;
-  box-shadow: 2px 2px white;
+  box-shadow: 0px 3px 5px gray;
   display: fixed;
   position: static;
 }
@@ -68,12 +68,12 @@ h2.homepage {
 .jumbotron {
   padding: 150px 150px 70px 150px;
   height: 100%;
-  background-image: url(./background.jpg);
+  /*background-image: url(./background.jpg);*/
   background-repeat: no-repeat;
   background-size: 100%;
   text-decoration-color: white;
   text-align: center;
-  text-shadow: 1px 1px gray;
+  text-shadow: 2px 2px white;
   position: absolute;
 }
 
@@ -88,16 +88,19 @@ h2.homepage {
 }
 
 .ui.cards {
-  margin-left: 20px;
+  margin-top: 0px;
+  margin-left: 25px;
 }
 
 /*----- LOBBY -----*/
 .create.board {
-  margin: 10px 0px 0px 20px;
+  margin: 0px 0px 10px 25px;
 }
 
 .ui.card.board {
   border-radius: .50rem;
+  margin-top: 10px;
+  box-shadow: 1px 1px 5px gray;
 }
 
 .board-header.content {
@@ -136,16 +139,18 @@ h2.homepage {
 
 .content.board.name {
   color: #1678c2;
-  margin-top: 0px;
+  margin-top: 10px;
+  margin-bottom: 0px;
 }
 
 .invite.create.list {
-  margin: 10px 0px 0px 20px;
+  margin: 0px 0px 10px 25px;
+  /*margin: 10px 0px 0px 20px;*/
 }
 
 .ui.grid.canvas {
-  margin: 10px;
-  padding: 5px;
+  margin: 0px 10px 10px 10px;
+  padding: 0px 10px 10px 10px;
   height: 72.5vh;
   max-width: 98.5%;
   position: absolute;
@@ -159,14 +164,15 @@ h2.homepage {
 }
 
 .four.wide.column.list-column {
-  width: 300px;
-  min-width: 300px;
-  max-width: 300px;
+  width: 320px;
+  min-width: 320px;
+  max-width: 320px;
 }
 
 .ui.card.list {
+  min-width: 300px;
   border-radius: .50rem;
-  box-shadow: none;
+  box-shadow: 1px 1px 5px gray;
 }
 
 .ui.card>.content,
@@ -183,7 +189,7 @@ h2.homepage {
 .ui.segment.task {
   border-radius: .50rem;
   box-shadow: none;
-  font-size: 16;
+  font-size: 14;
   margin: 2px;
   padding: 6px;
   height: auto;

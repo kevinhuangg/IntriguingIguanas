@@ -87,7 +87,9 @@ export class Lobby extends React.Component {
         </div>
 
         <h4 className="ui header">
-        <div className="content board name">Hi, { this.props.username }!</div>
+        <div className="content board name">
+          <i className="user icon"></i>
+          Hi, { this.props.username }!</div>
         </h4>
 
         {/* ----- CREATE BOARD ----- */}
