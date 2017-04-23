@@ -66,7 +66,7 @@ const list = (state = initialState, action) => {
       {
         const newLists = [...state.lists];
         const { currentX, nextX } = action;
-        const task = newLists.splice(nextX, 1)[0];
+        const task = newLists.splice(currentX, 1)[0];
 
         newLists.splice(nextX, 0, task);
         return { ...state,
