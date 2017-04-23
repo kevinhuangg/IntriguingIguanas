@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { boardFetched, fetchBoardError } from '../actions/Board.js'
 import io from 'socket.io-client'
 import { Link } from 'react-router'
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import {
   Grid,
@@ -201,4 +203,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BoardPage)
+export default DragDropContext(HTML5Backend)(connect(mapStateToProps, mapDispatchToProps)(BoardPage))

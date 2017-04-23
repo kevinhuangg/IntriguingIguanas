@@ -1,4 +1,5 @@
 import React from 'react'
+import { DragSource } from 'react-dnd'
 import Task from './Task.jsx'
 
 import {
@@ -8,6 +9,27 @@ import {
   Segment,
   Header
 } from 'semantic-ui-react'
+
+const ListSpec = {
+  canDrag(props) {
+    return props.isReady
+  },
+  isDragging(props, monitor) {
+    return monitor.getItem().id === props.id
+  },
+  beginDrag(props, monitor, component) {
+    const item = { id: props.id }
+    return item
+  },
+  endDrag(props, monitor, component) {
+    if (!monitor.didDrop()) {
+      return
+    }
+    const item = monitor.getItem()
+    const dropResult = monitor.getDropResult()
+
+  }
+}
 
 export class List extends React.Component {
   constructor(props) {
@@ -187,4 +209,4 @@ export class List extends React.Component {
   }
 }
 
-export default List
+export default DragSource('list', ListSpec, collect)(List)

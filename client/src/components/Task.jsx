@@ -1,5 +1,5 @@
 import React from 'react'
-
+// import { DragSource } from 'react-dnd'
 import { Segment } from 'semantic-ui-react'
 
 export class Task extends React.Component {
@@ -73,5 +73,6 @@ export class Task extends React.Component {
     )
   }
 }
+
 
 export default Task
