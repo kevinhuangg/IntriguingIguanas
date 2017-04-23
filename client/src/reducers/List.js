@@ -3,10 +3,11 @@
 const initialState = {
   lists: [],
 
-  fetching: false,
+  fetching: false, 
   createError: null,
   fetchError: null,
-  isEditingList: false
+  isEditingList: false,
+  isDragging: false
 }
 
 const list = (state = initialState, action) => {
@@ -45,6 +46,22 @@ const list = (state = initialState, action) => {
         fetchError: action.fetchError
       }
     // ---------- EDIT ----------
+    // ----------MOVE TASK-------
+    case 'MOVE_TASK': {
+      let newLists = [...state.lists];
+      let {currentX, currentY, nextX, nextY} = action;
+      if (currentX === nextX) {
+        newLists[currentX].tasks.splice(nextY, 0, newLists[currentX].tasks.splice(currentY, 1)[0])
+      } else {
+        newLists[nextX].tasks.splice(nextY, 0, newLists[currentX].tasks[currentY])
+        newLists[currentX].tasks.splice(currentY, 1)
+      }
+      return {
+        ...state,
+        lists: newLists
+      }
+    }
+
 
     default:
       return state
