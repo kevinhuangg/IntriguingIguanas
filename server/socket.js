@@ -27,7 +27,7 @@ module.exports = {
         console.log(room)
         board.fetchBoard(data.board_id)
         .then(board => {
-          console.log(parseSQLData(board.rows))
+          // console.log(parseSQLData(board.rows), 'object')
           socket.emit('retrieve-board', parseSQLData(board.rows))
         })
         .catch(err => {

@@ -2,7 +2,7 @@ module.exports = (rows) => {
   //helper function for checking if board object contains list already
   const listExists = (row, lists) => {
     for (let list of lists) {
-      if (row.list_id === list.list_id) {
+      if (row.list_id === list.listId) {
         return true
       }
     }
@@ -10,7 +10,7 @@ module.exports = (rows) => {
   }
 
   var board = {
-    board_id: rows[0].board_id,
+    boardId: rows[0].boardid,
     boardname: rows[0].boardname,
     timestamp: rows[0].timestamp,
     lists: []
@@ -18,9 +18,10 @@ module.exports = (rows) => {
 
   //iterate through rows
   rows.forEach(row => {
-    if (!listExists(row, board.lists)) { //if list does not exist in board obj
+    if (!listExists(row, board.lists) && row.listid) { //if list does not exist in board obj
       const listObj = {
-        list_id: row.list_id,
+        listId: row.listid,
+        board_id: row.board_id,
         list_order: row.list_order,
         listname: row.listname,
         tasks: []
@@ -29,6 +30,7 @@ module.exports = (rows) => {
       if (row.id) {
         const taskObj = {
           id: row.id,
+          list_id: row.list_id,
           text: row.text,
           task_order: row.task_order,
           assigned: row.assigned,
@@ -39,9 +41,10 @@ module.exports = (rows) => {
 
     } else { //if list does exist in board obj
       for (let listObj of board.lists) {
-        if (row.list_id === listObj.list_id && row.id) {
+        if (row.listid === listObj.listId && row.id) {
           const taskObj = {
             id: row.id,
+            list_id: row.list_id,
             text: row.text,
             task_order: row.task_order,
             assigned: row.assigned
