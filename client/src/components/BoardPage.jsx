@@ -26,6 +26,7 @@ export class BoardPage extends React.Component {
     this.onCreateList = this.onCreateList.bind(this)
     this.inviteUser = this.inviteUser.bind(this)
     this.moveList = this.moveList.bind(this)
+    this.findList = this.findList.bind(this)
     this.findIndexOfList = this.findIndexOfList.bind(this)
   }
 
@@ -105,20 +106,37 @@ export class BoardPage extends React.Component {
     return indexOfSource
   }
 
-  moveList(direction, list_id) {
-    var indexOfSource = this.findIndexOfList(list_id);
-    var data = {
-      array: [ this.state.lists[indexOfSource] ]
-    }
-    if (direction === 'left') {
-      data.array.push(this.state.lists[indexOfSource - 1])
-    } else if (direction === 'right') {
-      data.array.push(this.state.lists[indexOfSource + 1])
-    }
-    this.state.socket.emit('list-order-update', data);
+  moveList(listId, nextX) {
+    const { currentX } = this.findList(listId)
+    this.props.moveList(currentX, nextX)
   }
 
+  findList(id) {
+    const { board } = this.props
+    const list = board.lists.filter(l => l.list_id === id)[0]
+
+    return {
+      list,
+      currentX: board.lists.indexOf(list) 
+    }
+  }
+  // moveList(direction, list_id) {
+  //   var indexOfSource = this.findIndexOfList(list_id);
+  //   var data = {
+  //     array: [ this.state.lists[indexOfSource] ]
+  //   }
+  //   if (direction === 'left') {
+  //     data.array.push(this.state.lists[indexOfSource - 1])
+  //   } else if (direction === 'right') {
+  //     data.array.push(this.state.lists[indexOfSource + 1])
+  //   }
+  //   this.state.socket.emit('list-order-update', data);
+  // }
+
+
   render() {
+    const { board } = this.props  
+    console.log('board!!!!!!', board)
     return (
       <div>
         {/* ----- NAV BAR ----- */}
@@ -172,12 +190,13 @@ export class BoardPage extends React.Component {
         {/* ----- LISTS SCROLL BOX ----- */}
         <Grid className='canvas'>
 
-          { this.state.lists.map(list =>
+          { this.state.lists.map((list,i) =>
             <Grid.Column className='list-column' width={4} key={ list.id }>
               <List
                 socket={ this.state.socket }
                 listname={ list.listname }
                 list_id={ list.id }
+                x = { i }
                 moveList = { this.moveList }
               />
             </Grid.Column>
@@ -191,7 +210,8 @@ export class BoardPage extends React.Component {
 const mapStateToProps = (state) => {
   return {
     ...state,
-    user_id: state.LogIn.user_id
+    user_id: state.LogIn.user_id,
+    board: state.board.board
   }
 }
 

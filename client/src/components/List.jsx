@@ -1,6 +1,8 @@
 import React from 'react'
-import { DragSource } from 'react-dnd'
+import { DragSource, DropTarget } from 'react-dnd'
 import Task from './Task.jsx'
+import { connect } from 'react-redux'
+import { moveList } from '../actions/List.js'
 
 import {
   Grid,
@@ -10,24 +12,30 @@ import {
   Header
 } from 'semantic-ui-react'
 
-const ListSpec = {
-  canDrag(props) {
-    return props.isReady
-  },
-  isDragging(props, monitor) {
-    return monitor.getItem().id === props.id
-  },
-  beginDrag(props, monitor, component) {
-    const item = { id: props.id }
+const listSource = {
+  // canDrag(props) {
+  //   return props.isReady
+  // },
+  // isDragging(props, monitor) {
+  //   return monitor.getItem().id === props.id
+  // },
+  beginDrag(props) {
+    const item = { id: props.list_id, x: props.x }
     return item
   },
-  endDrag(props, monitor, component) {
-    if (!monitor.didDrop()) {
-      return
-    }
-    const item = monitor.getItem()
-    const dropResult = monitor.getDropResult()
+  // endDrag(props, monitor, component) {
+  //   if (!monitor.didDrop()) {
+  //     return
+  //   }
+  //   const item = monitor.getItem()
+  //   const dropResult = monitor.getDropResult()
+  // }
+}
 
+function collect(connectDragSource, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
   }
 }
 
@@ -151,8 +159,9 @@ export class List extends React.Component {
   render() {
     var leftArrow = '\u25C0'
     var rightArrow = '\u25B6'
+    const { connectDragSource, isDragging, item, x } = this.props
 
-    return (
+    return connectDragSource(
       <div>
         <Card className='list'>
           {/* ----- LIST NAME ----- */}
@@ -209,4 +218,16 @@ export class List extends React.Component {
   }
 }
 
-export default DragSource('list', ListSpec, collect)(List)
+// const mapStateToProps = (state) => {
+//   return {
+//     ...state
+//   }
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     moveList: (currentX, nextX) => { dispatch(moveList(currentX, nextX)) }
+//   }
+// }
+
+export default DragSource('list', listSource, collect)
