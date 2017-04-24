@@ -2,6 +2,7 @@ import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
 import { boardFetched, fetchBoardError } from '../actions/Board.js'
+import { moveList } from '../actions/List.js'
 import io from 'socket.io-client'
 import { Link } from 'react-router'
 import { DragDropContext } from 'react-dnd';
@@ -136,7 +137,7 @@ export class BoardPage extends React.Component {
 
   render() {
     const { board } = this.props  
-    console.log('board!!!!!!', board)
+    // console.log('board!!!!!!', board)
     return (
       <div>
         {/* ----- NAV BAR ----- */}
@@ -196,6 +197,7 @@ export class BoardPage extends React.Component {
                 socket={ this.state.socket }
                 listname={ list.listname }
                 list_id={ list.id }
+                item={ list }
                 x = { i }
                 moveList = { this.moveList }
               />
@@ -219,7 +221,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     // listsFetched: (lists) => { dispatch(listsFetched(lists)) },
     boardFetched: (board) => { dispatch(boardFetched(board)) },
-    fetchBoardError: (board) => { dispatch(fetchBoardError(board)) }
+    fetchBoardError: (board) => { dispatch(fetchBoardError(board)) },
+    moveList: (currentX, nextX) => { dispatch(moveList(currentX, nextX)) }
   }
 }
 

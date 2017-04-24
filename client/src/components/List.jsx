@@ -1,8 +1,8 @@
 import React from 'react'
 import { DragSource, DropTarget } from 'react-dnd'
 import Task from './Task.jsx'
-import { connect } from 'react-redux'
-import { moveList } from '../actions/List.js'
+// import { connect } from 'react-redux'
+// import { moveList } from '../actions/List.js'
 
 import {
   Grid,
@@ -13,31 +13,37 @@ import {
 } from 'semantic-ui-react'
 
 const listSource = {
-  // canDrag(props) {
-  //   return props.isReady
-  // },
-  // isDragging(props, monitor) {
-  //   return monitor.getItem().id === props.id
-  // },
   beginDrag(props) {
     const item = { id: props.list_id, x: props.x }
     return item
-  },
-  // endDrag(props, monitor, component) {
-  //   if (!monitor.didDrop()) {
-  //     return
-  //   }
-  //   const item = monitor.getItem()
-  //   const dropResult = monitor.getDropResult()
-  // }
+  }
 }
 
-function collect(connectDragSource, monitor) {
+const listTarget = {
+  canDrop() {
+    return false;
+  },
+  hover(props, monitor) {
+    const { id: listId } = monitor.getItem()
+    const { id: nextX } = props;
+    if (listId !== nextX) {
+      props.moveList(listId, props.x)
+    }
+  }
+}
+
+function collectDrop(connectDropTarget) {
   return {
-    connectDragSource: connect.dragSource(),
+    connectDropTarget: connectDropTarget.dropTarget(),
+  }
+}
+function collectDrag(connectDragSource, monitor) {
+  return {
+    connectDragSource: connectDragSource.dragSource(),
     isDragging: monitor.isDragging()
   }
 }
+
 
 export class List extends React.Component {
   constructor(props) {
@@ -58,7 +64,7 @@ export class List extends React.Component {
     this.updateListName = this.updateListName.bind(this)
     this.deleteList = this.deleteList.bind(this)
     this.findIndexOfTask = this.findIndexOfTask.bind(this)
-    this.moveTaskVertical = this.moveTaskVertical.bind(this)
+    // this.moveTaskVertical = this.moveTaskVertical.bind(this)
 
     var socket = this.props.socket
 
@@ -143,25 +149,25 @@ export class List extends React.Component {
     return indexOfSource
   }
 
-  moveTaskVertical(direction, task_id) {
-    var indexOfSource = this.findIndexOfTask(task_id);
-    var data = {
-      array: [ this.state.tasks[indexOfSource] ]
-    }
-    if (direction === 'up') {
-      data.array.push(this.state.tasks[indexOfSource - 1])
-    } else if (direction === 'down') {
-      data.array.push(this.state.tasks[indexOfSource + 1])
-    }
-    this.props.socket.emit('task-order-update-vertical', data);
-  }
+  // moveTaskVertical(direction, task_id) {
+  //   var indexOfSource = this.findIndexOfTask(task_id);
+  //   var data = {
+  //     array: [ this.state.tasks[indexOfSource] ]
+  //   }
+  //   if (direction === 'up') {
+  //     data.array.push(this.state.tasks[indexOfSource - 1])
+  //   } else if (direction === 'down') {
+  //     data.array.push(this.state.tasks[indexOfSource + 1])
+  //   }
+  //   this.props.socket.emit('task-order-update-vertical', data);
+  // }
 
   render() {
     var leftArrow = '\u25C0'
     var rightArrow = '\u25B6'
-    const { connectDragSource, isDragging, item, x } = this.props
+    const { connectDragSource, connectDropTarget, isDragging, item, x } = this.props
 
-    return connectDragSource(
+    return connectDragSource(connectDropTarget(
       <div>
         <Card className='list'>
           {/* ----- LIST NAME ----- */}
@@ -214,7 +220,7 @@ export class List extends React.Component {
 
         </Card>
       </div>
-    )
+    ))
   }
 }
 
@@ -230,4 +236,4 @@ export class List extends React.Component {
 //   }
 // }
 
-export default DragSource('list', listSource, collect)
+export default DropTarget('list', listTarget, collectDrop)(DragSource('list', listSource, collectDrag)(List))

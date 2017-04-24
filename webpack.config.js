@@ -10,6 +10,8 @@ module.exports = {
     path: DIST_DIR,
     filename: 'bundle.js'
   },
+  devtool: 'source-map',
+  debug: true,
   module: {
     loaders: [
       {
