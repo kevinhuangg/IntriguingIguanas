@@ -21,3 +21,7 @@ module.exports.postUser = function(req, res) { //user account creation
     res.status(404).send('Error posting user')
   })
 }
+
+module.exports.getUsernames = function (req, res) {
+  
+}
