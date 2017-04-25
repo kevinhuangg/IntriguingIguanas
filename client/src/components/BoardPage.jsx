@@ -15,13 +15,13 @@ import {
   Header
 } from 'semantic-ui-react'
 
-const socket = io()
+
 
 export class BoardPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      socket: socket,
+      socket: io(),
       forms: {createListName: '', inviteUser: ''},
       board_id: this.props.params.board_id,
       boardName: this.props.params.boardName,
@@ -36,7 +36,7 @@ export class BoardPage extends React.Component {
   }
 
   componentWillMount() {
-
+    const { socket } = this.state
     socket.on('retrieve-board', (board) => {
       if (typeof board === 'object'){
         this.props.boardFetched(board);

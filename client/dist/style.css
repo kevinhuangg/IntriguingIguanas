@@ -195,10 +195,10 @@ h2.homepage {
   padding: 6px;
   height: auto;
   color: black;
-/*  min-height: 80px;
-  max-height: 80px;
-  overflow-y: scroll;
-*/}
+  min-height: 80px;
+  /*max-height: 80px;*/
+  /*overflow-y: scroll;*/
+}
 
 /*----- INPUT BOXES -----*/
 .ui.fluid.action.input {
