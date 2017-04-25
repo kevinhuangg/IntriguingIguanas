@@ -15,10 +15,10 @@ const cardSource = {
 }
 
 const cardTarget = {
-  canDrop() {
-    return false
-  },
-  hover(props, monitor, component) {
+  // canDrop() {
+  //   return false
+  // },
+  drop(props, monitor, component) {
     const { x: currentX } = monitor.getItem()
     const { y: currentY } = monitor.getItem()
     const nextX = props.x
@@ -83,6 +83,7 @@ export class Task extends React.Component {
   render() {
     var upArrow = '\u25B2'
     var downArrow = '\u25BC'
+    console.log(this.props.didDrop)
     const { connectDragSource, connectDropTarget } = this.props 
 
     return connectDragSource(connectDropTarget(
