@@ -35,13 +35,13 @@ module.exports = {
           socket.emit('retrieve-board', 'Error retrieving board')
         })
 
-        list.fetchLists(data.board_id)
-        .then(lists => {
-          io.in(room).emit('update-board', lists)
-        })
-        .catch(err => {
-          console.log('error fetching lists', err)
-        })
+        // list.fetchLists(data.board_id) // are we still using this??
+        // .then(lists => {
+        //   io.in(room).emit('update-board', lists)
+        // })
+        // .catch(err => {
+        //   console.log('error fetching lists', err)
+        // })
 
         socket.join(room)
         io.of('/').in(room).clients(function(error, clients) {
@@ -53,10 +53,11 @@ module.exports = {
         socket.on('create-list', function(req) {
           list.addList(req.name, req.board_id)
           .then(msg => {
-            return list.fetchLists(req.board_id)
+            //return list.fetchLists(req.board_id)
+            return board.fetchBoard(req.board_id)
           })
-          .then(lists => {
-            io.in(room).emit('update-board', lists)
+          .then(board => {
+            io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
             console.log('CREATE LIST ERR', err)
