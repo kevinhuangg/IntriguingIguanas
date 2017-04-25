@@ -28,11 +28,6 @@ const listSource = {
 
 const listTarget = {
   drop(props, monitor) {
-    // const { id: listId } = monitor.getItem()
-    // const { id: nextX } = props;
-    // if (listId !== nextX) {
-    //   props.moveList(listId, props.x)
-    // }
     const { id: listId } = monitor.getItem()
     const { x: currentX } = monitor.getItem()
     const { x: nextX } = props;
@@ -176,6 +171,7 @@ export class List extends React.Component {
     var leftArrow = '\u25C0'
     var rightArrow = '\u25B6'
     const { connectDragSource, connectDropTarget, isDragging, item, x } = this.props
+    console.log()
 
     return connectDragSource(connectDropTarget(
       <div>
@@ -206,14 +202,18 @@ export class List extends React.Component {
 
           {/* ----- TASKS ----- */}
           <Card.Content>
-          { this.state.tasks.map(task =>
+          { this.props.item.tasks.map((task, i) =>
             <Segment className='task' key={ task.id }>
             <Task
               text={ task.text }
               task_id={ task.id }
               list_id={ task.list_id }
               socket={ this.props.socket }
+              moveTask ={ this.props.moveTask }
               moveTaskVertical={ this.moveTaskVertical }
+              item = { task }
+              x = { x }
+              y = { i }
 
               // assigned={ task.assigned }
             />
@@ -252,6 +252,7 @@ export default flow(
   })),
   DragSource('list', listSource, (connectDragSource, monitor) => ({
     connectDragSource: connectDragSource.dragSource(),
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
+    didDrop: monitor.didDrop()
   }))
 )(List)

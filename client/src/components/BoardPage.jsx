@@ -1,7 +1,7 @@
 import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
-import { boardFetched, fetchBoardError, moveList } from '../actions/Board.js'
+import { boardFetched, fetchBoardError, moveList, moveTask } from '../actions/Board.js'
 import { listsFetched } from '../actions/List.js'
 import io from 'socket.io-client'
 import { Link } from 'react-router'
@@ -31,6 +31,7 @@ export class BoardPage extends React.Component {
     this.inviteUser = this.inviteUser.bind(this)
     this.moveList = this.moveList.bind(this)
     this.findList = this.findList.bind(this)
+    this.moveTask = this.moveTask.bind(this)
     this.findIndexOfList = this.findIndexOfList.bind(this)
   }
 
@@ -120,6 +121,10 @@ export class BoardPage extends React.Component {
     this.props.moveList(currentX, nextX)
   }
 
+  moveTask(currentX, currentY, nextX, nextY) {
+    this.props.moveTask(currentX, currentY, nextX, nextY)
+  }
+
   findList(id) {
     const { board } = this.props
     const list = board.lists.filter(l => l.listId === id)[0]
@@ -204,8 +209,9 @@ export class BoardPage extends React.Component {
                   listname={ list.listname }
                   list_id={ list.listId }
                   item={ list }
-                  x = { i }
                   moveList = { this.moveList }
+                  moveTask = { this.moveTask }
+                  x = { i }
                 />
               </Grid.Column>
             )}
@@ -230,11 +236,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // listsFetched: (lists) => { dispatch(listsFetched(lists)) },
     boardFetched: (board) => { dispatch(boardFetched(board)) },
     listsFetched: (lists) => { dispatch(listsFetched(lists)) },
     fetchBoardError: (board) => { dispatch(fetchBoardError(board)) },
-    moveList: (currentX, nextX) => { dispatch(moveList(currentX, nextX)) }
+    moveList: (currentX, nextX) => { dispatch(moveList(currentX, nextX)) },
+    moveTask: (currentX, currentY, nextX, nextY) => { dispatch(moveTask(currentX, currentY, nextX, nextY)) }
   }
 }
 
