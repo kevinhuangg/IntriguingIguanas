@@ -26,5 +26,8 @@ module.exports = {
     .catch(error => {
       console.log(error)
     })
+  },
+  getUsernames: () => {
+    return db.query('SELECT username FROM USERS')
   }
 }
