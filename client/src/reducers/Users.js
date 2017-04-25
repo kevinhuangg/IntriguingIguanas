@@ -1,5 +1,6 @@
 const initialState = {
   usernames: []
+  error: null
 }
 
 function users(state = initialState, action) {
@@ -8,6 +9,11 @@ function users(state = initialState, action) {
     return {
       ...state,
       usernames: action.usernames
+    }
+    case 'FETCH_USERNAMES_ERROR'
+    return {
+      ...state,
+      error: action.error
     }
     default:
     return state;
