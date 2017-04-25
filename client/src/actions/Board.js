@@ -119,6 +119,14 @@ export function deleteBoard(board_id , user_id) {
   }
 }
 
+// ------------- MOVE ----------------
+export const moveList = (currentX, nextX) => {
+  return {
+    type: 'MOVE_LIST',
+    currentX,
+    nextX
+  }
+}
 // ------------ FETCH ------------
 function fetchingBoards() {
   return {

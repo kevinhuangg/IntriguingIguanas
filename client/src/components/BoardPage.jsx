@@ -1,9 +1,8 @@
 import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
-import { boardFetched, fetchBoardError } from '../actions/Board.js'
+import { boardFetched, fetchBoardError, moveList } from '../actions/Board.js'
 import { listsFetched } from '../actions/List.js'
-import { moveList } from '../actions/List.js'
 import io from 'socket.io-client'
 import { Link } from 'react-router'
 import { DragDropContext } from 'react-dnd';
@@ -41,7 +40,7 @@ export class BoardPage extends React.Component {
     
     socket.on('retrieve-board', (board) => {
       if (typeof board === 'object'){
-        this.props.listsFetched(board.lists);
+        this.props.boardFetched(board);
       } else {
         this.props.fetchBoardError(board);
       }
@@ -125,12 +124,12 @@ export class BoardPage extends React.Component {
   }
 
   findList(id) {
-    const { lists } = this.props
-    const list = lists.filter(l => l.listId === id)[0]
+    const { board } = this.props
+    const list = board.lists.filter(l => l.listId === id)[0]
 
     return {
       list,
-      currentX: lists.indexOf(list) 
+      currentX: board.lists.indexOf(list) 
     }
   }
   // moveList(direction, list_id) {
@@ -148,9 +147,7 @@ export class BoardPage extends React.Component {
 
 
   render() {
-    // const { board } = this.props  
-    // console.log('board!!!!!!', board)
-    if (this.props.lists) {
+    if (this.props.board.lists) {
       return (
         <div>
           {/* ----- NAV BAR ----- */}
@@ -203,7 +200,7 @@ export class BoardPage extends React.Component {
 
           {/* ----- LISTS SCROLL BOX ----- */}
           <Grid className='canvas'>
-            { this.props.lists.map((list,i) =>
+            { this.props.board.lists.map((list,i) =>
               <Grid.Column className='list-column' width={4} key={ list.listId }>
                 <List
                   socket={ this.state.socket }
@@ -230,8 +227,7 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     user_id: state.LogIn.user_id,
-    board: state.board.board,
-    lists: state.list.lists
+    board: state.board.board
   }
 }
 
