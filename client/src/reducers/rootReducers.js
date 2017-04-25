@@ -3,13 +3,15 @@ import SignUp from './SignUp.js'
 import LogIn from './LogIn.js'
 import board from './Board.js'
 import list from './List.js'
+import users from './Users.js'
 
 const appReducer = combineReducers({
   //reducer files go here! - import the reducers!
   SignUp,
   LogIn,
   board,
-  list
+  list,
+  users
 })
 
 const rootReducer = (state, action) => {
