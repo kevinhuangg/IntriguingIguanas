@@ -1,6 +1,8 @@
 import React from 'react'
 import { DragSource, DropTarget } from 'react-dnd'
 import Task from './Task.jsx'
+import flow from 'lodash.flow'
+
 // import { connect } from 'react-redux'
 // import { moveList } from '../actions/List.js'
 
@@ -16,13 +18,18 @@ const listSource = {
   beginDrag(props) {
     const item = { id: props.list_id, x: props.x }
     return item
+  },
+  endDrag(props, monitor, component) {
+    if (!monitor.didDrop()) {
+      return;
+    }
   }
 }
 
 const listTarget = {
-  canDrop() {
-    return false;
-  },
+  // canDrop() {
+  //   return false;
+  // },
   hover(props, monitor) {
     const { id: listId } = monitor.getItem()
     const { id: nextX } = props;
@@ -32,17 +39,17 @@ const listTarget = {
   }
 }
 
-function collectDrop(connectDropTarget) {
-  return {
-    connectDropTarget: connectDropTarget.dropTarget(),
-  }
-}
-function collectDrag(connectDragSource, monitor) {
-  return {
-    connectDragSource: connectDragSource.dragSource(),
-    isDragging: monitor.isDragging()
-  }
-}
+// function collectDrop(connectDropTarget) {
+//   return {
+//     connectDropTarget: connectDropTarget.dropTarget(),
+//   }
+// }
+// function collectDrag(connectDragSource, monitor) {
+//   return {
+//     connectDragSource: connectDragSource.dragSource(),
+//     isDragging: monitor.isDragging()
+//   }
+// }
 
 
 export class List extends React.Component {
@@ -236,4 +243,12 @@ export class List extends React.Component {
 //   }
 // }
 
-export default DropTarget('list', listTarget, collectDrop)(DragSource('list', listSource, collectDrag)(List))
+export default flow(
+  DropTarget('list', listTarget, connectDragSource => ({
+    connectDropTarget: connectDragSource.dropTarget()
+  })),
+  DragSource('list', listSource, (connectDragSource, monitor) => ({
+    connectDragSource: connectDragSource.dragSource(),
+    isDragging: monitor.isDragging()
+  }))
+)(List)

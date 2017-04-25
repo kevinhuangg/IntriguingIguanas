@@ -1,8 +1,7 @@
 //state of the board page
 
 const initialState = {
-  lists: [],
-
+  lists: null,
   fetching: false,
   createError: null,
   fetchError: null,

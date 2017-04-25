@@ -2,11 +2,15 @@ import React from 'react'
 import List from './List.jsx'
 import { connect } from 'react-redux'
 import { boardFetched, fetchBoardError } from '../actions/Board.js'
+import { listsFetched } from '../actions/List.js'
 import { moveList } from '../actions/List.js'
 import io from 'socket.io-client'
 import { Link } from 'react-router'
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import flow from 'lodash.flow'
+
+console.log(flow, '<------flow')
 
 import {
   Grid,
@@ -14,11 +18,13 @@ import {
   Header
 } from 'semantic-ui-react'
 
+const socket = io()
+
 export class BoardPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      socket: null,
+      socket: socket,
       forms: {createListName: '', inviteUser: ''},
       board_id: this.props.params.board_id,
       boardName: this.props.params.boardName,
@@ -32,29 +38,35 @@ export class BoardPage extends React.Component {
   }
 
   componentWillMount() {
-    const socket = io()
-    this.setState({
-      socket: socket
-    })
-    socket.emit('join-board', { board_id: this.state.board_id })
-
-    socket.on('update-board', (res) => {
-      // console.log('this is working', res.rows)
-      this.setState({
-        lists: res.rows
-      })
-    })
-  }
-
-  componentDidMount() {
-    this.state.socket.on('retrieve-board', (board) => {
-      if (typeof board === 'object' && typeof this.props.boardFetched === 'function'){
-        this.props.boardFetched(board);
+    
+    socket.on('retrieve-board', (board) => {
+      if (typeof board === 'object'){
+        this.props.listsFetched(board.lists);
       } else {
         this.props.fetchBoardError(board);
       }
     })
+
+    socket.emit('join-board', { board_id: this.state.board_id })
+
+    // socket.on('update-board', (res) => {
+    //   // console.log('this is working', res.rows)
+    //   this.setState({
+    //     lists: res.rows
+    //   })
+    // })
+
   }
+
+  // componentDidMount() {
+  //   socket.on('retrieve-board', (board) => {
+  //     if (typeof board === 'object' && typeof this.props.boardFetched === 'function'){
+  //       this.props.boardFetched(board);
+  //     } else {
+  //       this.props.fetchBoardError(board);
+  //     }
+  //   })
+  // }
 
   componentWillUnmount() {
     this.state.socket.emit('disconnect');
@@ -113,12 +125,12 @@ export class BoardPage extends React.Component {
   }
 
   findList(id) {
-    const { board } = this.props
-    const list = board.lists.filter(l => l.list_id === id)[0]
+    const { lists } = this.props
+    const list = lists.filter(l => l.listId === id)[0]
 
     return {
       list,
-      currentX: board.lists.indexOf(list) 
+      currentX: lists.indexOf(list) 
     }
   }
   // moveList(direction, list_id) {
@@ -136,76 +148,81 @@ export class BoardPage extends React.Component {
 
 
   render() {
-    const { board } = this.props  
+    // const { board } = this.props  
     // console.log('board!!!!!!', board)
-    return (
-      <div>
-        {/* ----- NAV BAR ----- */}
-        <div className="ui blue inverted stackable menu">
-          <div className="ui container">
-            <img className='logo' src="./Logo.png"></img>
+    if (this.props.lists) {
+      return (
+        <div>
+          {/* ----- NAV BAR ----- */}
+          <div className="ui blue inverted stackable menu">
+            <div className="ui container">
+              <img className='logo' src="./Logo.png"></img>
+            </div>
+            <a className="item"><Link to='/lobby'>
+              <i className="block layout icon"></i>BOARDS
+            </Link></a>
+            <a className="item"><Link to='/'>
+              <i className="sign out icon"></i>SIGN OUT
+            </Link></a>
           </div>
-          <a className="item"><Link to='/lobby'>
-            <i className="block layout icon"></i>BOARDS
-          </Link></a>
-          <a className="item"><Link to='/'>
-            <i className="sign out icon"></i>SIGN OUT
-          </Link></a>
-        </div>
 
-        {/* ----- BOARD NAME ----- */}
-        <h4 className="ui header">
-          <div className="content board name">
-            <i className="bookmark icon"></i>
-            {this.state.boardName}
+          {/* ----- BOARD NAME ----- */}
+          <h4 className="ui header">
+            <div className="content board name">
+              <i className="bookmark icon"></i>
+              {this.state.boardName}
+            </div>
+          </h4>
+
+          <div className='invite create list'>
+          {/* ----- CREATE LIST ----- */}
+          <div className="ui action input">
+            <input
+              value={ this.state.forms.createListName }
+              onChange={ this.handleChange.bind(this, 'createListName') }
+            />
+            <button className="ui blue right labeled icon button" onClick={ this.onCreateList }>
+              <i className="plus icon"></i>
+              NEW LIST
+            </button>
           </div>
-        </h4>
 
-        <div className='invite create list'>
-        {/* ----- CREATE LIST ----- */}
-        <div className="ui action input">
-          <input
-            value={ this.state.forms.createListName }
-            onChange={ this.handleChange.bind(this, 'createListName') }
-          />
-          <button className="ui blue right labeled icon button" onClick={ this.onCreateList }>
-            <i className="plus icon"></i>
-            NEW LIST
-          </button>
+          {/* ----- INVITE USERS ----- */}
+          <div className="ui action input">
+            <input
+              value={ this.state.forms.inviteUser }
+              onChange={ this.handleChange.bind(this, 'inviteUser') }
+            />
+            <button className="ui blue right labeled icon button" onClick={ this.inviteUser }><i className="add user icon"></i>
+              INVITE
+            </button>
+          </div>
+
+
+          </div>
+
+          {/* ----- LISTS SCROLL BOX ----- */}
+          <Grid className='canvas'>
+            { this.props.lists.map((list,i) =>
+              <Grid.Column className='list-column' width={4} key={ list.listId }>
+                <List
+                  socket={ this.state.socket }
+                  listname={ list.listname }
+                  list_id={ list.listId }
+                  item={ list }
+                  x = { i }
+                  moveList = { this.moveList }
+                />
+              </Grid.Column>
+            )}
+          </Grid>
         </div>
-
-        {/* ----- INVITE USERS ----- */}
-        <div className="ui action input">
-          <input
-            value={ this.state.forms.inviteUser }
-            onChange={ this.handleChange.bind(this, 'inviteUser') }
-          />
-          <button className="ui blue right labeled icon button" onClick={ this.inviteUser }><i className="add user icon"></i>
-            INVITE
-          </button>
-        </div>
-
-
-        </div>
-
-        {/* ----- LISTS SCROLL BOX ----- */}
-        <Grid className='canvas'>
-
-          { this.state.lists.map((list,i) =>
-            <Grid.Column className='list-column' width={4} key={ list.id }>
-              <List
-                socket={ this.state.socket }
-                listname={ list.listname }
-                list_id={ list.id }
-                item={ list }
-                x = { i }
-                moveList = { this.moveList }
-              />
-            </Grid.Column>
-          )}
-        </Grid>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div></div>
+      )
+    }
   }
 }
 
@@ -213,7 +230,8 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     user_id: state.LogIn.user_id,
-    board: state.board.board
+    board: state.board.board,
+    lists: state.list.lists
   }
 }
 
@@ -221,9 +239,13 @@ const mapDispatchToProps = (dispatch) => {
   return {
     // listsFetched: (lists) => { dispatch(listsFetched(lists)) },
     boardFetched: (board) => { dispatch(boardFetched(board)) },
+    listsFetched: (lists) => { dispatch(listsFetched(lists)) },
     fetchBoardError: (board) => { dispatch(fetchBoardError(board)) },
     moveList: (currentX, nextX) => { dispatch(moveList(currentX, nextX)) }
   }
 }
 
-export default DragDropContext(HTML5Backend)(connect(mapStateToProps, mapDispatchToProps)(BoardPage))
+export default flow (
+  DragDropContext(HTML5Backend),
+  connect(mapStateToProps, mapDispatchToProps)
+)(BoardPage)
