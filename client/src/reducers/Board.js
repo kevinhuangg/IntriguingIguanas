@@ -93,9 +93,9 @@ function board(state = initialState, action) {
           const task = newLists.splice(currentX, 1)[0];
 
           newLists.splice(nextX, 0, task);
-          return { 
+          return {
             ...state,
-            board: { 
+            board: {
               ...state.board,
               lists: newLists
             }

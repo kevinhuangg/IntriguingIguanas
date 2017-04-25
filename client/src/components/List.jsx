@@ -27,14 +27,17 @@ const listSource = {
 }
 
 const listTarget = {
-  // canDrop() {
-  //   return false;
-  // },
-  hover(props, monitor) {
+  drop(props, monitor) {
+    // const { id: listId } = monitor.getItem()
+    // const { id: nextX } = props;
+    // if (listId !== nextX) {
+    //   props.moveList(listId, props.x)
+    // }
     const { id: listId } = monitor.getItem()
-    const { id: nextX } = props;
-    if (listId !== nextX) {
-      props.moveList(listId, props.x)
+    const { x: currentX } = monitor.getItem()
+    const { x: nextX } = props;
+    if (currentX !== nextX ) {
+        props.moveList(listId, nextX)
     }
   }
 }
