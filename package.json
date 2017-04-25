@@ -35,7 +35,6 @@
     "babel-preset-stage-2": "^6.24.1",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
-    "connect-pg-simple": "^3.1.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
     "express-session": "^1.15.2",
@@ -62,8 +61,7 @@
     "socket.io-client": "^1.7.3",
     "socket.io-stream": "^0.9.1",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.2",
-    "webrtc-adapter": "^3.3.2"
+    "webpack-dev-server": "^2.4.2"
   },
   "devDependencies": {
     "babel-jest": "^19.0.0",
