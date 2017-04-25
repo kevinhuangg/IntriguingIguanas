@@ -9,8 +9,6 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import flow from 'lodash.flow'
 
-console.log(flow, '<------flow')
-
 import {
   Grid,
   Card,
@@ -37,7 +35,7 @@ export class BoardPage extends React.Component {
   }
 
   componentWillMount() {
-    
+
     socket.on('retrieve-board', (board) => {
       if (typeof board === 'object'){
         this.props.boardFetched(board);
@@ -128,7 +126,7 @@ export class BoardPage extends React.Component {
 
     return {
       list,
-      currentX: board.lists.indexOf(list) 
+      currentX: board.lists.indexOf(list)
     }
   }
   // moveList(direction, list_id) {
