@@ -1,6 +1,6 @@
 const initialState = {
   boards: [],
-  board: null,
+  board: {lists: null},
   // fetchingBoard: false,
   fetchBoardError: null,
   fetchingBoards: false,
@@ -86,6 +86,21 @@ function board(state = initialState, action) {
         ...state,
         fetchBoardError: action.fetchError
       }
+      case 'MOVE_LIST':
+        {
+          const newLists = [...state.board.lists];
+          const { currentX, nextX } = action;
+          const task = newLists.splice(currentX, 1)[0];
+
+          newLists.splice(nextX, 0, task);
+          return { 
+            ...state,
+            board: { 
+              ...state.board,
+              lists: newLists
+            }
+          }
+        }
     default:
       return state;
   }

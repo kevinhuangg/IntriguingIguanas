@@ -43,15 +43,6 @@ export const fetchListsError = (fetchError) => {
   }
 }
 
-// ------------ MOVE ------------
-export const moveList = (currentX, nextX) => {
-  return {
-    type: 'MOVE_LIST',
-    currentX,
-    nextX
-  }
-}
-
 // ------------ TOGGLE DRAGGING ------------
 export const toggleDragging = (isDragging) => {
   return {
