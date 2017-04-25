@@ -44,23 +44,6 @@ const list = (state = initialState, action) => {
         ...state,
         fetchError: action.fetchError
       }
-    // ---------- EDIT ----------
-    // ----------MOVE TASK-------
-    case 'MOVE_TASK': {
-      let newLists = [...state.lists];
-      let {currentX, currentY, nextX, nextY} = action;
-      if (currentX === nextX) {
-        newLists[currentX].tasks.splice(nextY, 0, newLists[currentX].tasks.splice(currentY, 1)[0])
-      } else {
-        newLists[nextX].tasks.splice(nextY, 0, newLists[currentX].tasks[currentY])
-        newLists[currentX].tasks.splice(currentY, 1)
-      }
-      return {
-        ...state,
-        lists: newLists
-      }
-    }
-
     // ---------- TOGGLE DRAGGING ----------
     case 'TOGGLE_DRAGGING':
       return {

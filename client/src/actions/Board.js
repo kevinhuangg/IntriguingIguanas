@@ -127,6 +127,16 @@ export const moveList = (currentX, nextX) => {
     nextX
   }
 }
+
+export const moveTask = (currentX, currentY, nextX, nextY) => {
+  return {
+    type: 'MOVE_TASK',
+    currentX,
+    currentY,
+    nextX,
+    nextY
+  }
+}
 // ------------ FETCH ------------
 function fetchingBoards() {
   return {

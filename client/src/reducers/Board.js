@@ -9,7 +9,7 @@ const initialState = {
   createError: null,
   deleteError: null,
   fetchBoardsError: null
-}
+};
 
 function board(state = initialState, action) {
   switch (action.type) {
@@ -86,21 +86,39 @@ function board(state = initialState, action) {
         ...state,
         fetchBoardError: action.fetchError
       }
-      case 'MOVE_LIST':
-        {
-          const newLists = [...state.board.lists];
-          const { currentX, nextX } = action;
-          const task = newLists.splice(currentX, 1)[0];
+    case 'MOVE_LIST':
+      {
+        const newLists = [...state.board.lists];
+        const { currentX, nextX } = action;
+        const task = newLists.splice(currentX, 1)[0];
 
-          newLists.splice(nextX, 0, task);
-          return {
-            ...state,
-            board: {
-              ...state.board,
-              lists: newLists
-            }
+        newLists.splice(nextX, 0, task);
+        return {
+          ...state,
+          board: {
+            ...state.board,
+            lists: newLists
           }
         }
+      }
+    case 'MOVE_TASK': {
+      let newLists = [...state.board.lists];
+      let {currentX, currentY, nextX, nextY} = action;
+
+      if (currentX === nextX) { //move task within own list
+        newLists[currentX].tasks.splice(nextY, 0, newLists[currentX].tasks.splice(currentY, 1)[0])
+      } else { //move task between lists
+        newLists[nextX].tasks.splice(nextY, 0, newLists[currentX].tasks[currentY])
+        newLists[currentX].tasks.splice(currentY, 1)
+      }
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          lists: newLists
+        }
+      }
+    }
     default:
       return state;
   }

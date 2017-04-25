@@ -1,6 +1,38 @@
 import React from 'react'
-// import { DragSource } from 'react-dnd'
+import { DragSource, DropTarget } from 'react-dnd'
 import { Segment } from 'semantic-ui-react'
+import flow from 'lodash.flow'
+
+const cardSource = {
+  beginDrag(props, monitor, component) {
+    console.log(props.task_id)
+    return {
+      id: props.task_id,
+      x: props.x,
+      y: props.y
+    }
+  }
+}
+
+const cardTarget = {
+  // canDrop() {
+  //   return false
+  // },
+  drop(props, monitor, component) {
+    const { x: currentX } = monitor.getItem()
+    const { y: currentY } = monitor.getItem()
+    const nextX = props.x
+    const nextY = props.y
+    props.moveTask(currentX, currentY, nextX, nextY)
+  }
+}
+
+// const collectDragSource = (connectDragSource, monitor) => {
+//   return {
+//     connectDragSource: connectDragSource.dragSource(),
+//     isDragging: monitor.isDragging()
+//   }
+// }
 
 export class Task extends React.Component {
   constructor(props) {
@@ -51,7 +83,10 @@ export class Task extends React.Component {
   render() {
     var upArrow = '\u25B2'
     var downArrow = '\u25BC'
-    return (
+    console.log(this.props.didDrop)
+    const { connectDragSource, connectDropTarget } = this.props 
+
+    return connectDragSource(connectDropTarget(
       <div>
         <div onClick={ this.isEditing }>
           • { this.props.text }
@@ -70,9 +105,18 @@ export class Task extends React.Component {
           </div>
         }
       </div>
-    )
+    ))
   }
 }
 
 
-export default Task
+export default flow(
+  DropTarget('card', cardTarget, connectDragSource => ({
+    connectDropTarget: connectDragSource.dropTarget()
+  })),
+  DragSource('card', cardSource, (connectDragSource, monitor) => ({
+    connectDragSource: connectDragSource.dragSource(),
+    isDragging: monitor.isDragging(),
+    didDrop: monitor.didDrop()
+  }))
+)(Task)
