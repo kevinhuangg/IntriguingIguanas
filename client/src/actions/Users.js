@@ -1,4 +1,4 @@
-
+import axios from 'axios';
 
 //---------USERNAMES-----------
 function fetchingUsernames() {
@@ -23,7 +23,13 @@ function fetchUsernamesError(error) {
 
 export function fetchUsernames() {
   return (dispatch) => {
-    dispatch(fetchUsernames());
-    //fetch users here - query to the server - HTTP request
+    dispatch(fetchingUsernames());
+    axios.get('/api/usernames')
+    .then(results => {
+      dispatch(usernamesFetched(results));
+    })
+    .catch(error => {
+      dispatch(fetchUsernamesError(error));
+    })
   }
 }
