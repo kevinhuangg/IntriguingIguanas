@@ -3,6 +3,7 @@ import List from './List.jsx'
 import { connect } from 'react-redux'
 import { boardFetched, fetchBoardError, moveList, moveTask } from '../actions/Board.js'
 import { listsFetched } from '../actions/List.js'
+import { fetchUsernames } from '../actions/Users.js'
 import io from 'socket.io-client'
 import { Link } from 'react-router'
 import { DragDropContext } from 'react-dnd';
@@ -37,6 +38,7 @@ export class BoardPage extends React.Component {
 
   componentWillMount() {
     const { socket } = this.state
+    this.props.fetchUsernames();
     socket.on('retrieve-board', (board) => {
       if (typeof board === 'object'){
         this.props.boardFetched(board);
@@ -91,7 +93,7 @@ export class BoardPage extends React.Component {
       })
     }
   }
-
+// -----------Invite User----------------
   inviteUser() {
     this.state.socket.emit('invite-user-to-board', {
       invitee: this.state.forms.inviteUser,
@@ -105,7 +107,7 @@ export class BoardPage extends React.Component {
                inviteUser: '' }
     })
   }
-
+//---------REACT DND ------------------
   findIndexOfList(list_id) {
     var indexOfSource = undefined;
     this.state.lists.map((list, index) => {
@@ -231,7 +233,8 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     user_id: state.LogIn.user_id,
-    board: state.board.board
+    board: state.board.board,
+    usernames: state.users.usernames
   }
 }
 
@@ -241,7 +244,8 @@ const mapDispatchToProps = (dispatch) => {
     listsFetched: (lists) => { dispatch(listsFetched(lists)) },
     fetchBoardError: (board) => { dispatch(fetchBoardError(board)) },
     moveList: (currentX, nextX) => { dispatch(moveList(currentX, nextX)) },
-    moveTask: (currentX, currentY, nextX, nextY) => { dispatch(moveTask(currentX, currentY, nextX, nextY)) }
+    moveTask: (currentX, currentY, nextX, nextY) => { dispatch(moveTask(currentX, currentY, nextX, nextY)) },
+    fetchUsernames: () => { dispatch(fetchUsernames())}
   }
 }
 

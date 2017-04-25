@@ -26,7 +26,7 @@ export function fetchUsernames() {
     dispatch(fetchingUsernames());
     axios.get('/api/usernames')
     .then(results => {
-      dispatch(usernamesFetched(results));
+      dispatch(usernamesFetched(results.data));
     })
     .catch(error => {
       dispatch(fetchUsernamesError(error));
