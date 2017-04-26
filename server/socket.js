@@ -50,7 +50,7 @@ module.exports = {
             io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log('CREATE LIST ERR', err)
+            console.log('CREATE LIST ERR')
           })
         });
 
@@ -77,7 +77,7 @@ module.exports = {
             io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log('DELETE LIST ERR', err)
+            console.log('DELETE LIST ERR')
           })
         });
 
@@ -104,7 +104,7 @@ module.exports = {
             io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log('ADD TASK ERR', err)
+            console.log('ADD TASK ERR')
           })
         });
 
@@ -117,7 +117,7 @@ module.exports = {
             io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log('UPDATE TASK ERR', err)
+            console.log('UPDATE TASK ERR')
           })
         });
 
@@ -130,7 +130,7 @@ module.exports = {
             io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log('DELETE TASK ERR', err)
+            console.log('DELETE TASK ERR')
           })
         });
 
@@ -155,7 +155,7 @@ module.exports = {
             io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log('UPDATE LIST ORDER ERR', err)
+            console.log('UPDATE LIST ORDER ERR')
           })
         })
 
@@ -171,7 +171,7 @@ module.exports = {
             io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log(err)
+            console.log('MOVE TASK ERR')
           })
         })
 

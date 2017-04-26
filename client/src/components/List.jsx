@@ -108,6 +108,7 @@ export class List extends React.Component {
   deleteList() {
     this.props.socket.emit('delete-list', {
       list_id: this.props.list_id,
+      board_id: this.props.board_id
     })
   }
 
@@ -133,7 +134,7 @@ export class List extends React.Component {
           <Card.Content className='list-header'>
           <Card.Header>
             <Header color='blue' onClick={ this.isEditingListName }>
-              { this.state.currentListName }
+              { this.props.listname }
             </Header>
             { this.state.isEditing &&
               <div>
