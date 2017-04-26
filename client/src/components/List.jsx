@@ -3,9 +3,6 @@ import { DragSource, DropTarget } from 'react-dnd'
 import Task from './Task.jsx'
 import flow from 'lodash.flow'
 
-// import { connect } from 'react-redux'
-// import { moveList } from '../actions/List.js'
-
 import {
   Grid,
   Card,
@@ -36,19 +33,6 @@ const listTarget = {
     }
   }
 }
-
-// function collectDrop(connectDropTarget) {
-//   return {
-//     connectDropTarget: connectDropTarget.dropTarget(),
-//   }
-// }
-// function collectDrag(connectDragSource, monitor) {
-//   return {
-//     connectDragSource: connectDragSource.dragSource(),
-//     isDragging: monitor.isDragging()
-//   }
-// }
-
 
 export class List extends React.Component {
   constructor(props) {
@@ -154,19 +138,6 @@ export class List extends React.Component {
     return indexOfSource
   }
 
-  // moveTaskVertical(direction, task_id) {
-  //   var indexOfSource = this.findIndexOfTask(task_id);
-  //   var data = {
-  //     array: [ this.state.tasks[indexOfSource] ]
-  //   }
-  //   if (direction === 'up') {
-  //     data.array.push(this.state.tasks[indexOfSource - 1])
-  //   } else if (direction === 'down') {
-  //     data.array.push(this.state.tasks[indexOfSource + 1])
-  //   }
-  //   this.props.socket.emit('task-order-update-vertical', data);
-  // }
-
   render() {
     var leftArrow = '\u25C0'
     var rightArrow = '\u25B6'
@@ -192,8 +163,6 @@ export class List extends React.Component {
                 </button>
               </div>
               <div>
-              {/*<button className="ui blue icon button" onClick={ this.props.moveList.bind(null, 'left', this.props.list_id) }>{leftArrow}</button>
-              <button className="ui blue icon button" onClick={ this.props.moveList.bind(null, 'right', this.props.list_id) }>{rightArrow}</button>*/}
               </div>
               </div>
             }
@@ -215,8 +184,6 @@ export class List extends React.Component {
               item = { task }
               x = { x }
               y = { i }
-
-              // assigned={ task.assigned }
             />
             </Segment>
           )}
@@ -234,18 +201,6 @@ export class List extends React.Component {
     ))
   }
 }
-
-// const mapStateToProps = (state) => {
-//   return {
-//     ...state
-//   }
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     moveList: (currentX, nextX) => { dispatch(moveList(currentX, nextX)) }
-//   }
-// }
 
 export default flow(
   DropTarget('list', listTarget, connectDragSource => ({

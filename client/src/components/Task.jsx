@@ -104,8 +104,6 @@ export class Task extends React.Component {
               </button>
               <button className="ui red icon button" onClick={ this.deleteTask }><i className="trash icon"></i>
               </button>
-              {/*<button onClick={ this.props.moveTaskVertical.bind(null, 'up', this.props.task_id)}>{ upArrow }</button>
-              <button onClick={ this.props.moveTaskVertical.bind(null, 'down', this.props.task_id)}>{ downArrow }</button>*/}
             </div>
           </div>
         }

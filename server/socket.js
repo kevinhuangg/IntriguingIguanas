@@ -35,14 +35,6 @@ module.exports = {
           socket.emit('retrieve-board', 'Error retrieving board')
         })
 
-        // list.fetchLists(data.board_id) // are we still using this??
-        // .then(lists => {
-        //   io.in(room).emit('update-board', lists)
-        // })
-        // .catch(err => {
-        //   console.log('error fetching lists', err)
-        // })
-
         socket.join(room)
         io.of('/').in(room).clients(function(error, clients) {
           if (error) throw error;
@@ -176,22 +168,6 @@ module.exports = {
         })
 
         //------------ MOVE TASK ------------
-        // socket.on('task-order-update-vertical', (data) => {
-        //   console.log(data, "DATA")
-        //   task.updateTaskOrder(data)
-        //   .then(success => {
-        //     console.log(success, "SUCCESS")
-        //     return task.fetchTasks(data.array[0].list_id)
-        //   })
-        //   .then(pgData => {
-        //     // console.log(pgData,"PGDATA")
-        //     let tasksFetched = `tasks-fetched-listID-${data.array[0].list_id}`
-        //     io.in(room).emit(tasksFetched, pgData.rows)
-        //   })
-        //   .catch(err => {
-        //     console.log(err)
-        //   })
-        // })
           socket.on('task-order-update', (data) => {
             console.log(data, "DATA")
             task.updateTaskOrder(data)
@@ -206,12 +182,6 @@ module.exports = {
               console.log(err)
             })
           })
-
-        // //------------ VIDEO CHAT ------------
-        // socket.on('start-video-chat', (stream) => {
-        //   console.log(stream, "STREAMMM")
-        //   socket.to(room).emit('initiate-peer-video', stream)
-        // })
 
         //------------- DISCONNECT -------------
         socket.on('disconnect', function() {
