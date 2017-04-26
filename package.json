@@ -4,7 +4,7 @@
   "description": "A singular platform that integrates all the tools necessary for live and remote collaboration",
   "main": "index.js",
   "scripts": {
-    "start": "knex migrate:latest --env development && node server/app.js",
+    "start": "node server/app.js",
     "build": "webpack -p",
     "dev": "webpack -d --watch & nodemon server/app.js",
     "test": "jest --config jest.config.js",
