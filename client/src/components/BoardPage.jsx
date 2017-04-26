@@ -105,16 +105,11 @@ export class BoardPage extends React.Component {
 // -----------Invite User----------------
   inviteUser() {
     this.state.socket.emit('invite-user-to-board', {
-      invitee: this.state.forms.inviteUser,
+      invitee: this.state.inviteUser,
       board_id: this.state.board_id
     })
 
-    alert(`${this.state.forms.inviteUser} was successfully invited to ${this.state.boardName}`)
-
-    this.setState({
-      forms: { createListName: this.state.forms.createListName,
-               inviteUser: '' }
-    })
+    alert(`${this.state.inviteUser} was successfully invited to ${this.state.boardName}`)
   }
 
   getSuggestions(value) {

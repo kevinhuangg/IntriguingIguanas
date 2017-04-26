@@ -230,7 +230,7 @@ h2.homepage {
   font-size: 15;
 }
 
-/*.react-autosuggest__container {
+.react-autosuggest__container {
   position: relative;
 }
 
@@ -286,6 +286,6 @@ h2.homepage {
 
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
-}*/
+}
 
 
