@@ -208,6 +208,7 @@ export class List extends React.Component {
               text={ task.text }
               task_id={ task.id }
               list_id={ task.list_id }
+              lists={ this.props.lists }
               socket={ this.props.socket }
               moveTask ={ this.props.moveTask }
               moveTaskVertical={ this.moveTaskVertical }

@@ -13,7 +13,7 @@ module.exports = {
   addTask: (list_id, text) => {
     return db.query(`SELECT coalesce(max(task_order),0) as max_order FROM tasks WHERE list_id=${list_id}`)
     .then(task => {
-      var new_order = task.rows[0].max_order + 500;
+      var new_order = task.rows[0].max_order + 1000000;
       return db.query(`INSERT INTO tasks (list_id, text, task_order) VALUES (${list_id},'${text}',${new_order})`);
     })
     .catch(err => {
@@ -27,21 +27,6 @@ module.exports = {
     return db.query(`SELECT * FROM tasks WHERE list_id=${list_id} order by task_order`);
   },
   updateTaskOrder: (data) => {
-  if (data.array[1]) {
-    var first_task = data.array[0].id;
-    var second_task = data.array[1].id;
-    var first_order = data.array[0].task_order;
-    var second_order = data.array[1].task_order;
-    var list_id = data.array[0].list_id;
-      return db.query(`UPDATE tasks SET task_order=${second_order} WHERE id=${first_task}`)
-      .then(result => {
-        return db.query(`UPDATE tasks SET task_order=${first_order} WHERE id=${second_task}`)
-      })
-      .catch(err => {
-        console.log(err);
-    })
-    } else {
-      return db.query(`SELECT * from tasks`)
-    }
+    return db.query(`UPDATE tasks SET task_order=${data.new_task_order}, list_id=${data.list_id} WHERE id=${data.task_id}`)
   }
 }

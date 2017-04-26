@@ -176,22 +176,36 @@ module.exports = {
         })
 
         //------------ MOVE TASK ------------
-        socket.on('task-order-update-vertical', (data) => {
-          console.log(data, "DATA")
-          task.updateTaskOrder(data)
-          .then(success => {
-            console.log(success, "SUCCESS")
-            return task.fetchTasks(data.array[0].list_id)
+        // socket.on('task-order-update-vertical', (data) => {
+        //   console.log(data, "DATA")
+        //   task.updateTaskOrder(data)
+        //   .then(success => {
+        //     console.log(success, "SUCCESS")
+        //     return task.fetchTasks(data.array[0].list_id)
+        //   })
+        //   .then(pgData => {
+        //     // console.log(pgData,"PGDATA")
+        //     let tasksFetched = `tasks-fetched-listID-${data.array[0].list_id}`
+        //     io.in(room).emit(tasksFetched, pgData.rows)
+        //   })
+        //   .catch(err => {
+        //     console.log(err)
+        //   })
+        // })
+          socket.on('task-order-update', (data) => {
+            console.log(data, "DATA")
+            task.updateTaskOrder(data)
+            .then(success => {
+              console.log(success, "SUCCESS")
+              return board.fetchBoard(data.board_id)
+            })
+            .then(board => {
+              io.in(room).emit('retrieve-board', parseSQLData(board.rows))
+            })
+            .catch(err => {
+              console.log(err)
+            })
           })
-          .then(pgData => {
-            // console.log(pgData,"PGDATA")
-            let tasksFetched = `tasks-fetched-listID-${data.array[0].list_id}`
-            io.in(room).emit(tasksFetched, pgData.rows)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-        })
 
         // //------------ VIDEO CHAT ------------
         // socket.on('start-video-chat', (stream) => {

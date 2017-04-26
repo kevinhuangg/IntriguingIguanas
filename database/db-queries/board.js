@@ -33,7 +33,7 @@ module.exports = {
   },
   //fetch board with an id
   fetchBoard: (boardId) => {
-    return db.query(`SELECT boards.id as boardid, boards.boardname, boards.timestamp, boards.current_order as board_order, lists.id as listid, lists.board_id, lists.listname, lists.list_order, tasks.id, tasks.list_id, tasks.text, tasks.assigned, tasks.task_order FROM boards LEFT JOIN lists ON boards.id=lists.board_id LEFT JOIN tasks on lists.id = tasks.list_id WHERE boards.id=${boardId} order by lists.list_order`)
+    return db.query(`SELECT boards.id as boardid, boards.boardname, boards.timestamp, boards.current_order as board_order, lists.id as listid, lists.board_id, lists.listname, lists.list_order, tasks.id, tasks.list_id, tasks.text, tasks.assigned, tasks.task_order FROM boards LEFT JOIN lists ON boards.id=lists.board_id LEFT JOIN tasks on lists.id = tasks.list_id WHERE boards.id=${boardId} order by lists.list_order, tasks.task_order`)
   }
 
 }

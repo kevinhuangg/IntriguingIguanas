@@ -5,7 +5,6 @@ import flow from 'lodash.flow'
 
 const cardSource = {
   beginDrag(props, monitor, component) {
-    console.log(props.task_id)
     return {
       id: props.task_id,
       x: props.x,
@@ -15,24 +14,30 @@ const cardSource = {
 }
 
 const cardTarget = {
-  // canDrop() {
-  //   return false
-  // },
   drop(props, monitor, component) {
     const { x: currentX } = monitor.getItem()
     const { y: currentY } = monitor.getItem()
     const nextX = props.x
     const nextY = props.y
+
+    //Calculate new task order and new list id -> emit to database
+    var new_task_order;
+    var taskMax = props.lists[nextX].tasks[nextY].task_order
+    var task_id = props.lists[currentX].tasks[currentY].id
+    var list_id = props.lists[nextX].listId
+    var board_id = props.lists[nextX].board_id
+    if (nextY === 0 ) {
+      new_task_order = taskMax/2
+    } else if (props.lists[nextX].tasks[nextY+1]) {
+      new_task_order = (((props.lists[nextX].tasks[nextY-1].task_order)+taskMax)/2)
+    } else {
+      new_task_order = taskMax * 2
+    }
+    props.socket.emit('task-order-update', {task_id: task_id, list_id: list_id, board_id: board_id, new_task_order: Math.round(new_task_order)})
+
     props.moveTask(currentX, currentY, nextX, nextY)
   }
 }
-
-// const collectDragSource = (connectDragSource, monitor) => {
-//   return {
-//     connectDragSource: connectDragSource.dragSource(),
-//     isDragging: monitor.isDragging()
-//   }
-// }
 
 export class Task extends React.Component {
   constructor(props) {
@@ -84,7 +89,7 @@ export class Task extends React.Component {
     var upArrow = '\u25B2'
     var downArrow = '\u25BC'
     console.log(this.props.didDrop)
-    const { connectDragSource, connectDropTarget } = this.props 
+    const { connectDragSource, connectDropTarget } = this.props
 
     return connectDragSource(connectDropTarget(
       <div>
