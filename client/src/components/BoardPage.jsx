@@ -16,8 +16,6 @@ import {
   Header
 } from 'semantic-ui-react'
 
-
-
 export class BoardPage extends React.Component {
   constructor(props) {
     super(props)
@@ -30,6 +28,7 @@ export class BoardPage extends React.Component {
       lists: [],
       suggestions:[]
     }
+
     this.onCreateList = this.onCreateList.bind(this)
     this.inviteUser = this.inviteUser.bind(this)
     this.moveList = this.moveList.bind(this)
@@ -59,22 +58,9 @@ export class BoardPage extends React.Component {
     socket.emit('join-board', { board_id: this.state.board_id })
 
     socket.on('update-board', (res) => {
-      // console.log('this is working', res.rows)
-      // dispatch action to update board.lists
       this.props.boardFetched(res.rows);
     })
-
   }
-
-  // componentDidMount() {
-  //   socket.on('retrieve-board', (board) => {
-  //     if (typeof board === 'object' && typeof this.props.boardFetched === 'function'){
-  //       this.props.boardFetched(board);
-  //     } else {
-  //       this.props.fetchBoardError(board);
-  //     }
-  //   })
-  // }
 
   componentWillUnmount() {
     this.state.socket.emit('disconnect');
@@ -102,7 +88,7 @@ export class BoardPage extends React.Component {
       })
     }
   }
-// -----------Invite User----------------
+//----------- INVITE USER -----------
   inviteUser() {
     this.state.socket.emit('invite-user-to-board', {
       invitee: this.state.inviteUser,
@@ -115,7 +101,7 @@ export class BoardPage extends React.Component {
   getSuggestions(value) {
     var inputValue = value.trim().toLowerCase();
     var inputLength = inputValue.length;
-    
+
     return inputLength === 0 ? [] : this.props.usernames.filter(user => {
       return (user.username.toLowerCase().slice(0, inputLength) === inputValue)
     })
@@ -151,7 +137,7 @@ export class BoardPage extends React.Component {
     })
   }
 
-//---------REACT DND ------------------
+//------------ REACT DND ------------
   findIndexOfList(list_id) {
     var indexOfSource = undefined;
     this.state.lists.map((list, index) => {
@@ -165,6 +151,28 @@ export class BoardPage extends React.Component {
   moveList(listId, nextX) {
     const { currentX } = this.findList(listId)
     this.props.moveList(currentX, nextX)
+
+    const socket = this.state.socket
+    let lists = this.props.board.lists
+    let newListOrder = null
+
+    console.log("LISTS", lists)
+
+    if (nextX === 0) {
+      newListOrder = (lists[1].list_order)/2
+    } else if (lists[nextX+1]) {
+      newListOrder = (lists[nextX-1].list_order + lists[nextX+1].list_order)/2
+    } else {
+      newListOrder = lists[nextX-1].list_order * 2
+    }
+
+    console.log(`NEW ORDER OF LIST ${listId}`, newListOrder)
+
+    socket.emit('list-order-update', {
+      list_id: listId,
+      newListOrder: Math.round(newListOrder),
+      board_id: this.state.board_id
+    })
   }
 
   moveTask(currentX, currentY, nextX, nextY) {
@@ -180,24 +188,6 @@ export class BoardPage extends React.Component {
       currentX: board.lists.indexOf(list)
     }
   }
-  // moveList(direction, list_id) {
-  //   var indexOfSource = this.findIndexOfList(list_id);
-  //   var data = {
-  //     array: [ this.state.lists[indexOfSource] ]
-  //   }
-  //   if (direction === 'left') {
-  //     data.array.push(this.state.lists[indexOfSource - 1])
-  //   } else if (direction === 'right') {
-  //     data.array.push(this.state.lists[indexOfSource + 1])
-  //   }
-  //   this.state.socket.emit('list-order-update', data);
-  // }
-
-  // <input
-  //    value={ this.state.forms.inviteUser }
-  //    onChange={ this.handleChange.bind(this, 'inviteUser') }
-  //  />
-
 
   render() {
     let inputProps = {
@@ -205,6 +195,7 @@ export class BoardPage extends React.Component {
       value: this.state.inviteUser,
       onChange: this.onChange
     }
+
     if (this.props.board.lists) {
       return (
         <div>
@@ -257,7 +248,6 @@ export class BoardPage extends React.Component {
             </button>
           </div>
 
-
           </div>
 
           {/* ----- LISTS SCROLL BOX ----- */}
@@ -303,7 +293,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchBoardError: (board) => { dispatch(fetchBoardError(board)) },
     moveList: (currentX, nextX) => { dispatch(moveList(currentX, nextX)) },
     moveTask: (currentX, currentY, nextX, nextY) => { dispatch(moveTask(currentX, currentY, nextX, nextY)) },
-    fetchUsernames: () => { dispatch(fetchUsernames())}
+    fetchUsernames: () => { dispatch(fetchUsernames()) }
   }
 }
 

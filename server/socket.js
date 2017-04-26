@@ -27,7 +27,6 @@ module.exports = {
         console.log(room)
         board.fetchBoard(data.board_id)
         .then(board => {
-          // console.log(parseSQLData(board.rows), 'object')
           socket.emit('retrieve-board', parseSQLData(board.rows))
         })
         .catch(err => {
@@ -44,7 +43,7 @@ module.exports = {
         // -------------- LISTS --------------
         socket.on('create-list', function(req) {
           list.addList(req.name, req.board_id)
-          .then(msg => {
+          .then(success => {
             //return list.fetchLists(req.board_id)
             return board.fetchBoard(req.board_id)
           })
@@ -69,21 +68,16 @@ module.exports = {
         socket.on('delete-list', (req) => {
           console.log('list_id', req.list_id)
           list.deleteList(req.list_id)
-          .then(pgData => {
+          .then(success => {
             // console.log('pgData', pgData)
-            return list.fetchLists(pgData.rows[0].board_id)
+            return board.fetchBoard(req.board_id)
           })
-          .then(lists => {
-            // console.log('>> LISTS', lists)
-            io.in(room).emit('update-board', lists)
+          .then(board => {
+            io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
             console.log('DELETE LIST ERR', err)
           })
-        });
-
-        socket.on('list-order-update', (req) => {
-          console.log(req.array);
         });
 
         // -------------- TASKS --------------
@@ -153,39 +147,37 @@ module.exports = {
         })
 
         //------------ MOVE LIST ------------
-        socket.on('list-order-update', (data) => {
-          list.updateListOrder(data)
+        socket.on('list-order-update', (req) => {
+          list.updateListOrder(req.list_id, req.newListOrder)
           .then(success => {
-            return list.fetchLists(data.array[0].board_id)
+            return board.fetchBoard(req.board_id)
           })
-          .then(lists => {
-            console.log('>> LISTS', lists)
-            io.in(room).emit('update-board', lists)
+          .then(board => {
+            io.in(room).emit('retrieve-board', parseSQLData(board.rows))
+          })
+          .catch(err => {
+            console.log('UPDATE LIST ORDER ERR', err)
+          })
+        })
+
+        //------------ MOVE TASK ------------
+        socket.on('task-order-update', (data) => {
+          console.log(data, "DATA")
+          task.updateTaskOrder(data)
+          .then(success => {
+            console.log(success, "SUCCESS")
+            return board.fetchBoard(data.board_id)
+          })
+          .then(board => {
+            io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
             console.log(err)
           })
         })
 
-        //------------ MOVE TASK ------------
-          socket.on('task-order-update', (data) => {
-            console.log(data, "DATA")
-            task.updateTaskOrder(data)
-            .then(success => {
-              console.log(success, "SUCCESS")
-              return board.fetchBoard(data.board_id)
-            })
-            .then(board => {
-              io.in(room).emit('retrieve-board', parseSQLData(board.rows))
-            })
-            .catch(err => {
-              console.log(err)
-            })
-          })
-
         //------------- DISCONNECT -------------
         socket.on('disconnect', function() {
-          // socket.disconnect()
           console.log('Client disconnected!')
         });
 
