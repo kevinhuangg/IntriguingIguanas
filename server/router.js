@@ -15,6 +15,7 @@ router.put('/lobby', Lobby.editBoard);
 //task routes
 
 //user routes
+router.get('/usernames', User.getUsernames)
 //Create new user
 router.post('/signup', User.postUser);
 

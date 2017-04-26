@@ -21,3 +21,19 @@ module.exports.postUser = function(req, res) { //user account creation
     res.status(404).send('Error posting user')
   })
 }
+
+module.exports.getUsernames = function (req, res) {
+  db.getUsernames()
+  .then(results => {
+    var usernames = [];
+    results.rows.map((user) => {
+      usernames.push({
+        username: user.username
+      });
+    })
+    res.status(200).send(usernames)
+  })
+  .catch(error => {
+    res.status(404).send('Could not fetch usernames')
+  })
+}

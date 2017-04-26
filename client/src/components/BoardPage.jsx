@@ -3,12 +3,13 @@ import List from './List.jsx'
 import { connect } from 'react-redux'
 import { boardFetched, fetchBoardError, moveList, moveTask } from '../actions/Board.js'
 import { listsFetched } from '../actions/List.js'
+import { fetchUsernames } from '../actions/Users.js'
 import io from 'socket.io-client'
 import { Link } from 'react-router'
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import flow from 'lodash.flow'
-
+import Autosuggest from 'react-autosuggest'
 import {
   Grid,
   Card,
@@ -22,10 +23,12 @@ export class BoardPage extends React.Component {
     super(props)
     this.state = {
       socket: io(),
-      forms: {createListName: '', inviteUser: ''},
+      forms: {createListName: ''},
+      inviteUser: '',
       board_id: this.props.params.board_id,
       boardName: this.props.params.boardName,
-      lists: []
+      lists: [],
+      suggestions:[]
     }
     this.onCreateList = this.onCreateList.bind(this)
     this.inviteUser = this.inviteUser.bind(this)
@@ -33,10 +36,18 @@ export class BoardPage extends React.Component {
     this.findList = this.findList.bind(this)
     this.moveTask = this.moveTask.bind(this)
     this.findIndexOfList = this.findIndexOfList.bind(this)
+    this.getSuggestions = this.getSuggestions.bind(this)
+    this.getSuggestionValue = this.getSuggestionValue.bind(this)
+    this.renderSuggestion = this.renderSuggestion.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
+    this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this)
+
   }
 
   componentWillMount() {
     const { socket } = this.state
+    this.props.fetchUsernames();
     socket.on('retrieve-board', (board) => {
       if (typeof board === 'object'){
         this.props.boardFetched(board);
@@ -91,21 +102,56 @@ export class BoardPage extends React.Component {
       })
     }
   }
-
+// -----------Invite User----------------
   inviteUser() {
     this.state.socket.emit('invite-user-to-board', {
-      invitee: this.state.forms.inviteUser,
+      invitee: this.state.inviteUser,
       board_id: this.state.board_id
     })
 
-    alert(`${this.state.forms.inviteUser} was successfully invited to ${this.state.boardName}`)
+    alert(`${this.state.inviteUser} was successfully invited to ${this.state.boardName}`)
+  }
 
-    this.setState({
-      forms: { createListName: this.state.forms.createListName,
-               inviteUser: '' }
+  getSuggestions(value) {
+    var inputValue = value.trim().toLowerCase();
+    var inputLength = inputValue.length;
+    
+    return inputLength === 0 ? [] : this.props.usernames.filter(user => {
+      return (user.username.toLowerCase().slice(0, inputLength) === inputValue)
     })
   }
 
+  getSuggestionValue(suggestion) {
+    return suggestion.username;
+  }
+
+  renderSuggestion(suggestion) {
+    return (
+      <div>
+      {suggestion.username}
+      </div>
+    )
+  }
+
+  onSuggestionsFetchRequested({ value }){
+    this.setState({
+      suggestions: this.getSuggestions(value)
+    });
+  }
+
+  onSuggestionsClearRequested() {
+    this.setState({
+      suggestions: []
+    })
+  };
+
+  onChange(event, { newValue }) {
+    this.setState({
+      inviteUser: newValue
+    })
+  }
+
+//---------REACT DND ------------------
   findIndexOfList(list_id) {
     var indexOfSource = undefined;
     this.state.lists.map((list, index) => {
@@ -147,8 +193,18 @@ export class BoardPage extends React.Component {
   //   this.state.socket.emit('list-order-update', data);
   // }
 
+  // <input
+  //    value={ this.state.forms.inviteUser }
+  //    onChange={ this.handleChange.bind(this, 'inviteUser') }
+  //  />
+
 
   render() {
+    let inputProps = {
+      placeholder: 'Enter Username',
+      value: this.state.inviteUser,
+      onChange: this.onChange
+    }
     if (this.props.board.lists) {
       return (
         <div>
@@ -176,7 +232,7 @@ export class BoardPage extends React.Component {
           <div className='invite create list'>
           {/* ----- CREATE LIST ----- */}
           <div className="ui action input">
-            <input
+            <input//here is where the autoSuggest goes
               value={ this.state.forms.createListName }
               onChange={ this.handleChange.bind(this, 'createListName') }
             />
@@ -188,9 +244,13 @@ export class BoardPage extends React.Component {
 
           {/* ----- INVITE USERS ----- */}
           <div className="ui action input">
-            <input
-              value={ this.state.forms.inviteUser }
-              onChange={ this.handleChange.bind(this, 'inviteUser') }
+            <Autosuggest
+            suggestions={this.state.suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={this.getSuggestionValue}
+            renderSuggestion={this.renderSuggestion}
+            inputProps={inputProps}
             />
             <button className="ui blue right labeled icon button" onClick={ this.inviteUser }><i className="add user icon"></i>
               INVITE
@@ -231,7 +291,8 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     user_id: state.LogIn.user_id,
-    board: state.board.board
+    board: state.board.board,
+    usernames: state.users.usernames
   }
 }
 
@@ -241,7 +302,8 @@ const mapDispatchToProps = (dispatch) => {
     listsFetched: (lists) => { dispatch(listsFetched(lists)) },
     fetchBoardError: (board) => { dispatch(fetchBoardError(board)) },
     moveList: (currentX, nextX) => { dispatch(moveList(currentX, nextX)) },
-    moveTask: (currentX, currentY, nextX, nextY) => { dispatch(moveTask(currentX, currentY, nextX, nextY)) }
+    moveTask: (currentX, currentY, nextX, nextY) => { dispatch(moveTask(currentX, currentY, nextX, nextY)) },
+    fetchUsernames: () => { dispatch(fetchUsernames())}
   }
 }
 
