@@ -25,10 +25,8 @@ export class BoardPage extends React.Component {
       inviteUser: '',
       board_id: this.props.params.board_id,
       boardName: this.props.params.boardName,
-      lists: [],
       suggestions:[]
     }
-
     this.onCreateList = this.onCreateList.bind(this)
     this.inviteUser = this.inviteUser.bind(this)
     this.moveList = this.moveList.bind(this)
@@ -47,6 +45,7 @@ export class BoardPage extends React.Component {
   componentWillMount() {
     const { socket } = this.state
     this.props.fetchUsernames();
+
     socket.on('retrieve-board', (board) => {
       if (typeof board === 'object'){
         this.props.boardFetched(board);
@@ -56,10 +55,6 @@ export class BoardPage extends React.Component {
     })
 
     socket.emit('join-board', { board_id: this.state.board_id })
-
-    socket.on('update-board', (res) => {
-      this.props.boardFetched(res.rows);
-    })
   }
 
   componentWillUnmount() {
@@ -256,13 +251,14 @@ export class BoardPage extends React.Component {
               <Grid.Column className='list-column' width={4} key={ list.listId }>
                 <List
                   socket={ this.state.socket }
+                  board_id={ this.state.board_id }
                   lists={ this.props.board.lists }
                   listname={ list.listname }
                   list_id={ list.listId }
+                  x = { i }
                   item={ list }
                   moveList = { this.moveList }
                   moveTask = { this.moveTask }
-                  x = { i }
                 />
               </Grid.Column>
             )}

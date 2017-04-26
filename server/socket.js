@@ -44,21 +44,23 @@ module.exports = {
         socket.on('create-list', function(req) {
           list.addList(req.name, req.board_id)
           .then(success => {
-            //return list.fetchLists(req.board_id)
             return board.fetchBoard(req.board_id)
           })
           .then(board => {
             io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log('CREATE LIST ERR', err)
+            console.log('CREATE LIST ERR')
           })
         });
 
         socket.on('update-list-name', (req) => {
           list.updateListName(req.listname, req.list_id)
           .then(success => {
-            io.in(room).emit(`update-list-name-${req.list_id}`, { listname: req.listname })
+            return board.fetchBoard(req.board_id)
+          })
+          .then(board => {
+            io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
             console.log('UPDATE LIST ERR')
@@ -69,69 +71,53 @@ module.exports = {
           console.log('list_id', req.list_id)
           list.deleteList(req.list_id)
           .then(success => {
-            // console.log('pgData', pgData)
             return board.fetchBoard(req.board_id)
           })
           .then(board => {
             io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log('DELETE LIST ERR', err)
+            console.log('DELETE LIST ERR')
           })
         });
 
         // -------------- TASKS --------------
-        socket.on('fetch-tasks', (req) => {
-          task.fetchTasks(req.list_id)
-          .then(pgData => {
-            let tasksFetched = `tasks-fetched-listID-${req.list_id}`
-
-            io.in(room).emit(tasksFetched, pgData.rows)
-          })
-          .catch(err => {
-            console.log('FETCH TASKS ERR')
-          })
-        });
-
         socket.on('add-task', function(req) {
           task.addTask(req.list_id, req.text)
           .then(success => {
-            return task.fetchTasks(req.list_id)
+            return board.fetchBoard(req.board_id)
           })
-          .then(pgData => {
-            let tasksFetched = `tasks-fetched-listID-${req.list_id}`
-            io.in(room).emit(tasksFetched, pgData.rows)
+          .then(board => {
+            io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log('ADD TASK ERR', err)
+            console.log('ADD TASK ERR')
           })
         });
 
         socket.on('update-task', (req) => {
           task.updateTask(req.task_id, req.newText)
           .then(success => {
-            return task.fetchTasks(req.list_id)
+            return board.fetchBoard(req.board_id)
           })
-          .then(pgData => {
-            let tasksFetched = `tasks-fetched-listID-${req.list_id}`
-            io.in(room).emit(tasksFetched, pgData.rows)
+          .then(board => {
+            io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log('UPDATE TASK ERR', err)
+            console.log('UPDATE TASK ERR')
           })
         });
 
         socket.on('delete-task', (req) => {
           task.deleteTask(req.task_id)
           .then(success => {
-            return task.fetchTasks(req.list_id)
+            return board.fetchBoard(req.board_id)
           })
-          .then(pgData => {
-            let tasksFetched = `tasks-fetched-listID-${req.list_id}`
-            io.in(room).emit(tasksFetched, pgData.rows)
+          .then(board => {
+            io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log('DELETE TASK ERR', err)
+            console.log('DELETE TASK ERR')
           })
         });
 
@@ -156,23 +142,21 @@ module.exports = {
             io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log('UPDATE LIST ORDER ERR', err)
+            console.log('UPDATE LIST ORDER ERR')
           })
         })
 
         //------------ MOVE TASK ------------
-        socket.on('task-order-update', (data) => {
-          console.log(data, "DATA")
-          task.updateTaskOrder(data)
+        socket.on('task-order-update', (req) => {
+          task.updateTaskOrder(req)
           .then(success => {
-            console.log(success, "SUCCESS")
-            return board.fetchBoard(data.board_id)
+            return board.fetchBoard(req.board_id)
           })
           .then(board => {
             io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
-            console.log(err)
+            console.log('MOVE TASK ERR')
           })
         })
 

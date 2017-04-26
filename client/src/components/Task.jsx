@@ -46,7 +46,6 @@ export class Task extends React.Component {
       newTaskTextInput: '',
       isEditing: false
     }
-
     this.isEditing = this.isEditing.bind(this)
     this.onTaskTextInputChange = this.onTaskTextInputChange.bind(this)
     this.updateTask = this.updateTask.bind(this)
@@ -69,7 +68,7 @@ export class Task extends React.Component {
   updateTask() {
     this.props.socket.emit('update-task', {
       task_id: this.props.task_id,
-      list_id: this.props.list_id,
+      board_id: this.props.board_id,
       newText: this.state.newTaskTextInput
     })
     this.setState({
@@ -81,7 +80,7 @@ export class Task extends React.Component {
   deleteTask() {
     this.props.socket.emit('delete-task', {
       task_id: this.props.task_id,
-      list_id: this.props.list_id
+      board_id: this.props.board_id
     })
   }
 
