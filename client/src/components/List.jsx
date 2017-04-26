@@ -52,26 +52,6 @@ export class List extends React.Component {
     this.findIndexOfTask = this.findIndexOfTask.bind(this)
   }
 
-  // ---------- ADD TASK ----------
-  onTaskInputChange(e) {
-    this.setState({
-      text: e.target.value
-    })
-  }
-
-  addTask() {
-    if (this.state.text !== '') {
-      this.props.socket.emit('add-task', {
-        list_id: this.props.list_id,
-        text: this.state.text,
-        board_id: this.props.board_id
-      })
-      this.setState({
-        text: ''
-      })
-    }
-  }
-
   // ----------- EDIT/DELETE LIST -----------
   isEditingListName() {
     this.setState({
@@ -102,6 +82,26 @@ export class List extends React.Component {
       list_id: this.props.list_id,
       board_id: this.props.board_id
     })
+  }
+
+  // ---------- ADD TASK ----------
+  onTaskInputChange(e) {
+    this.setState({
+      text: e.target.value
+    })
+  }
+
+  addTask() {
+    if (this.state.text !== '') {
+      this.props.socket.emit('add-task', {
+        list_id: this.props.list_id,
+        text: this.state.text,
+        board_id: this.props.board_id
+      })
+      this.setState({
+        text: ''
+      })
+    }
   }
 
   // ----------MOVING TASK ----------
@@ -148,8 +148,9 @@ export class List extends React.Component {
             <Segment className='task' key={ task.id }>
             <Task
               text={ task.text }
-              task_id={ task.id }
+              board_id={ this.props.board_id }
               list_id={ task.list_id }
+              task_id={ task.id }
               lists={ this.props.lists }
               socket={ this.props.socket }
               moveTask={ this.props.moveTask }

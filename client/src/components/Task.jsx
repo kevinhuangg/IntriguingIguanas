@@ -68,7 +68,7 @@ export class Task extends React.Component {
   updateTask() {
     this.props.socket.emit('update-task', {
       task_id: this.props.task_id,
-      list_id: this.props.list_id,
+      board_id: this.props.board_id,
       newText: this.state.newTaskTextInput
     })
     this.setState({
