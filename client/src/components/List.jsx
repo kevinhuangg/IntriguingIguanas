@@ -29,7 +29,7 @@ const listTarget = {
     const { x: currentX } = monitor.getItem()
     const { x: nextX } = props;
     if (currentX !== nextX ) {
-        props.moveList(listId, nextX)
+      props.moveList(listId, nextX)
     }
   }
 }
@@ -53,7 +53,6 @@ export class List extends React.Component {
     this.updateListName = this.updateListName.bind(this)
     this.deleteList = this.deleteList.bind(this)
     this.findIndexOfTask = this.findIndexOfTask.bind(this)
-    // this.moveTaskVertical = this.moveTaskVertical.bind(this)
 
     var socket = this.props.socket
 
@@ -78,7 +77,7 @@ export class List extends React.Component {
     })
   }
 
-// ---------- ADD TASK ----------
+  // ---------- ADD TASK ----------
   onTaskInputChange(e) {
     this.setState({
       text: e.target.value
@@ -97,7 +96,7 @@ export class List extends React.Component {
     }
   }
 
-// ----------- EDIT/DELETE LIST -----------
+  // ----------- EDIT/DELETE LIST -----------
   isEditingListName() {
     this.setState({
       isEditing: !this.state.isEditing
@@ -139,8 +138,6 @@ export class List extends React.Component {
   }
 
   render() {
-    var leftArrow = '\u25C0'
-    var rightArrow = '\u25B6'
     const { connectDragSource, connectDropTarget, isDragging, item, x } = this.props
     console.log()
 
@@ -179,11 +176,11 @@ export class List extends React.Component {
               list_id={ task.list_id }
               lists={ this.props.lists }
               socket={ this.props.socket }
-              moveTask ={ this.props.moveTask }
+              moveTask={ this.props.moveTask }
               moveTaskVertical={ this.moveTaskVertical }
-              item = { task }
-              x = { x }
-              y = { i }
+              item={ task }
+              x={ x }
+              y={ i }
             />
             </Segment>
           )}

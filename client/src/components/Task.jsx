@@ -53,7 +53,7 @@ export class Task extends React.Component {
     this.deleteTask = this.deleteTask.bind(this)
   }
 
-// ---------- EDIT/DELETE TASKS ----------
+  // ---------- EDIT/DELETE TASKS ----------
   isEditing() {
     this.setState({
       isEditing: !this.state.isEditing
@@ -86,9 +86,6 @@ export class Task extends React.Component {
   }
 
   render() {
-    var upArrow = '\u25B2'
-    var downArrow = '\u25BC'
-    console.log(this.props.didDrop)
     const { connectDragSource, connectDropTarget } = this.props
 
     return connectDragSource(connectDropTarget(
@@ -111,7 +108,6 @@ export class Task extends React.Component {
     ))
   }
 }
-
 
 export default flow(
   DropTarget('card', cardTarget, connectDragSource => ({
