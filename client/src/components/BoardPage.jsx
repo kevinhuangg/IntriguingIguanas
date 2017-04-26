@@ -25,7 +25,6 @@ export class BoardPage extends React.Component {
       inviteUser: '',
       board_id: this.props.params.board_id,
       boardName: this.props.params.boardName,
-      lists: [],
       suggestions:[]
     }
 
@@ -253,13 +252,14 @@ export class BoardPage extends React.Component {
               <Grid.Column className='list-column' width={4} key={ list.listId }>
                 <List
                   socket={ this.state.socket }
+                  board_id={ this.state.board_id }
                   lists={ this.props.board.lists }
                   listname={ list.listname }
                   list_id={ list.listId }
+                  x = { i }
                   item={ list }
                   moveList = { this.moveList }
                   moveTask = { this.moveTask }
-                  x = { i }
                 />
               </Grid.Column>
             )}

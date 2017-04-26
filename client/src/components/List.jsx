@@ -38,11 +38,9 @@ export class List extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentListName: this.props.listname,
       newListName: '',
       text: '',
       isEditing: false,
-      tasks: []
     }
 
     this.onTaskInputChange = this.onTaskInputChange.bind(this)
@@ -55,20 +53,6 @@ export class List extends React.Component {
     this.findIndexOfTask = this.findIndexOfTask.bind(this)
 
     var socket = this.props.socket
-
-    // --------- TASKS FETCHED ---------
-    let tasksFetched = `tasks-fetched-listID-${this.props.list_id}`
-    socket.on(tasksFetched, (tasks) => {
-      this.setState({
-        tasks: tasks
-      })
-    })
-
-    socket.on(`update-list-name-${this.props.list_id}`, (res) => {
-      this.setState({
-        currentListName: res.listname
-      })
-    })
   }
 
   componentWillMount() {
@@ -112,7 +96,8 @@ export class List extends React.Component {
   updateListName() {
     this.props.socket.emit('update-list-name', {
       list_id: this.props.list_id,
-      listname: this.state.newListName
+      listname: this.state.newListName,
+      board_id: this.props.board_id
     })
     this.setState({
       newListName: '',
@@ -122,7 +107,7 @@ export class List extends React.Component {
 
   deleteList() {
     this.props.socket.emit('delete-list', {
-      list_id: this.props.list_id
+      list_id: this.props.list_id,
     })
   }
 
