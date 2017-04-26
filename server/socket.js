@@ -147,12 +147,10 @@ module.exports = {
         })
 
         //------------ MOVE TASK ------------
-        socket.on('task-order-update', (data) => {
-          console.log(data, "DATA")
-          task.updateTaskOrder(data)
+        socket.on('task-order-update', (req) => {
+          task.updateTaskOrder(req)
           .then(success => {
-            console.log(success, "SUCCESS")
-            return board.fetchBoard(data.board_id)
+            return board.fetchBoard(req.board_id)
           })
           .then(board => {
             io.in(room).emit('retrieve-board', parseSQLData(board.rows))

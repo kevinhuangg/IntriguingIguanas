@@ -80,7 +80,7 @@ export class Task extends React.Component {
   deleteTask() {
     this.props.socket.emit('delete-task', {
       task_id: this.props.task_id,
-      list_id: this.props.list_id
+      board_id: this.props.board_id
     })
   }
 
