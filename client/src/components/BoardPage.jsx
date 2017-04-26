@@ -206,6 +206,7 @@ export class BoardPage extends React.Component {
               <Grid.Column className='list-column' width={4} key={ list.listId }>
                 <List
                   socket={ this.state.socket }
+                  lists={ this.props.board.lists }
                   listname={ list.listname }
                   list_id={ list.listId }
                   item={ list }
