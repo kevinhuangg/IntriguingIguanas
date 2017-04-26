@@ -4,6 +4,7 @@ const list = require('../database/db-queries/list.js')
 const task = require('../database/db-queries/task.js')
 const User = require('../database/db-queries/User.js')
 const parseSQLData  = require('./parseDataHelper.js')
+const fork = require('child_process').fork;
 
 var sockets = require('socket.io');
 var io;
@@ -18,6 +19,7 @@ module.exports = {
   },
   init: function(server) {
     io = sockets(server);
+    var cron = fork(__dirname + '/cron.js');
 
     io.on('connection', function(socket) {
       console.log('Connected to ' + socket);

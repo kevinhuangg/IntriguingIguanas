@@ -9,7 +9,7 @@ module.exports = {
   addList: (name, boardID) => {
     return db.query(`SELECT coalesce(max(list_order),0) as max_order FROM lists WHERE board_id=${boardID}`)
     .then(list => {
-      var new_order = list.rows[0].max_order + 500;
+      var new_order = list.rows[0].max_order + 1000000;
       return db.query(`INSERT INTO lists (listname, board_id, list_order) VALUES ('${name}', ${boardID}, ${new_order})`)
     })
     .catch(err => {
@@ -26,5 +26,8 @@ module.exports = {
   },
   updateListOrder: (listID, newListOrder) => {
     return db.query(`UPDATE lists SET list_order='${newListOrder}' WHERE id=${listID}`)
+  },
+  reorderListOrder: () => {
+    return db.query(`UPDATE lists SET list_order = subquery.rank*1000000 FROM (SELECT *, rank() over (partition by board_id order by list_order asc) as rank FROM lists) AS subquery where subquery.id = lists.id`)
   }
 }

@@ -28,5 +28,8 @@ module.exports = {
   },
   updateTaskOrder: (data) => {
     return db.query(`UPDATE tasks SET task_order=${data.new_task_order}, list_id=${data.list_id} WHERE id=${data.task_id}`)
+  },
+  reorderTaskOrder: () => {
+    return db.query(`UPDATE tasks SET task_order = subquery.rank*1000000 FROM (SELECT *, rank() over (partition by list_id order by task_order asc) as rank FROM tasks) AS subquery where subquery.id = tasks.id`)
   }
 }

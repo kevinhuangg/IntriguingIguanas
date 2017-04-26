@@ -36,6 +36,7 @@
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
+    "cron": "^1.2.1",
     "express": "^4.15.2",
     "express-session": "^1.15.2",
     "immutable": "^3.8.1",
