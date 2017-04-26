@@ -9,7 +9,7 @@ import { Link } from 'react-router'
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import flow from 'lodash.flow'
-
+import Autosuggest from 'react-autosuggest'
 import {
   Grid,
   Card,
@@ -23,10 +23,12 @@ export class BoardPage extends React.Component {
     super(props)
     this.state = {
       socket: io(),
-      forms: {createListName: '', inviteUser: ''},
+      forms: {createListName: ''},
+      inviteUser: '',
       board_id: this.props.params.board_id,
       boardName: this.props.params.boardName,
-      lists: []
+      lists: [],
+      suggestions:[]
     }
     this.onCreateList = this.onCreateList.bind(this)
     this.inviteUser = this.inviteUser.bind(this)
@@ -34,6 +36,13 @@ export class BoardPage extends React.Component {
     this.findList = this.findList.bind(this)
     this.moveTask = this.moveTask.bind(this)
     this.findIndexOfList = this.findIndexOfList.bind(this)
+    this.getSuggestions = this.getSuggestions.bind(this)
+    this.getSuggestionValue = this.getSuggestionValue.bind(this)
+    this.renderSuggestion = this.renderSuggestion.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
+    this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this)
+
   }
 
   componentWillMount() {
@@ -107,6 +116,46 @@ export class BoardPage extends React.Component {
                inviteUser: '' }
     })
   }
+
+  getSuggestions(value) {
+    var inputValue = value.trim().toLowerCase();
+    var inputLength = inputValue.length;
+    
+    return inputLength === 0 ? [] : this.props.usernames.filter(user => {
+      return (user.username.toLowerCase().slice(0, inputLength) === inputValue)
+    })
+  }
+
+  getSuggestionValue(suggestion) {
+    return suggestion.username;
+  }
+
+  renderSuggestion(suggestion) {
+    return (
+      <div>
+      {suggestion.username}
+      </div>
+    )
+  }
+
+  onSuggestionsFetchRequested({ value }){
+    this.setState({
+      suggestions: this.getSuggestions(value)
+    });
+  }
+
+  onSuggestionsClearRequested() {
+    this.setState({
+      suggestions: []
+    })
+  };
+
+  onChange(event, { newValue }) {
+    this.setState({
+      inviteUser: newValue
+    })
+  }
+
 //---------REACT DND ------------------
   findIndexOfList(list_id) {
     var indexOfSource = undefined;
@@ -149,8 +198,18 @@ export class BoardPage extends React.Component {
   //   this.state.socket.emit('list-order-update', data);
   // }
 
+  // <input
+  //    value={ this.state.forms.inviteUser }
+  //    onChange={ this.handleChange.bind(this, 'inviteUser') }
+  //  />
+
 
   render() {
+    let inputProps = {
+      placeholder: 'Enter Username',
+      value: this.state.inviteUser,
+      onChange: this.onChange
+    }
     if (this.props.board.lists) {
       return (
         <div>
@@ -178,7 +237,7 @@ export class BoardPage extends React.Component {
           <div className='invite create list'>
           {/* ----- CREATE LIST ----- */}
           <div className="ui action input">
-            <input
+            <input//here is where the autoSuggest goes
               value={ this.state.forms.createListName }
               onChange={ this.handleChange.bind(this, 'createListName') }
             />
@@ -190,9 +249,13 @@ export class BoardPage extends React.Component {
 
           {/* ----- INVITE USERS ----- */}
           <div className="ui action input">
-            <input
-              value={ this.state.forms.inviteUser }
-              onChange={ this.handleChange.bind(this, 'inviteUser') }
+            <Autosuggest
+            suggestions={this.state.suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={this.getSuggestionValue}
+            renderSuggestion={this.renderSuggestion}
+            inputProps={inputProps}
             />
             <button className="ui blue right labeled icon button" onClick={ this.inviteUser }><i className="add user icon"></i>
               INVITE

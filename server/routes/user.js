@@ -27,7 +27,9 @@ module.exports.getUsernames = function (req, res) {
   .then(results => {
     var usernames = [];
     results.rows.map((user) => {
-      usernames.push(user.username);
+      usernames.push({
+        username: user.username
+      });
     })
     res.status(200).send(usernames)
   })
