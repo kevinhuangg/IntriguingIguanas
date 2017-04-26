@@ -82,19 +82,6 @@ module.exports = {
         });
 
         // -------------- TASKS --------------
-        socket.on('fetch-tasks', (req) => {
-          task.fetchTasks(req.list_id)
-          .then(success => {
-            return board.fetchBoard(req.board_id)
-          })
-          .then(board => {
-            io.in(room).emit('retrieve-board', parseSQLData(board.rows))
-          })
-          .catch(err => {
-            console.log('FETCH TASKS ERR')
-          })
-        });
-
         socket.on('add-task', function(req) {
           task.addTask(req.list_id, req.text)
           .then(success => {

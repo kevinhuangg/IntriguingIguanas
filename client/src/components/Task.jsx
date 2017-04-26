@@ -46,7 +46,6 @@ export class Task extends React.Component {
       newTaskTextInput: '',
       isEditing: false
     }
-
     this.isEditing = this.isEditing.bind(this)
     this.onTaskTextInputChange = this.onTaskTextInputChange.bind(this)
     this.updateTask = this.updateTask.bind(this)

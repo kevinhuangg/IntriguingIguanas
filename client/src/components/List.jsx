@@ -42,7 +42,6 @@ export class List extends React.Component {
       text: '',
       isEditing: false,
     }
-
     this.onTaskInputChange = this.onTaskInputChange.bind(this)
     this.addTask = this.addTask.bind(this)
 
@@ -51,14 +50,6 @@ export class List extends React.Component {
     this.updateListName = this.updateListName.bind(this)
     this.deleteList = this.deleteList.bind(this)
     this.findIndexOfTask = this.findIndexOfTask.bind(this)
-
-    var socket = this.props.socket
-  }
-
-  componentWillMount() {
-    this.props.socket.emit('fetch-tasks', {
-      list_id: this.props.list_id
-    })
   }
 
   // ---------- ADD TASK ----------
@@ -72,7 +63,8 @@ export class List extends React.Component {
     if (this.state.text !== '') {
       this.props.socket.emit('add-task', {
         list_id: this.props.list_id,
-        text: this.state.text
+        text: this.state.text,
+        board_id: this.props.board_id
       })
       this.setState({
         text: ''

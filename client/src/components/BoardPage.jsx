@@ -27,7 +27,6 @@ export class BoardPage extends React.Component {
       boardName: this.props.params.boardName,
       suggestions:[]
     }
-
     this.onCreateList = this.onCreateList.bind(this)
     this.inviteUser = this.inviteUser.bind(this)
     this.moveList = this.moveList.bind(this)
