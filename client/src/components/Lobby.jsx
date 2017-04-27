@@ -118,7 +118,7 @@ export class Lobby extends React.Component {
 
             <Card.Content extra>
             <div className='ui two buttons'>
-            <Button icon color='blue' onClick={ () => { this.isEditingBoardName(board.id) } }><Icon name="edit"></Icon></Button>
+            <Button icon color='blue' onClick={ () => { this.isEditingBoardName(board.id) } }><Icon name="write"></Icon></Button>
             <Button icon color='red' onClick={ () => { this.deleteBoard(board.id) } }><Icon name="trash"></Icon></Button>
             </div>
 
@@ -126,7 +126,7 @@ export class Lobby extends React.Component {
               <div>
                 <div className="ui fluid action input">
                 <input value={ this.state.forms.editBoardName } onChange={ this.handleChange.bind(this, 'editBoardName') }/>
-                <button className="ui blue right icon button" onClick={ () => { this.editBoardName(board.id) } }><i className="thumbs up icon"></i>
+                <button className="ui green right icon button" onClick={ () => { this.editBoardName(board.id) } }><i className="checkmark icon"></i>
                 </button>
                 </div>
               </div>

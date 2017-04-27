@@ -69,23 +69,17 @@ h2.homepage {
   padding: 150px 150px 70px 150px;
   width: 100%;
   height: 100%;
-  /*background-image: url(./background.jpg);*/
+  background-image: url(./BG4.jpeg);
   background-repeat: no-repeat;
   background-size: 100%;
-  text-decoration-color: white;
+  /*text-decoration-color: white;*/
   text-align: center;
-  text-shadow: 2px 2px white;
+  /*text-shadow: 2px 2px white;*/
   position: absolute;
 }
 
 .ui.primary.button.sign-up {
   font-size: 15;
-}
-
-.content {
-  font-size: 35px;
-  color: #1678c2;
-  padding-bottom: 5px;
 }
 
 .ui.cards {
@@ -152,16 +146,11 @@ h2.homepage {
 .ui.grid.canvas {
   margin: 0px 10px 10px 10px;
   padding: 0px 10px 10px 10px;
-  height: 72.5vh;
+  height: 68vh;
   max-width: 98.5%;
   position: absolute;
   overflow-x: scroll;
   flex-wrap: nowrap;
-/*  border-style: solid;
-  border-width: 2px;
-  border-radius: 10px;
-  border-color: #addbff;
-  background-color: #1678c2;*/
 }
 
 .four.wide.column.list-column {
@@ -173,12 +162,24 @@ h2.homepage {
 .ui.card.list {
   min-width: 300px;
   border-radius: .50rem;
-  box-shadow: 1px 1px 5px gray;
+  max-height: 99%;
+  box-shadow: 1px 1px 4px gray;
+}
+
+.content {
+  font-size: 35px;
+  color: #1678c2;
+}
+
+.content.tasks {
+  font-size: 35px;
+  color: #1678c2;
+  overflow-y: scroll;
 }
 
 .ui.card>.content,
 .ui.cards>.card>.content {
-  padding: 15px 10px 5px 10px;
+  padding: 10px 10px 5px 10px;
 }
 
 .list-header.content {
@@ -189,15 +190,13 @@ h2.homepage {
 
 .ui.segment.task {
   border-radius: .50rem;
-  box-shadow: none;
+  border-width: 0px;
+  box-shadow: 1px 1px 4px gray;
   font-size: 14;
   margin: 10px;
-  padding: 6px;
-  height: auto;
+  padding-bottom: 5px;
   color: black;
-  min-height: 80px;
-  /*max-height: 80px;*/
-  /*overflow-y: scroll;*/
+  min-height: 60px;
 }
 
 /*----- INPUT BOXES -----*/
@@ -218,7 +217,7 @@ h2.homepage {
   font-size: 15;
 }
 
-.ui.blue.button {
+.ui.green.right.icon.button {
   font-size: 15;
 }
 
@@ -236,12 +235,12 @@ h2.homepage {
 
 /*----- INVITE USERS -----*/
 .react-autosuggest__input {
-  width: 240px;
-  height: 30px;
+  width: 177px;
+  height: 39px;
   padding: 10px 20px;
-  font-family: Helvetica, sans-serif;
+  font-family: 'Century Gothic';
   font-weight: 300;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #aaa;
   border-radius: 4px;
 }
@@ -262,13 +261,14 @@ h2.homepage {
 .react-autosuggest__suggestions-container--open {
   display: block;
   position: absolute;
-  top: 51px;
-  width: 280px;
+  top: 38px;
+  width: 177px;
   border: 1px solid #aaa;
   background-color: #fff;
   font-family: Helvetica, sans-serif;
   font-weight: 300;
   font-size: 16px;
+  border-radius: 4px;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   z-index: 2;

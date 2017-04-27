@@ -13,7 +13,6 @@ export class HomePage extends React.Component {
     return (
     <div>
       <NavBar/>
-
       <div className="jumbotron">
         <h1 className="homepage">Root.io is your one stop shop with all the tools necessary for live and remote collaboration.</h1>
         <h2 className="homepage">With shared project boards and video chat, your team can manage tasks seamlessly.</h2>

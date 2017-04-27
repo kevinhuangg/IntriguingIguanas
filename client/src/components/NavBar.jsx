@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, hashHistory } from 'react-router'
+import { Menu, Segment, Icon } from 'semantic-ui-react'
 
 const NavBar = () => (
   <div className="ui blue inverted stackable menu">
@@ -16,3 +17,9 @@ const NavBar = () => (
 )
 
 export default NavBar
+
+
+
+
+
+

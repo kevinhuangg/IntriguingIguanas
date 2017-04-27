@@ -186,7 +186,7 @@ export class BoardPage extends React.Component {
 
   render() {
     let inputProps = {
-      placeholder: 'Enter Username',
+      placeholder: 'ENTER USERNAME',
       value: this.state.inviteUser,
       onChange: this.onChange
     }
