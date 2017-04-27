@@ -2,7 +2,7 @@ const list = require('../database/db-queries/list.js')
 const task = require('../database/db-queries/task.js')
 var CronJob = require('cron').CronJob;
 
-var job = new CronJob('* * * * *', function() {
+var job = new CronJob('0 * * * *', function() {
   list.reorderListOrder()
   task.reorderTaskOrder()
   console.log('~******** Cron worker ********~')
