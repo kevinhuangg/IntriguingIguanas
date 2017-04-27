@@ -132,7 +132,7 @@ export class List extends React.Component {
               <div>
               <div className="ui fluid action input">
                 <input type='text' value={ this.state.newListName } onChange={ this.onListNameInputChange }/>
-                <button className="ui blue right icon button" onClick={ this.updateListName }><i className="thumbs up icon"></i>
+                <button className="ui green right icon button" onClick={ this.updateListName }><i className="checkmark icon"></i>
                 </button>
                 <button className="ui red icon button" onClick={ this.deleteList }><i className="trash icon"></i>
                 </button>

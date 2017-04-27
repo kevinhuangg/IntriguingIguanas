@@ -96,7 +96,7 @@ export class Task extends React.Component {
           <div>
             <div className="ui fluid action input">
               <input type='text' value={ this.state.newTaskTextInput } onChange={ this.onTaskTextInputChange }/>
-              <button className="ui blue right icon button" onClick={ this.updateTask }><i className="thumbs up icon"></i>
+              <button className="ui green right icon button" onClick={ this.updateTask }><i className="checkmark icon"></i>
               </button>
               <button className="ui red icon button" onClick={ this.deleteTask }><i className="trash icon"></i>
               </button>
