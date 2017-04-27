@@ -143,7 +143,7 @@ export class List extends React.Component {
           </Card.Content>
 
           {/* ----- TASKS ----- */}
-          <Card.Content>
+          <Card.Content className='tasks'>
           { this.props.item.tasks.map((task, i) =>
             <Segment className='task' key={ task.id }>
             <Task
@@ -161,13 +161,15 @@ export class List extends React.Component {
             />
             </Segment>
           )}
+          </Card.Content>
 
           {/* ----- ADD TASK ----- */}
-          <div className="ui fluid action input add-task">
-          <input onChange={ this.onTaskInputChange } value={ this.state.text } />
-          <button className="ui blue icon button" onClick={ this.addTask }>
-          <i className="plus icon"></i></button>
-          </div>
+          <Card.Content>
+            <div className="ui fluid action input add-task">
+            <input onChange={ this.onTaskInputChange } value={ this.state.text } />
+            <button className="ui blue icon button" onClick={ this.addTask }>
+            <i className="plus icon"></i></button>
+            </div>
           </Card.Content>
 
         </Card>
