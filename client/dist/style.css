@@ -28,7 +28,6 @@ body .grid {
 
 h1.homepage {
   font-size: 35px;
-  background-color: white;
 }
 
 h2.homepage {
@@ -70,13 +69,12 @@ h2.homepage {
   padding: 150px 150px 70px 150px;
   width: 100%;
   height: 100%;
-  background-color: white;
-  /*background-image: url(./BG3.jpeg);*/
+  background-image: url(./BG3.jpeg);
   background-repeat: no-repeat;
   background-size: 100%;
-  text-decoration-color: white;
+  /*text-decoration-color: white;*/
   text-align: center;
-  text-shadow: 2px 2px white;
+  /*text-shadow: 2px 2px white;*/
   position: absolute;
 }
 
@@ -165,7 +163,7 @@ h2.homepage {
   min-width: 300px;
   border-radius: .50rem;
   max-height: 99%;
-  box-shadow: 1px 1px 5px gray;
+  box-shadow: 1px 1px 4px gray;
 }
 
 .content {
@@ -188,19 +186,17 @@ h2.homepage {
   padding: 0px 20px 5px 0px;
   font-size: 13;
   font-weight: bold;
-
 }
 
 .ui.segment.task {
   border-radius: .50rem;
-  box-shadow: none;
+  border-width: 0px;
+  box-shadow: 1px 1px 4px gray;
   font-size: 14;
   margin: 10px;
   padding-bottom: 5px;
   color: black;
   min-height: 60px;
-  /*max-height: 80px;*/
-  /*overflow-y: scroll;*/
 }
 
 /*----- INPUT BOXES -----*/
