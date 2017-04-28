@@ -40,11 +40,10 @@ export class LogInPage extends React.Component {
       <NavBar/>
       <div className="ui top aligned center aligned grid">
         <div className="column">
-          <h2 className="ui image header">
-            <div className="content">
-              Log in to Root.io
-            </div>
-          </h2>
+          <div className="content login">
+            Log in to Root.io
+          </div>
+
           <form className="ui large form">
             <div className="ui stacked segment">
               <div className="field">
@@ -70,7 +69,7 @@ export class LogInPage extends React.Component {
                 </div>
               </div>
               <div className="input-name">{this.props.error}</div>
-              <div className="ui fluid massive blue submit button" onClick={ this.handleSubmit }>LOGIN</div>
+              <div className="ui fluid massive blue submit button" onClick={ this.handleSubmit }>LOG IN</div>
             </div>
 
             <div className="ui error message"></div>
@@ -78,7 +77,7 @@ export class LogInPage extends React.Component {
           </form>
 
           <div className="ui message">
-            New to us? <Link to='/signup'> Sign Up</Link>
+            New to us? <Link to='/signup'> Sign up!</Link>
           </div>
         </div>
       </div>
