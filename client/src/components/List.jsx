@@ -49,7 +49,6 @@ export class List extends React.Component {
     this.onListNameInputChange = this.onListNameInputChange.bind(this)
     this.updateListName = this.updateListName.bind(this)
     this.deleteList = this.deleteList.bind(this)
-    this.findIndexOfTask = this.findIndexOfTask.bind(this)
   }
 
   // ----------- EDIT/DELETE LIST -----------
@@ -102,17 +101,6 @@ export class List extends React.Component {
         text: ''
       })
     }
-  }
-
-  // ----------MOVING TASK ----------
-  findIndexOfTask(task_id) {
-    var indexOfSource = undefined;
-    this.state.tasks.map((task, index) => {
-      if (task.id === task_id) {
-        indexOfSource = index;
-      }
-    })
-    return indexOfSource
   }
 
   render() {
