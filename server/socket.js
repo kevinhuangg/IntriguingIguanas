@@ -141,7 +141,7 @@ module.exports = {
             return board.fetchBoard(req.board_id)
           })
           .then(board => {
-            socket.to(room).emit('retrieve-board', parseSQLData(board.rows))
+            io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
             console.log('UPDATE LIST ORDER ERR')
@@ -155,7 +155,7 @@ module.exports = {
             return board.fetchBoard(req.board_id)
           })
           .then(board => {
-            socket.to(room).emit('retrieve-board', parseSQLData(board.rows))
+            io.in(room).emit('retrieve-board', parseSQLData(board.rows))
           })
           .catch(err => {
             console.log('MOVE TASK ERR')
