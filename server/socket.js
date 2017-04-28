@@ -19,7 +19,7 @@ module.exports = {
   },
   init: function(server) {
     io = sockets(server);
-    var cron = fork(__dirname + '/cron.js');
+    // var cron = fork(__dirname + '/cron.js');
 
     io.on('connection', function(socket) {
       console.log('Connected to ' + socket);
