@@ -11,6 +11,13 @@ body .grid {
   width: 100%;
 }
 
+.image.login.signup {
+  width: 65px;
+  height: 60px;
+  filter: invert(100%);
+  margin-bottom: 10px;
+}
+
 .ui.image.header {
   margin: 20px;
 }
@@ -21,22 +28,10 @@ body .grid {
 
 h1.homepage {
   font-size: 35px;
-  color: black;
 }
 
 h2.homepage {
   font-size: 25px;
-  color: black;
-}
-
-h4.homepage {
-  color: black;
-}
-
-.content.login {
-  font-weight: bold;
-  padding-top: 10px;
-  padding-bottom: 5px;
 }
 
 /*----- NAVBAR -----*/
@@ -71,14 +66,15 @@ h4.homepage {
 
 /*----- HOMEPAGE -----*/
 .jumbotron {
-  padding: 170px 150px 70px 150px;
+  padding: 150px 150px 70px 150px;
   width: 100%;
   height: 100%;
-
-  background-image: url(./BG.jpg);
+  background-image: url(./BG4.jpeg);
   background-repeat: no-repeat;
   background-size: 100%;
+  /*text-decoration-color: white;*/
   text-align: center;
+  /*text-shadow: 2px 2px white;*/
   position: absolute;
 }
 
